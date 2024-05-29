@@ -7,19 +7,19 @@ public class Ruta {
     private int idRuta;
     private String origen;
     private String destino;
-    private Date duracionEstimada;
+    private String duracionEstimada;
     
     public Ruta() {
     }
 
-    public Ruta(int idRuta, String origen, String destino, Date duracionEstimada) {
+    public Ruta(int idRuta, String origen, String destino, String duracionEstimada) {
         this.idRuta = idRuta;
         this.origen = origen;
         this.destino = destino;
         this.duracionEstimada = duracionEstimada;
     }
 
-    public Ruta(String origen, String destino, Date duracionEstimada) {
+    public Ruta(String origen, String destino, String duracionEstimada) {
         this.origen = origen;
         this.destino = destino;
         this.duracionEstimada = duracionEstimada;
@@ -49,11 +49,11 @@ public class Ruta {
         this.destino = destino;
     }
 
-    public Date getDuracionEstimada() {
+    public String getDuracionEstimada() {
         return duracionEstimada;
     }
 
-    public void setDuracionEstimada(Date duracionEstimada) {
+    public void setDuracionEstimada(String duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
 
