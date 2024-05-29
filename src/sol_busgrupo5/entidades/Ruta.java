@@ -1,16 +1,12 @@
 package sol_busgrupo5.entidades;
 
-import java.util.Date;
-
-
 public class Ruta {
     private int idRuta;
     private String origen;
     private String destino;
     private String duracionEstimada;
     
-    public Ruta() {
-    }
+    public Ruta() {}
 
     public Ruta(int idRuta, String origen, String destino, String duracionEstimada) {
         this.idRuta = idRuta;
@@ -28,37 +24,32 @@ public class Ruta {
     public int getIdRuta() {
         return idRuta;
     }
-
     public void setIdRuta(int idRuta) {
         this.idRuta = idRuta;
     }
-
     public String getOrigen() {
         return origen;
     }
-
     public void setOrigen(String origen) {
         this.origen = origen;
     }
-
     public String getDestino() {
         return destino;
     }
-
     public void setDestino(String destino) {
         this.destino = destino;
     }
-
     public String getDuracionEstimada() {
         return duracionEstimada;
     }
-
     public void setDuracionEstimada(String duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
 
     @Override
     public String toString() {
-        return "Ruta{" + "idRuta=" + idRuta + ", origen=" + origen + ", destino=" + destino + ", duracionEstimada=" + duracionEstimada + '}';
+        return "\nOrigen: " + origen
+                + "\nDestino: " + destino
+                + "\nDuración estimada: " + duracionEstimada;
     }
 }
