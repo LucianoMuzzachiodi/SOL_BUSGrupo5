@@ -36,8 +36,7 @@ public class RutaData {
         }
     }
     public List<Ruta> listarRutas(){
-        List<Ruta> rutas = new ArrayList<>();
-        
+        List<Ruta> rutas = new ArrayList<>();        
         String sql = "SELECT * FROM ruta";
         
         try {
