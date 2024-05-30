@@ -25,7 +25,7 @@ public class HorarioData {
         }
         return 0;
     }
-    public ArrayList<Horario> Listar_Horarios(String Condicional, int ID_Ruta, Double time){
+    public ArrayList<Horario> Listar_Horarios(String Condicional, int ID_Ruta, Time time){
         ArrayList<Horario> horarios = new ArrayList();
         try{
             if(Condicional.equals("Por ruta")){
@@ -41,10 +41,16 @@ public class HorarioData {
                 }
                 return horarios;
             } else if (Condicional.equals("Por Fecha")){
-                PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario` WHERE horario.Hora_Salida >= "+time);
+                PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario` WHERE horario.Hora_Salida >= \""+time+"\"");
                 ResultSet RS = PS.executeQuery();
+                
                 while(RS.next()){
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),null,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Ruta ID = new Ruta();
+                    for(Ruta ruti:RD.listarRutas()){
+                        if(ruti.getIdRuta()==RS.getInt("ID_Ruta")) ID=ruti;
+                        
+                    }
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
                     horarios.add(horario);
                 }
                 return horarios;
