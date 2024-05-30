@@ -1,12 +1,12 @@
 package sol_busgrupo5.entidades;
 
 public class Pasajero {
-    private int idPasajero, dni, telefono;
-    private String nombre, apellido, correo;
+    private int idPasajero, dni;
+    private String nombre, apellido, correo, telefono;
 
     public Pasajero() {}
 
-    public Pasajero(int idPasajero, String nombre, String apellido, int dni, String correo, int telefono) {
+    public Pasajero(int idPasajero, String nombre, String apellido, int dni, String correo, String telefono) {
         this.idPasajero = idPasajero;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -15,7 +15,7 @@ public class Pasajero {
         this.telefono = telefono;
     }
 
-    public Pasajero(String nombre, String apellido, int dni, String correo, int telefono) {
+    public Pasajero(String nombre, String apellido, int dni, String correo, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -53,10 +53,10 @@ public class Pasajero {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
