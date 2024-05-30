@@ -1,6 +1,7 @@
 package sol_busgrupo5.vistas;
 
 public class Principal extends javax.swing.JFrame {
+    Añadir_Horario AH = new Añadir_Horario();
     public Principal() {
         initComponents();
     }
@@ -16,6 +17,7 @@ public class Principal extends javax.swing.JFrame {
         jBuscarRuta_ = new javax.swing.JMenuItem();
         jListarRuta_ = new javax.swing.JMenuItem();
         jMenuGestionHorarios = new javax.swing.JMenu();
+        jAñadirHorario = new javax.swing.JMenuItem();
         jMenuGestionPasajeros = new javax.swing.JMenu();
         jMenuGestionPâsajes = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
@@ -62,6 +64,15 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuGestionRutas);
 
         jMenuGestionHorarios.setText("Gestión de Horarios");
+
+        jAñadirHorario.setText("Añadir");
+        jAñadirHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirHorarioActionPerformed(evt);
+            }
+        });
+        jMenuGestionHorarios.add(jAñadirHorario);
+
         jMenuBar1.add(jMenuGestionHorarios);
 
         jMenuGestionPasajeros.setText("Gestión de Pasajeros");
@@ -92,6 +103,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jAñadirRuta_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirRuta_ActionPerformed
@@ -121,6 +133,13 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuSalirMouseClicked
         dispose();
     }//GEN-LAST:event_jMenuSalirMouseClicked
+
+    private void jAñadirHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirHorarioActionPerformed
+        
+        if(AH.isVisible()==false){
+            AH.setVisible(true);
+        }
+    }//GEN-LAST:event_jAñadirHorarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,6 +178,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jAñadirHorario;
     private javax.swing.JMenuItem jAñadirRuta_;
     private javax.swing.JMenuItem jBuscarRuta_;
     private javax.swing.JDesktopPane jDesktopPane;

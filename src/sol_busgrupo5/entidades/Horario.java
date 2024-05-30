@@ -1,22 +1,23 @@
 package sol_busgrupo5.entidades;
 
-import java.util.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 
 public class Horario {
     private int idHorario;
     private Ruta ruta;
-    private Date horaSalida, horaLlegada;
+    private Time horaSalida, horaLlegada;
 
     public Horario() {}
 
-    public Horario(int idHorario, Ruta ruta, Date horaSalida, Date horaLlegada) {
+    public Horario(int idHorario, Ruta ruta, Time horaSalida, Time horaLlegada) {
         this.idHorario = idHorario;
         this.ruta = ruta;
         this.horaSalida = horaSalida;
         this.horaLlegada = horaLlegada;
     }
 
-    public Horario(Ruta ruta, Date horaSalida, Date horaLlegada) {
+    public Horario(Ruta ruta, Time horaSalida, Time horaLlegada) {
         this.ruta = ruta;
         this.horaSalida = horaSalida;
         this.horaLlegada = horaLlegada;
@@ -34,16 +35,16 @@ public class Horario {
     public void setRuta(Ruta ruta) {
         this.ruta = ruta;
     }
-    public Date getHoraSalida() {
+    public Time getHoraSalida() {
         return horaSalida;
     }
-    public void setHoraSalida(Date horaSalida) {
+    public void setHoraSalida(Time horaSalida) {
         this.horaSalida = horaSalida;
     }
-    public Date getHoraLlegada() {
+    public Time getHoraLlegada() {
         return horaLlegada;
     }
-    public void setHoraLlegada(Date horaLlegada) {
+    public void setHoraLlegada(Time horaLlegada) {
         this.horaLlegada = horaLlegada;
     }
 
