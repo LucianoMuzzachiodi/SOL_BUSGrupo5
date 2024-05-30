@@ -3,11 +3,12 @@ package sol_busgrupo5.accesoADatos;
 import java.sql.*;
 import java.util.ArrayList;
 import sol_busgrupo5.entidades.Horario;
+import sol_busgrupo5.entidades.Ruta;
 
 
 public class HorarioData {
     private Connection con;
-
+    RutaData RD = new RutaData();
     public HorarioData() {
         con = Conexion.getConexion();
         
@@ -30,8 +31,12 @@ public class HorarioData {
             if(Condicional.equals("Por ruta")){
                 PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario` WHERE horario.ID_Ruta = "+ID_Ruta);
                 ResultSet RS = PS.executeQuery();
+                Ruta ID = new Ruta();
+                for(Ruta ruti:RD.listarRutas()){
+                    if(ruti.getIdRuta()==ID_Ruta) ID=ruti;
+                }
                 while(RS.next()){
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),null,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
                     horarios.add(horario);
                 }
                 return horarios;
