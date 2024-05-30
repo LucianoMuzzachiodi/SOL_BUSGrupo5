@@ -1,13 +1,9 @@
-
 package sol_busgrupo5.accesoADatos;
 
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.Pasajero;
-
 
 public class PasajeroData {
     private Connection con;
@@ -134,5 +130,47 @@ public class PasajeroData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero" + ex);
         }
            return null;     
+    }
+    
+    
+    //MODIFICAR PASAJERO
+    public void modificar(Pasajero pasajero){
+        String sql = "UPDATE pasajero SET Nombre = ?, Apellido = ?, DNI = ?, Correo = ?, Teléfono = ? WHERE ID_Pasajero = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, pasajero.getNombre());
+            ps.setString(2, pasajero.getApellido());
+            ps.setInt(3, pasajero.getDni());
+            ps.setString(4, pasajero.getCorreo());
+            ps.setString(5, pasajero.getTelefono());
+            ps.setInt(6, pasajero.getIdPasajero());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Pasajero modificado");
+            } else {
+                JOptionPane.showMessageDialog(null, "El pasajero no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero" + ex);
+        }
+    }
+    
+    
+    //ELIMINAR PASAJERO
+    public void eliminar(int ID_Pasajero){
+        try {
+            String sql = "DELETE FROM pasajero WHERE ID_Pasajero = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ID_Pasajero);
+            int fila = ps.executeUpdate();
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "Se eliminó el pasajero");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
+        }
     }
 }

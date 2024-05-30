@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuGestionHorarios = new javax.swing.JMenu();
         jAñadirHorario = new javax.swing.JMenuItem();
         jMenuGestionPasajeros = new javax.swing.JMenu();
+        jAñadirPasajero_ = new javax.swing.JMenuItem();
+        jListarPasajero_ = new javax.swing.JMenuItem();
         jMenuGestionPâsajes = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -76,6 +78,18 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuGestionHorarios);
 
         jMenuGestionPasajeros.setText("Gestión de Pasajeros");
+
+        jAñadirPasajero_.setText("Añadir");
+        jAñadirPasajero_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirPasajero_ActionPerformed(evt);
+            }
+        });
+        jMenuGestionPasajeros.add(jAñadirPasajero_);
+
+        jListarPasajero_.setText("Listar");
+        jMenuGestionPasajeros.add(jListarPasajero_);
+
         jMenuBar1.add(jMenuGestionPasajeros);
 
         jMenuGestionPâsajes.setText("Gestión de Pasajes");
@@ -135,11 +149,18 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
     private void jAñadirHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirHorarioActionPerformed
-        
-        if(AH.isVisible()==false){
+        if(!AH.isVisible()){
             AH.setVisible(true);
         }
     }//GEN-LAST:event_jAñadirHorarioActionPerformed
+
+    private void jAñadirPasajero_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirPasajero_ActionPerformed
+        jDesktopPane.removeAll();
+        jDesktopPane.repaint();
+        GestionPasajeros_Añadir gestionPasajeroAñadir = new GestionPasajeros_Añadir();
+        gestionPasajeroAñadir.setVisible(true);
+        jDesktopPane.add(gestionPasajeroAñadir);
+    }//GEN-LAST:event_jAñadirPasajero_ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,9 +200,11 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jAñadirHorario;
+    private javax.swing.JMenuItem jAñadirPasajero_;
     private javax.swing.JMenuItem jAñadirRuta_;
     private javax.swing.JMenuItem jBuscarRuta_;
     private javax.swing.JDesktopPane jDesktopPane;
+    private javax.swing.JMenuItem jListarPasajero_;
     private javax.swing.JMenuItem jListarRuta_;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuGestionHorarios;
