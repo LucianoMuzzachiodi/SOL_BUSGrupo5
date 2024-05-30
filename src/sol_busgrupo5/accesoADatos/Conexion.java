@@ -22,6 +22,7 @@ public class Conexion {
 
             } catch (ClassNotFoundException ex) {
                 JOptionPane.showMessageDialog(null, "Error al cargar los Driver");
+                System.out.println(ex);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error al conectarse a la base de datos");
             }
