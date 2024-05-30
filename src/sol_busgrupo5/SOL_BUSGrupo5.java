@@ -1,21 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sol_busgrupo5;
 
-/**
- *
- * @author Luciano Muzzachiodi
- */
+import java.sql.*;
+import sol_busgrupo5.accesoADatos.Conexion;
+import sol_busgrupo5.accesoADatos.*;
+import sol_busgrupo5.entidades.*;
+
+
+
 public class SOL_BUSGrupo5 {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        Connection con = Conexion.getConexion();
+        
+        PasajeroData pasaj = new PasajeroData();
+        
+        
+        
+        //AGREGAR PASAJERO
+//        Pasajero cin = new Pasajero("Cintia", "Andreani", 42697806, "cintia@hotmail.com", "2664750476");
+//        pasaj.guardar(cin);
+        
+        //LISTA PASAJEROS
+//        for(Pasajero pasajero:pasaj.listarPasajeros()){
+//            System.out.println(pasajero);
+//        }
+
+        
+         //BUSCAR POR NOMBRE
+//         System.out.println(pasaj.buscarNombre("Cintia"));
+
+
+         //BUSCAR PASAJERO POR APELLIDO
+//        System.out.println(pasaj.buscarApellido("Andreani"));
+
+        
+        //BUSCAR PASAJERO POR DNI
+        System.out.println(pasaj.buscar(42697806));
+        
+        
+       
+        
     }
     
 }
