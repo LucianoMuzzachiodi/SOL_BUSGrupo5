@@ -72,6 +72,11 @@ public class Principal extends javax.swing.JInternalFrame {
         jMenuBar1.add(jMenu3);
 
         jSalir.setText("Salir");
+        jSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSalirMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jSalir);
 
         setJMenuBar(jMenuBar1);
@@ -113,6 +118,10 @@ public class Principal extends javax.swing.JInternalFrame {
         gestionListar.setVisible(true);
         jDesktopPane.add(gestionListar);
     }//GEN-LAST:event_jListarRutas_ActionPerformed
+
+    private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
+        dispose();
+    }//GEN-LAST:event_jSalirMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
