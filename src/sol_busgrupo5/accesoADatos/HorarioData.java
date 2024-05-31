@@ -36,7 +36,7 @@ public class HorarioData {
                     if(ruti.getIdRuta()==ID_Ruta) ID=ruti;
                 }
                 while(RS.next()){
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
                     horarios.add(horario);
                 }
                 return horarios;
@@ -50,13 +50,15 @@ public class HorarioData {
                         if(ruti.getIdRuta()==RS.getInt("ID_Ruta")) ID=ruti;
                         
                     }
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
                     horarios.add(horario);
                 }
                 return horarios;
             }
         }catch(SQLException SQLE){
             System.err.println("error en el codigo: "+SQLE);
+        }catch(NullPointerException N){
+            System.out.println(N);
         }
         return null;
     }
