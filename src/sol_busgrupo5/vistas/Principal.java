@@ -24,6 +24,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         javax.swing.GroupLayout JDesktopLayout = new javax.swing.GroupLayout(JDesktop);
         JDesktop.setLayout(JDesktopLayout);

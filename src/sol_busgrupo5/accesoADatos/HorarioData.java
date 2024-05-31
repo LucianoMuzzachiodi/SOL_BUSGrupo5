@@ -54,6 +54,20 @@ public class HorarioData {
                     horarios.add(horario);
                 }
                 return horarios;
+            } else if (Condicional.equals("Listar fecha")){
+                PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario`");
+                ResultSet RS = PS.executeQuery();
+                
+                while(RS.next()){
+                    Ruta ID = new Ruta();
+                    for(Ruta ruti:RD.listarRutas()){
+                        if(ruti.getIdRuta()==RS.getInt("ID_Ruta")) ID=ruti;
+                        
+                    }
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
+                    horarios.add(horario);
+                }
+                return horarios;
             }
         }catch(SQLException SQLE){
             System.err.println("error en el codigo: "+SQLE);

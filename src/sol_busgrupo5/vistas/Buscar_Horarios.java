@@ -3,9 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package sol_busgrupo5.vistas;
-
 import java.sql.Time;
-import java.time.LocalTime;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.HorarioData;
 import sol_busgrupo5.accesoADatos.RutaData;
@@ -17,7 +15,8 @@ import sol_busgrupo5.entidades.Ruta;
  * @author DANIELALEJANDROMIRAN
  */
 public class Buscar_Horarios extends javax.swing.JInternalFrame {
-    DefaultTableModel DTM = new DefaultTableModel();
+    DefaultTableModel DTMT = new DefaultTableModel();
+    H_L hl = new H_L();
     RutaData RD = new RutaData();
     HorarioData HD = new HorarioData();
     /**
@@ -26,7 +25,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
     public Buscar_Horarios() {
         initComponents();
         Config("Rutas");
-        JTable.setModel(DTM);
+        JTable.setModel(DTMT);
     }
 
     /**
@@ -74,6 +73,11 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
 
         JComboBOX_Rutas.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
         JComboBOX_Rutas.setMaximumRowCount(999);
+        JComboBOX_Rutas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboBOX_RutasActionPerformed(evt);
+            }
+        });
         jPanel2.add(JComboBOX_Rutas);
 
         R2.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
@@ -149,13 +153,25 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 break;
             case ("Fecha"):
                 Config("Fechas");
+                
                 break;
         }
     }//GEN-LAST:event_JComboBOX_Ruta_FechaActionPerformed
+
+    private void JComboBOX_RutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_RutasActionPerformed
+        if(JComboBOX_Rutas.isVisible() && JComboBOX_Rutas.getSelectedIndex()!=-1){
+            for(int i=DTMT.getRowCount()-1;i>=0;i--){
+                DTMT.removeRow(i);
+            }
+            for(Horario horario:HD.Listar_Horarios("Por ruta",((Ruta)JComboBOX_Rutas.getSelectedItem()).getIdRuta(), null)){
+                DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+            }
+        }
+    }//GEN-LAST:event_JComboBOX_RutasActionPerformed
     public void Config(String S){
         switch(S){
             case ("Rutas"):
-                Time time = Time.valueOf(LocalTime.now());
+                hl.dispose();
                 R2.setVisible(false);
                 JComboBOX_Salida.setVisible(false);
                 JComboBOX_Rutas.removeAllItems();
@@ -166,20 +182,35 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 for(Ruta ruta:RD.listarRutas()){
                     JComboBOX_Rutas.addItem(ruta);
                 }
-                DTM.setColumnIdentifiers(new Object[]{"ID Horario","ID Ruta","Hora Salida","Hora Llegada"});
-                Ruta ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
-                for(Horario horario:HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), time)){
-                    DTM.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+                for(int i=DTMT.getRowCount()-1;i>=0;i--){
+                    DTMT.removeRow(i);
                 }
+                DTMT.setColumnIdentifiers(new Object[]{"ID Horario","ID Ruta","Hora Salida","Hora Llegada"});
+                Ruta ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
+                if(HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null)!=null){
+                    for(Horario horario:HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null)){
+                        DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+                    }
+                }
+                
                 break;
             case ("Fechas"):
                 R1.setVisible(false);
+                hl.setVisible(true);
                 JComboBOX_Salida.setVisible(true);
                 JComboBOX_Salida.removeAllItems();
                 JComboBOX_Rutas.setVisible(false);
                 R2.setVisible(true);
                 R3.setVisible(true);
                 JComboBOX_Llegada.setVisible(true);
+                for(int i=DTMT.getRowCount()-1;i>=0;i--){
+                    DTMT.removeRow(i);
+                }
+                if(HD.Listar_Horarios("Listar fecha", 0, null)!=null){
+                    for(Horario horario:HD.Listar_Horarios("Listar fecha", 0, null)){
+                        DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+                    }
+                }
                 break;
         }
     }
