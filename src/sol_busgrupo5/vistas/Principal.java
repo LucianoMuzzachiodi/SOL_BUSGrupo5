@@ -75,7 +75,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionHorarios.add(jAñadirHorario);
 
-        jAñadirHorario1.setText("Buscar");
+        jAñadirHorario1.setText("Listar");
         jAñadirHorario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirHorario1ActionPerformed(evt);

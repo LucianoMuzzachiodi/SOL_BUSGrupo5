@@ -15,10 +15,11 @@ public class HorarioData {
     }
     public int Añadir_Horario(Horario horario){
         try{
-            PreparedStatement PS = con.prepareStatement("INSERT INTO `horario` (`ID_Horario`, `ID_Ruta`, `Hora_Salida`, `Hora_Llegada`) VALUES (NULL, ?, ?, ?)");
+            PreparedStatement PS = con.prepareStatement("INSERT INTO `horario` (`ID_Horario`, `ID_Ruta`, `Hora_Salida`, `Hora_Llegada`,`estado` ) VALUES (NULL, ?, ?, ?,?)");
             PS.setInt(1, horario.getRuta().getIdRuta());
             PS.setTime(2, Time.valueOf((String.valueOf(horario.getHoraSalida()))));
             PS.setTime(3, Time.valueOf((String.valueOf(horario.getHoraLlegada()))));
+            PS.setBoolean(4,true);
             return PS.executeUpdate();
         }catch(SQLException SQLE){
             System.err.println(SQLE);
