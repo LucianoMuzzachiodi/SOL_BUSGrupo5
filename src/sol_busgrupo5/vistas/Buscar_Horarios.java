@@ -4,6 +4,7 @@
  */
 package sol_busgrupo5.vistas;
 import java.sql.Time;
+import java.time.LocalTime;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.HorarioData;
 import sol_busgrupo5.accesoADatos.RutaData;
@@ -45,8 +46,6 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
         JComboBOX_Rutas = new javax.swing.JComboBox<>();
         R2 = new javax.swing.JLabel();
         JComboBOX_Salida = new javax.swing.JComboBox<>();
-        R3 = new javax.swing.JLabel();
-        JComboBOX_Llegada = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTable = new javax.swing.JTable();
 
@@ -87,16 +86,12 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
 
         JComboBOX_Salida.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
         JComboBOX_Salida.setMaximumRowCount(999);
+        JComboBOX_Salida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JComboBOX_SalidaActionPerformed(evt);
+            }
+        });
         jPanel2.add(JComboBOX_Salida);
-
-        R3.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
-        R3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        R3.setText("de llegada");
-        jPanel2.add(R3);
-
-        JComboBOX_Llegada.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
-        JComboBOX_Llegada.setMaximumRowCount(999);
-        jPanel2.add(JComboBOX_Llegada);
 
         JTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,6 +141,9 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JComboBOX_Ruta_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Ruta_FechaActionPerformed
+        for(int i=DTMT.getRowCount()-1;i>=0;i--){
+            DTMT.removeRow(i);
+        }
         switch((String)JComboBOX_Ruta_Fecha.getSelectedItem()){
             case ("Ruta"):
                 Config("Rutas");
@@ -159,6 +157,9 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JComboBOX_Ruta_FechaActionPerformed
 
     private void JComboBOX_RutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_RutasActionPerformed
+        for(int i=DTMT.getRowCount()-1;i>=0;i--){
+            DTMT.removeRow(i);
+        }
         if(JComboBOX_Rutas.isVisible() && JComboBOX_Rutas.getSelectedIndex()!=-1){
             for(int i=DTMT.getRowCount()-1;i>=0;i--){
                 DTMT.removeRow(i);
@@ -168,6 +169,20 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_JComboBOX_RutasActionPerformed
+
+    private void JComboBOX_SalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_SalidaActionPerformed
+        for(int i=DTMT.getRowCount()-1;i>=0;i--){
+            DTMT.removeRow(i);
+        }
+        if(JComboBOX_Salida.isVisible() && JComboBOX_Salida.getSelectedIndex()!=-1){
+            for(int i=DTMT.getRowCount()-1;i>=0;i--){
+                DTMT.removeRow(i);
+            }
+            for(Horario horario:HD.Listar_Horarios("Por Fecha",0, (Time) JComboBOX_Salida.getSelectedItem())){
+                DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+            }
+        }
+    }//GEN-LAST:event_JComboBOX_SalidaActionPerformed
     public void Config(String S){
         switch(S){
             case ("Rutas"):
@@ -177,8 +192,6 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 JComboBOX_Rutas.removeAllItems();
                 JComboBOX_Rutas.setVisible(true);
                 R1.setVisible(true);
-                JComboBOX_Llegada.setVisible(false);
-                R3.setVisible(false);
                 for(Ruta ruta:RD.listarRutas()){
                     JComboBOX_Rutas.addItem(ruta);
                 }
@@ -201,28 +214,23 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 JComboBOX_Salida.removeAllItems();
                 JComboBOX_Rutas.setVisible(false);
                 R2.setVisible(true);
-                R3.setVisible(true);
-                JComboBOX_Llegada.setVisible(true);
                 for(int i=DTMT.getRowCount()-1;i>=0;i--){
                     DTMT.removeRow(i);
                 }
-                if(HD.Listar_Horarios("Listar fecha", 0, null)!=null){
-                    for(Horario horario:HD.Listar_Horarios("Listar fecha", 0, null)){
-                        DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
-                    }
+                JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(06, 00, 00)));
+                for(int i=1;i<=72;i++){
+                    JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(06, 00, 00).plusMinutes(10*i)));
                 }
                 break;
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Time> JComboBOX_Llegada;
     private javax.swing.JComboBox<String> JComboBOX_Ruta_Fecha;
     private javax.swing.JComboBox<Ruta> JComboBOX_Rutas;
     private javax.swing.JComboBox<Time> JComboBOX_Salida;
     private javax.swing.JTable JTable;
     private javax.swing.JLabel R1;
     private javax.swing.JLabel R2;
-    private javax.swing.JLabel R3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
