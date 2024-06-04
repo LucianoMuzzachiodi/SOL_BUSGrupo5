@@ -15,13 +15,14 @@ public class RutaData {
     }
     
     public void agregarRuta(Ruta ruta){
-        String sql = "INSERT INTO `ruta`(`Origen`, `Destino`, `Duración_Estimada`)" + " VALUES (?,?,?)";
+        String sql = "INSERT INTO `ruta`(`Origen`, `Destino`, `Duración_Estimada`, `Estado`)" + " VALUES (?,?,?,?)";
         
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ruta.getOrigen());
             ps.setString(2, ruta.getDestino());
             ps.setString(3, ruta.getDuracionEstimada());
+            ps.setBoolean(4, ruta.isEstado());
             ps.executeUpdate();
             
             rs = ps.getGeneratedKeys();
