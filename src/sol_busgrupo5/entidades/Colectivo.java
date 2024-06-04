@@ -63,10 +63,8 @@ public class Colectivo {
 
     @Override
     public String toString() {
-        return "\nID: " + idColectivo
-                + "\nMatrícula: " + matricula
-                + "\nMarca: " + marca
-                + "\nModelo: " + modelo
-                + "\nCapacidad: " + capacidad;
+        String activo;
+        if(estado){activo = "Activo";}else{activo = "Inactivo";}
+        return idColectivo + "" + matricula + "" + marca + "" + modelo + "" + capacidad + "" + activo;
     }  
 }

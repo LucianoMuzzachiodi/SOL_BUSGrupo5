@@ -83,11 +83,16 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
     
     private void llenarTabla(){
         vaciarTabla();
-        modelo.addColumn("\t\t\t\t\t\t\t\t\tRuta");
+        modelo.addColumn("");
+        modelo.addColumn("ID");
+        modelo.addColumn("Origen");
+        modelo.addColumn("Destino");
+        modelo.addColumn("Duración");
+        modelo.addColumn("Estado");
         int contador = 0;
         for (Ruta rutas : RD.listarRutas()) {
             contador++;
-            modelo.addRow(new Object[]{contador+"- "+rutas.getOrigen()," - "+rutas.getDestino()," Duración ("+rutas.getDuracionEstimada()+')'});
+            modelo.addRow(new Object[]{contador+"- "+rutas});
         }
         jTabla.setModel(modelo);
     }

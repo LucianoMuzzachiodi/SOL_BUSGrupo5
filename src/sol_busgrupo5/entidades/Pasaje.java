@@ -92,11 +92,8 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "\nID: " + idPasaje
-                + "\nPasajero: " + pasajero.getApellido() + " " + pasajero.getNombre()
-                + "\nColectivo: " + colectivo.getMarca() + ", " + colectivo.getModelo() + ", " + colectivo.getMatricula()
-                + "\nRuta: " + ruta.getOrigen() + " - " + ruta.getDestino() + " - " + horaViaje + " - " + ruta.getDuracionEstimada()
-                + "\nAsientos: " + asiento
-                + "\nPrecio: $" + precio;
+        String activo;
+        if(estado){activo = "Activo";}else{activo = "Inactivo";}
+        return idPasaje + "" + pasajero.getApellido() + "" + pasajero.getNombre() + "" + colectivo.getMarca() + "" + colectivo.getModelo() + "" + colectivo.getMatricula() + "" + ruta.getOrigen() + "" + ruta.getDestino() + "" + horaViaje + "" + ruta.getDuracionEstimada() + "" + asiento + "" + precio + "" + activo;
     }
 }

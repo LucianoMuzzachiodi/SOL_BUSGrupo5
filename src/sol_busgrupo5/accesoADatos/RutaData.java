@@ -18,7 +18,7 @@ public class RutaData {
         String sql = "INSERT INTO `ruta`(`Origen`, `Destino`, `Duración_Estimada`, `Estado`)" + " VALUES (?,?,?,?)";
         
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ruta.getOrigen());
             ps.setString(2, ruta.getDestino());
             ps.setString(3, ruta.getDuracionEstimada());
@@ -53,7 +53,10 @@ public class RutaData {
     }
     public Ruta buscarRuta(String decision){
         Ruta ruta = new Ruta();
-        String sql = "SELECT * FROM ruta WHERE Origen = ? OR Destino = ?";
+        String sql = "SELECT * FROM ruta WHERE Origen = ?";
+        if(decision.equals("Destino")){
+            sql = "SELECT * FROM ruta WHERE Destino = ?";
+        }
         
         try {
             ps = con.prepareStatement(sql);

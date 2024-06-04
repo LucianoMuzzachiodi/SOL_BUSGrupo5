@@ -57,8 +57,8 @@ public class Ruta {
 
     @Override
     public String toString() {
-        return "\nOrigen: " + origen
-                + "\nDestino: " + destino
-                + "\nDuración estimada: " + duracionEstimada;
+        String activo;
+        if(estado){activo = "Activo";}else{activo = "Inactivo";}
+        return idRuta + "" + origen + "" + destino + "" +duracionEstimada + "" + activo;
     }
 }

@@ -58,6 +58,8 @@ public class Horario {
 
     @Override
     public String toString() {
-        return "\nViaje: " + ruta.getOrigen() + '(' + horaSalida + ')' + ruta.getDestino() + '(' + horaLlegada + ')';
+        String activo;
+        if(estado){activo = "Activo";}else{activo = "Inactivo";}
+        return ruta.getOrigen() + '(' + horaSalida + ')' + ruta.getDestino() + '(' + horaLlegada + ')' + "" + activo;
     }
 }

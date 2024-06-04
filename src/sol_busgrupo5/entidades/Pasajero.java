@@ -65,17 +65,14 @@ public class Pasajero {
     public boolean isEstado() {
         return estado;
     }
-
     public void setEstado(boolean estado) {
         this.estado = estado;
     }    
 
     @Override
     public String toString() {
-        return "\nID: " + idPasajero
-                + "\nNombre y apellido: " + nombre + " " + apellido
-                + "\nDNI: " + dni
-                + "\nCorreo: " + correo
-                + "\nTeléfono: " + telefono;
+        String activo;
+        if(estado){activo = "Activo";}else{activo = "Inactivo";}
+        return idPasajero + "" + nombre + "" + apellido + "" + dni + "" + correo + "" + telefono + "" + activo;
     }
 }

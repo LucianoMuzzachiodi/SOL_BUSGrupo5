@@ -4,11 +4,11 @@ import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
-public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
+public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
-    RutaData RD = new RutaData();
+    PasajeroData PD = new PasajeroData();
     
-    public GestionRutas_Buscar() {
+    public GestionPasajeros_Buscar() {
         initComponents();
         jComboBox.removeAllItems();
     }
@@ -17,13 +17,10 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jComboBox = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
-        jSalir = new javax.swing.JButton();
-
-        jLabel1.setText("Buscar por");
 
         jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -31,6 +28,8 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
                 jComboBoxActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Buscar por:");
 
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -45,40 +44,31 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTabla);
 
-        jSalir.setText("Salir");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(7, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
             .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jSalir)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSalir)
-                .addContainerGap())
+                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,25 +76,31 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
         jComboBox.removeAllItems();
-        jComboBox.addItem("Origen");
-        jComboBox.addItem("Destino");
+        jComboBox.addItem("Nombre");
+        jComboBox.addItem("Apellido");
+        jComboBox.addItem("DNI");
         llenarTabla(jComboBox.getSelectedItem());
     }//GEN-LAST:event_jComboBoxActionPerformed
+    
     private void llenarTabla(Object o){
         vaciarTabla();
         modelo.addColumn("");
         modelo.addColumn("ID");
-        modelo.addColumn("Origen");
-        modelo.addColumn("Destino");
-        modelo.addColumn("Duración");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Correo");
+        modelo.addColumn("Teléfono");
         modelo.addColumn("Estado");
         int contador = 0;
-        for (Ruta rutas : RD.listarRutas()) {
+        for (Pasajero pasajero : PD.listarPasajeros()) {
             contador++;
-            if (o.equals("Origen")) {
-                modelo.addRow(new Object[]{contador + "- " + RD.buscarRuta("Origen")});
-            } else if (o.equals("Destino")) {
-                modelo.addRow(new Object[]{contador + "- " + RD.buscarRuta("Destino")});
+            if (o.equals("Nombre")) {
+                modelo.addRow(new Object[]{contador + "- " + pasajero});
+            } else if (o.equals("Apellido")) {
+                modelo.addRow(new Object[]{contador + "- " + pasajero});
+            } else if (o.equals("DNI")) {
+                modelo.addRow(new Object[]{contador + "- " + pasajero});
             }
         }
         jTabla.setModel(modelo);
@@ -118,7 +114,6 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
     // End of variables declaration//GEN-END:variables
