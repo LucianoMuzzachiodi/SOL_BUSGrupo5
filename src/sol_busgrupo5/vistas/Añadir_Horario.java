@@ -131,16 +131,18 @@ public class Añadir_Horario extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(JComboBOX_Rutas))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JText_Hora_Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JComboBOX_Hora_Salida, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JComboBOX_Hora_Salida, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JText_Hora_Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JText_Hora_Llegada, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JButton_Añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JComboBOX_Hora_Llegada, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JButton_Añadir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JText_Hora_Llegada, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JComboBOX_Hora_Llegada, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -153,7 +155,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
             
             Time D1 = (Time) JComboBOX_Hora_Salida.getSelectedItem();
             Time D2 = (Time) JComboBOX_Hora_Llegada.getSelectedItem();
-            Horario horario = new Horario((Ruta)JComboBOX_Rutas.getSelectedItem(),D1,D2);
+            Horario horario = new Horario((Ruta)JComboBOX_Rutas.getSelectedItem(),D1,D2,true);
             if(HD.Añadir_Horario(horario)==1){
                 JOptionPane.showMessageDialog(this, "Horario agregado.");
             } else if (HD.Añadir_Horario(horario)==0){
@@ -169,7 +171,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
     }//GEN-LAST:event_JComboBOX_Hora_SalidaActionPerformed
 
     private void JComboBOX_Hora_LlegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Hora_LlegadaActionPerformed
-        JText_Hora_Llegada.setText(""+JComboBOX_Hora_Salida.getSelectedItem());
+        JText_Hora_Llegada.setText(""+JComboBOX_Hora_Llegada.getSelectedItem());
     }//GEN-LAST:event_JComboBOX_Hora_LlegadaActionPerformed
 
     /**

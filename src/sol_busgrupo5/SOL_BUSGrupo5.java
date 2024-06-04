@@ -37,7 +37,7 @@ public class SOL_BUSGrupo5 {
 
         
         //BUSCAR PASAJERO POR DNI
-        System.out.println(pasaj.buscar(42697806));
+//        System.out.println(pasaj.buscar(42697806));
         
         
        

@@ -212,11 +212,11 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
             }else if(jTextoTelefono.getText().equals("")){
                 JOptionPane.showMessageDialog(this,"Campo teléfono vacío"); jTextoTelefono.requestFocus();
             }else{
-                PD.guardar(new Pasajero(jTextoNombre.getText(),jTextoApellido.getText(),Integer.parseInt(jTextoDNI.getText()),jTextoCorreo.getText(),jTextoTelefono.getText()));
+                PD.guardar(new Pasajero(jTextoNombre.getText(),jTextoApellido.getText(),Integer.parseInt(jTextoDNI.getText()),jTextoCorreo.getText(),jTextoTelefono.getText(),true));
                 jNuevo.setVisible(true);
             }
         }else{
-            PD.modificar(new Pasajero(Integer.parseInt(jTextoID.getText()),jTextoNombre.getText(),jTextoApellido.getText(),Integer.parseInt(jTextoDNI.getText()),jTextoCorreo.getText(),jTextoTelefono.getText()));
+            PD.modificar(new Pasajero(Integer.parseInt(jTextoID.getText()),jTextoNombre.getText(),jTextoApellido.getText(),Integer.parseInt(jTextoDNI.getText()),jTextoCorreo.getText(),jTextoTelefono.getText(),true));
         }
     }//GEN-LAST:event_jGuardarActionPerformed
     private void jTextoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextoApellidoActionPerformed

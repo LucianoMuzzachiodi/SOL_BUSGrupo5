@@ -117,7 +117,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         }else if(jTextoDuracion.getText().equals("")){
             JOptionPane.showMessageDialog(this,"El tercer campo está vacío"); jTextoDuracion.requestFocus();
         }else{
-            RD.agregarRuta(new Ruta(jTextoOrigen.getText(),jTextoDestino.getText(),jTextoDuracion.getText()));
+            RD.agregarRuta(new Ruta(jTextoOrigen.getText(),jTextoDestino.getText(),jTextoDuracion.getText(),true));
         }
     }//GEN-LAST:event_jGuardarActionPerformed
 

@@ -42,7 +42,7 @@ public class RutaData {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                rutas.add(new Ruta(rs.getInt("ID_Ruta"),rs.getString("Origen"),rs.getString("Destino"),rs.getString("Duración_Estimada")));
+                rutas.add(new Ruta(rs.getInt("ID_Ruta"),rs.getString("Origen"),rs.getString("Destino"),rs.getString("Duración_Estimada"),rs.getBoolean("estado")));
             }
             ps.close();
         } catch (SQLException e) {
@@ -60,7 +60,7 @@ public class RutaData {
             ps.setString(2, decision);
             rs = ps.executeQuery();
             if(rs.next()){
-                return new Ruta(rs.getInt("ID_Ruta"),rs.getString("Origen"),rs.getString("Destino"),rs.getString("Duración_Estimada"));
+                return new Ruta(rs.getInt("ID_Ruta"),rs.getString("Origen"),rs.getString("Destino"),rs.getString("Duración_Estimada"),rs.getBoolean("estado"));
             }else{
                 JOptionPane.showMessageDialog(null, "No existe una ruta con ese origen o destino");
             }

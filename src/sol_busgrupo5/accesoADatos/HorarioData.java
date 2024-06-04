@@ -15,10 +15,11 @@ public class HorarioData {
     }
     public int Añadir_Horario(Horario horario){
         try{
-            PreparedStatement PS = con.prepareStatement("INSERT INTO `horario` (`ID_Horario`, `ID_Ruta`, `Hora_Salida`, `Hora_Llegada`) VALUES (NULL, ?, ?, ?)");
+            PreparedStatement PS = con.prepareStatement("INSERT INTO `horario` (`ID_Horario`, `ID_Ruta`, `Hora_Salida`, `Hora_Llegada`,`estado` ) VALUES (NULL, ?, ?, ?,?)");
             PS.setInt(1, horario.getRuta().getIdRuta());
             PS.setTime(2, Time.valueOf((String.valueOf(horario.getHoraSalida()))));
             PS.setTime(3, Time.valueOf((String.valueOf(horario.getHoraLlegada()))));
+            PS.setBoolean(4,true);
             return PS.executeUpdate();
         }catch(SQLException SQLE){
             System.err.println(SQLE);
@@ -36,7 +37,7 @@ public class HorarioData {
                     if(ruti.getIdRuta()==ID_Ruta) ID=ruti;
                 }
                 while(RS.next()){
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
                     horarios.add(horario);
                 }
                 return horarios;
@@ -50,13 +51,29 @@ public class HorarioData {
                         if(ruti.getIdRuta()==RS.getInt("ID_Ruta")) ID=ruti;
                         
                     }
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
+                    horarios.add(horario);
+                }
+                return horarios;
+            } else if (Condicional.equals("Listar fecha")){
+                PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario`");
+                ResultSet RS = PS.executeQuery();
+                
+                while(RS.next()){
+                    Ruta ID = new Ruta();
+                    for(Ruta ruti:RD.listarRutas()){
+                        if(ruti.getIdRuta()==RS.getInt("ID_Ruta")) ID=ruti;
+                        
+                    }
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
                     horarios.add(horario);
                 }
                 return horarios;
             }
         }catch(SQLException SQLE){
             System.err.println("error en el codigo: "+SQLE);
+        }catch(NullPointerException N){
+            System.out.println(N);
         }
         return null;
     }

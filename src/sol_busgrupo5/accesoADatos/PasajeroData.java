@@ -46,7 +46,7 @@ public class PasajeroData {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Pasajero pasajero = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"));
+                Pasajero pasajero = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"),rs.getBoolean("estado"));
                 pasajeroAux.add(pasajero);
             }
             ps.close();
@@ -69,7 +69,7 @@ public class PasajeroData {
             ps.setString(1, nombre);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                pasajeroAux = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"));
+                pasajeroAux = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"),rs.getBoolean("estado"));
                 
                 return pasajeroAux;
             }else {
@@ -93,7 +93,7 @@ public class PasajeroData {
             ps.setString(1, apellido);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                pasajeroAux = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"));
+                pasajeroAux = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"),rs.getBoolean("estado"));
                 
                 return pasajeroAux;
             } else {
@@ -118,7 +118,7 @@ public class PasajeroData {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                pasajeroAux = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"));
+                pasajeroAux = new Pasajero(rs.getInt("id_Pasajero"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("dni"), rs.getString("correo"), rs.getString("teléfono"),rs.getBoolean("estado"));
 
                 return pasajeroAux;
             } else {
