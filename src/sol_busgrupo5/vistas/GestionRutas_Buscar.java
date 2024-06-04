@@ -100,11 +100,15 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         int contador = 0;
         for (Ruta rutas : RD.listarRutas()) {
-            contador++;
+            contador++; String activo;
             if (o.equals("Origen")) {
-                modelo.addRow(new Object[]{contador + "- " + RD.buscarRuta("Origen")});
+                Ruta ruta = RD.buscarRuta("Origen");
+                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
             } else if (o.equals("Destino")) {
-                modelo.addRow(new Object[]{contador + "- " + RD.buscarRuta("Destino")});
+                Ruta ruta = RD.buscarRuta("Destino");
+                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
             }
         }
         jTabla.setModel(modelo);

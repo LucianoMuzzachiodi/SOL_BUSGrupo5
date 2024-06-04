@@ -91,8 +91,9 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         int contador = 0;
         for (Ruta rutas : RD.listarRutas()) {
-            contador++;
-            modelo.addRow(new Object[]{contador+"- "+rutas});
+            contador++; String activo;
+            if(rutas.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+            modelo.addRow(new Object[]{contador,rutas.getIdRuta(),rutas.getOrigen(),rutas.getDestino(),rutas.getDuracionEstimada(),activo});
         }
         jTabla.setModel(modelo);
     }
