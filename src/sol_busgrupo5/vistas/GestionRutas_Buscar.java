@@ -1,5 +1,6 @@
 package sol_busgrupo5.vistas;
 
+import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
@@ -7,9 +8,11 @@ import sol_busgrupo5.entidades.*;
 public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     RutaData RD = new RutaData();
+    KeyEvent evt;
     
     public GestionRutas_Buscar() {
         initComponents();
+        llenarTabla(evt);
         jComboBox.removeAllItems();
         jComboBox.addItem("Origen");
         jComboBox.addItem("Destino");
@@ -24,6 +27,7 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabla = new javax.swing.JTable();
         jSalir = new javax.swing.JButton();
+        jTexto = new javax.swing.JTextField();
 
         jLabel1.setText("Buscar por");
 
@@ -54,6 +58,12 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
             }
         });
 
+        jTexto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,10 +73,12 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(170, 170, 170)
+                .addGap(98, 98, 98)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSalir)
                 .addGap(40, 40, 40))
@@ -78,7 +90,8 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSalir))
+                    .addComponent(jSalir)
+                    .addComponent(jTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addContainerGap())
@@ -88,13 +101,17 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
-        llenarTabla(jComboBox.getSelectedItem());
+        jTexto.requestFocus();
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jSalirActionPerformed
-    private void llenarTabla(Object o){
+
+    private void jTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextoKeyReleased
+        llenarTabla(evt);
+    }//GEN-LAST:event_jTextoKeyReleased
+    private void llenarTabla(java.awt.event.KeyEvent evt){
         vaciarTabla();
         modelo.setColumnCount(0);
         modelo.addColumn("");
@@ -106,12 +123,12 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         int contador = 0;
         for (Ruta rutas : RD.listarRutas()) {
             contador++; String activo;
-            if (o != null && o.equals("Origen")) {
-                Ruta ruta = RD.buscarRuta("Origen");
+            if (jComboBox.getSelectedItem().equals("Origen") && rutas.getOrigen().startsWith(jTexto.getText().toLowerCase())) {
+                Ruta ruta = RD.buscarRuta("Origen",jTexto.getText());
                 if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
-            } else if (o != null && o.equals("Destino")) {
-                Ruta ruta = RD.buscarRuta("Destino");
+            } else if (jComboBox.getSelectedItem().equals("Destino") && rutas.getDestino().startsWith(jTexto.getText().toLowerCase())) {
+                Ruta ruta = RD.buscarRuta("Destino",jTexto.getText());
                 if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
             }
@@ -130,5 +147,6 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
+    private javax.swing.JTextField jTexto;
     // End of variables declaration//GEN-END:variables
 }

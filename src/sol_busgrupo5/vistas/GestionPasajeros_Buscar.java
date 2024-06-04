@@ -134,11 +134,11 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         int contador = 0;
         for (Pasajero pasajeros : PD.listarPasajeros()) {
             contador++; String dni = String.valueOf(pasajeros.getDni());
-            if (jComboBox.getSelectedItem().equals("Nombre") && pasajeros.getNombre().startsWith(jTexto.getText().toLowerCase())) {
+            if (jComboBox.getSelectedItem().equals("Nombre") && pasajeros.getNombre().toLowerCase().startsWith(jTexto.getText().toLowerCase())) {
                 Pasajero pasajero = PD.buscarNombre(jTexto.getText()); String activo;
                 if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
-            } else if (jComboBox.getSelectedItem().equals("Apellido") && pasajeros.getApellido().startsWith(jTexto.getText().toLowerCase())) {
+            } else if (jComboBox.getSelectedItem().equals("Apellido") && pasajeros.getApellido().toLowerCase().startsWith(jTexto.getText().toLowerCase())) {
                 Pasajero pasajero = PD.buscarApellido(jTexto.getText()); String activo;
                 if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});

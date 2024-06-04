@@ -1,19 +1,16 @@
 package sol_busgrupo5.vistas;
 
 import java.awt.HeadlessException;
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
-import java.util.Date;
+import java.sql.*;
+import java.time.*;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
 public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     ColectivoData colectivoData = new ColectivoData();
-    PasajeData pasajeData = new PasajeData();
     PasajeroData pasajeroData = new PasajeroData();
+    PasajeData pasajeData = new PasajeData();
     RutaData rutaData = new RutaData();
 
     public GestionPasajes_Añadir() {
@@ -181,29 +178,41 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
-        try {
-            if (jTextoNombre.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "El campo está vacío");
-                jTextoNombre.requestFocus();
-            } else if (jTextoIDColectivo.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "El campo está vacío");
-                jTextoIDColectivo.requestFocus();
-            } else if (jTextoIDRuta.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "El campo está vacío");
-                jTextoIDRuta.requestFocus();
-            } else if (jTextoAsiento.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "El campo está vacío");
-                jTextoAsiento.requestFocus();
-            } else if (jTextoPrecio.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "El campo está vacío");
-                jTextoPrecio.requestFocus();
-            } else {
-                LocalDate fechaViaje = LocalDate.of(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())),Integer.parseInt(String.valueOf(jComboBoxMes.getSelectedItem())),Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())));
-                Time horaViaje = (Time)jComboBoxHora.getSelectedItem();
-                pasajeData.registrarVenta(new Pasaje(pasajeroData.buscarNombre(jTextoNombre.getText()), colectivoData.buscar(Integer.parseInt(jTextoIDColectivo.getText())), rutaData.buscarPorID(Integer.parseInt(jTextoIDRuta.getText())), fechaViaje, horaViaje, Integer.parseInt(jTextoAsiento.getText(), Double.parseDouble(String.valueOf(jTextoPrecio.getText()))), true));
+        if (pasajeroData.listarPasajeros().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay pasajeros. Agregá uno antes.");
+            GestionPasajeros_Añadir gestionPasajeros_Añadir = new GestionPasajeros_Añadir();
+            gestionPasajeros_Añadir.setVisible(true);
+        } else if (rutaData.listarRutas().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
+            GestionRutas_Añadir gestionRutas_Añadir = new GestionRutas_Añadir();
+            gestionRutas_Añadir.setVisible(true);
+        } else if (colectivoData.listarColectivos().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay colectivos.");
+        } else {
+            try {
+                if (jTextoNombre.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "El campo está vacío");
+                    jTextoNombre.requestFocus();
+                } else if (jTextoIDColectivo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "El campo está vacío");
+                    jTextoIDColectivo.requestFocus();
+                } else if (jTextoIDRuta.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "El campo está vacío");
+                    jTextoIDRuta.requestFocus();
+                } else if (jTextoAsiento.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "El campo está vacío");
+                    jTextoAsiento.requestFocus();
+                } else if (jTextoPrecio.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "El campo está vacío");
+                    jTextoPrecio.requestFocus();
+                } else {
+                    LocalDate fechaViaje = LocalDate.of(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())));
+                    Time horaViaje = (Time) jComboBoxHora.getSelectedItem();
+                    pasajeData.registrarVenta(new Pasaje(pasajeroData.buscarNombre(jTextoNombre.getText()), colectivoData.buscar(Integer.parseInt(jTextoIDColectivo.getText())), rutaData.buscarPorID(Integer.parseInt(jTextoIDRuta.getText())), Date.valueOf(fechaViaje), horaViaje, Integer.parseInt(jTextoAsiento.getText()), Double.parseDouble(jTextoPrecio.getText()), true));
+                }
+            } catch (HeadlessException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             }
-        } catch (HeadlessException | NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_jGuardarActionPerformed
 

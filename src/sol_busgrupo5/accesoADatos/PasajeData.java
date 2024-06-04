@@ -54,7 +54,7 @@ public class PasajeData {
                 Pasaje pasaje = new Pasaje();
                 pasaje.getPasajero().setIdPasajero(rs.getInt("ID_Pasajero"));
                 pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
-                pasaje.setRuta(RD.buscarRuta("ID_Ruta"));
+                pasaje.setRuta(RD.buscarRuta("ID_Ruta",""));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
                 pasaje.setHoraViaje(rs.getDate("Hora_Viaje"));
                 pasaje.setAsiento(rs.getInt("Asiento"));
