@@ -20,6 +20,7 @@ public class Principal extends javax.swing.JFrame {
         jAñadirHorario = new javax.swing.JMenuItem();
         jAñadirHorario1 = new javax.swing.JMenuItem();
         jMenuGestionPasajeros = new javax.swing.JMenu();
+        jAñadirPasajero_ = new javax.swing.JMenuItem();
         jMenuGestionPâsajes = new javax.swing.JMenu();
         jMenuSalir = new javax.swing.JMenu();
 
@@ -86,6 +87,10 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenuGestionHorarios);
 
         jMenuGestionPasajeros.setText("Gestión de Pasajeros");
+
+        jAñadirPasajero_.setText("Añadir");
+        jMenuGestionPasajeros.add(jAñadirPasajero_);
+
         jMenuBar1.add(jMenuGestionPasajeros);
 
         jMenuGestionPâsajes.setText("Gestión de Pasajes");
@@ -206,6 +211,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane JDesktop;
     private javax.swing.JMenuItem jAñadirHorario;
     private javax.swing.JMenuItem jAñadirHorario1;
+    private javax.swing.JMenuItem jAñadirPasajero_;
     private javax.swing.JMenuItem jAñadirRuta_;
     private javax.swing.JMenuItem jBuscarRuta_;
     private javax.swing.JMenuItem jListarRuta_;

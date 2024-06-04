@@ -161,7 +161,7 @@ public class PasajeroData {
     //ELIMINAR PASAJERO
     public void eliminar(int ID_Pasajero){
         try {
-            String sql = "DELETE FROM pasajero WHERE ID_Pasajero = ?";
+            String sql = "UPDATE pasajero SET estado = 0 WHERE ID_Pasajero = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Pasajero);
             int fila = ps.executeUpdate();

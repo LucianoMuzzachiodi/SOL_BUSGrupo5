@@ -62,6 +62,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Pasajeros"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jA&#xf1;adirPasajero_">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuGestionP&#xe2;sajes">
           <Properties>

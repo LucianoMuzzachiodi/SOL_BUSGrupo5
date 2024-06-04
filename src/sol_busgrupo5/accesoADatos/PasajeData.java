@@ -118,7 +118,7 @@ public class PasajeData {
         return pasajes;
     }
     public void eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta){
-        String sql = "DELETE FROM pasaje WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
+        String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
         
         try {
             ps = con.prepareStatement(sql);

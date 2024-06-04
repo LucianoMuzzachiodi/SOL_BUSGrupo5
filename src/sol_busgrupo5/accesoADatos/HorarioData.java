@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import sol_busgrupo5.entidades.Horario;
 import sol_busgrupo5.entidades.Ruta;
 
-
 public class HorarioData {
     private Connection con;
     RutaData RD = new RutaData();
