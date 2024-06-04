@@ -56,15 +56,16 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSalir))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jSalir)
+                        .addGap(28, 28, 28))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextoDuracion))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(3, 3, 3)
@@ -73,7 +74,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextoDestino)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,12 +110,12 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
-        if(jTextoOrigen == null){
-            JOptionPane.showMessageDialog(this,"El primer campo está vacío");
-        }else if(jTextoDestino == null){
-            JOptionPane.showMessageDialog(this,"El segundo campo está vacío");
-        }else if(jTextoDuracion == null){
-            JOptionPane.showMessageDialog(this,"El tercer campo está vacío");
+        if(jTextoOrigen.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"El primer campo está vacío"); jTextoOrigen.requestFocus();
+        }else if(jTextoDestino.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"El segundo campo está vacío"); jTextoDestino.requestFocus();
+        }else if(jTextoDuracion.getText().equals("")){
+            JOptionPane.showMessageDialog(this,"El tercer campo está vacío"); jTextoDuracion.requestFocus();
         }else{
             RD.agregarRuta(new Ruta(jTextoOrigen.getText(),jTextoDestino.getText(),jTextoDuracion.getText()));
         }

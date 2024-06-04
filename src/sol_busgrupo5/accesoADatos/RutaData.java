@@ -15,8 +15,7 @@ public class RutaData {
     }
     
     public void agregarRuta(Ruta ruta){
-        String sql = "INSERT INTO ruta ('Origen','Destino','Duración_Estimada'"
-                + "VALUES (?,?,?)";
+        String sql = "INSERT INTO `ruta`(`Origen`, `Destino`, `Duración_Estimada`)" + " VALUES (?,?,?)";
         
         try {
             ps = con.prepareStatement(sql);
