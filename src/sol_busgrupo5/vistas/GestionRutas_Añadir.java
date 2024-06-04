@@ -121,7 +121,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jGuardarActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jGuardar;
     private javax.swing.JLabel jLabel1;

@@ -23,7 +23,10 @@ public class Principal extends javax.swing.JFrame {
         jAñadirPasajero_ = new javax.swing.JMenuItem();
         jBuscarPasajero_ = new javax.swing.JMenuItem();
         jListarPasajero_ = new javax.swing.JMenuItem();
-        jMenuGestionPâsajes = new javax.swing.JMenu();
+        jMenuGestionPasajes = new javax.swing.JMenu();
+        jAñadirPasaje_ = new javax.swing.JMenuItem();
+        jBuscarPasaje_ = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,6 +94,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuGestionPasajeros.setText("Gestión de Pasajeros");
 
         jAñadirPasajero_.setText("Añadir");
+        jAñadirPasajero_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirPasajero_ActionPerformed(evt);
+            }
+        });
         jMenuGestionPasajeros.add(jAñadirPasajero_);
 
         jBuscarPasajero_.setText("Buscar");
@@ -111,8 +119,28 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuGestionPasajeros);
 
-        jMenuGestionPâsajes.setText("Gestión de Pasajes");
-        jMenuBar1.add(jMenuGestionPâsajes);
+        jMenuGestionPasajes.setText("Gestión de Pasajes");
+
+        jAñadirPasaje_.setText("Añadir");
+        jAñadirPasaje_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirPasaje_ActionPerformed(evt);
+            }
+        });
+        jMenuGestionPasajes.add(jAñadirPasaje_);
+
+        jBuscarPasaje_.setText("Buscar");
+        jBuscarPasaje_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarPasaje_ActionPerformed(evt);
+            }
+        });
+        jMenuGestionPasajes.add(jBuscarPasaje_);
+
+        jMenuItem3.setText("jMenuItem3");
+        jMenuGestionPasajes.add(jMenuItem3);
+
+        jMenuBar1.add(jMenuGestionPasajes);
 
         jMenuSalir.setText("Salir");
         jMenuSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -192,18 +220,34 @@ public class Principal extends javax.swing.JFrame {
     private void jListarPasajero_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarPasajero_ActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
-        GestionPasajeros_Buscar gestionPasajeros_Bucar = new GestionPasajeros_Buscar();
-        gestionPasajeros_Bucar.setVisible(true);
-        JDesktop.add(gestionPasajeros_Bucar);
+        GestionPasajeros_Listar gestionPasajeros_Listar = new GestionPasajeros_Listar();
+        gestionPasajeros_Listar.setVisible(true);
+        JDesktop.add(gestionPasajeros_Listar);
     }//GEN-LAST:event_jListarPasajero_ActionPerformed
 
     private void jBuscarPasajero_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarPasajero_ActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
-        GestionPasajeros_Listar gestionPasajeros_Listar = new GestionPasajeros_Listar();
-        gestionPasajeros_Listar.setVisible(true);
-        JDesktop.add(gestionPasajeros_Listar);
+        GestionPasajeros_Buscar gestionPasajeros_Buscar = new GestionPasajeros_Buscar();
+        gestionPasajeros_Buscar.setVisible(true);
+        JDesktop.add(gestionPasajeros_Buscar);
     }//GEN-LAST:event_jBuscarPasajero_ActionPerformed
+
+    private void jAñadirPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirPasaje_ActionPerformed
+        JDesktop.removeAll();
+        JDesktop.repaint();
+        GestionPasajes_Añadir gestionPasajes_Añadir = new GestionPasajes_Añadir();
+        gestionPasajes_Añadir.setVisible(true);
+        JDesktop.add(gestionPasajes_Añadir);
+    }//GEN-LAST:event_jAñadirPasaje_ActionPerformed
+
+    private void jBuscarPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarPasaje_ActionPerformed
+        JDesktop.removeAll();
+        JDesktop.repaint();
+        GestionPasajes_Buscar gestionPasajes_Buscar = new GestionPasajes_Buscar();
+        gestionPasajes_Buscar.setVisible(true);
+        JDesktop.add(gestionPasajes_Buscar);
+    }//GEN-LAST:event_jBuscarPasaje_ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,8 +289,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane JDesktop;
     private javax.swing.JMenuItem jAñadirHorario;
     private javax.swing.JMenuItem jAñadirHorario1;
+    private javax.swing.JMenuItem jAñadirPasaje_;
     private javax.swing.JMenuItem jAñadirPasajero_;
     private javax.swing.JMenuItem jAñadirRuta_;
+    private javax.swing.JMenuItem jBuscarPasaje_;
     private javax.swing.JMenuItem jBuscarPasajero_;
     private javax.swing.JMenuItem jBuscarRuta_;
     private javax.swing.JMenuItem jListarPasajero_;
@@ -254,8 +300,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuGestionHorarios;
     private javax.swing.JMenu jMenuGestionPasajeros;
-    private javax.swing.JMenu jMenuGestionPâsajes;
+    private javax.swing.JMenu jMenuGestionPasajes;
     private javax.swing.JMenu jMenuGestionRutas;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jMenuSalir;
     // End of variables declaration//GEN-END:variables
 }

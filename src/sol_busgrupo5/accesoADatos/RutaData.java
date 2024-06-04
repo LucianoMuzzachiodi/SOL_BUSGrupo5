@@ -74,4 +74,21 @@ public class RutaData {
         }
         return ruta;
     }
+    public Ruta buscarPorID(int ID_Ruta) {
+        String sql = "SELECT * FROM `colectivo` WHERE ID_Colectivo = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ID_Ruta);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Ruta(rs.getInt("ID_Ruta"),rs.getString("Origen"),rs.getString("Destino"),rs.getString("Duración_Estimada"),rs.getBoolean("Estado"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe esa ruta");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta" + ex);
+        }
+        return null;
+    }
 }
