@@ -54,15 +54,12 @@ public class Colectivo {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-
     public boolean isEstado() {
         return estado;
     }
-
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-    
+    }   
 
     @Override
     public String toString() {

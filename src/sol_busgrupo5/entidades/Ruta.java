@@ -48,15 +48,12 @@ public class Ruta {
     public void setDuracionEstimada(String duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
-
     public boolean isEstado() {
         return estado;
     }
-
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-    
+    }   
 
     @Override
     public String toString() {

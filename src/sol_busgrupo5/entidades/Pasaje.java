@@ -9,10 +9,11 @@ public class Pasaje {
     private Ruta ruta;
     private Date fechaViaje, horaViaje;
     private double precio;
+    private boolean estado;
 
     public Pasaje() {}
 
-    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio) {
+    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.pasajero = pasajero;
         this.colectivo = colectivo;
@@ -21,9 +22,10 @@ public class Pasaje {
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
+        this.estado = estado;
     }
 
-    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio) {
+    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio, boolean estado) {
         this.pasajero = pasajero;
         this.colectivo = colectivo;
         this.ruta = ruta;
@@ -80,6 +82,12 @@ public class Pasaje {
     }
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+    public boolean isEstado() {
+        return estado;
+    }
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override

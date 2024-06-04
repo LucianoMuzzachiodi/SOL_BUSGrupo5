@@ -1,7 +1,6 @@
 package sol_busgrupo5.entidades;
 
 import java.sql.Time;
-import java.time.LocalTime;
 
 public class Horario {
     private int idHorario;
@@ -50,15 +49,12 @@ public class Horario {
     public void setHoraLlegada(Time horaLlegada) {
         this.horaLlegada = horaLlegada;
     }
-
     public boolean isEstado() {
         return estado;
     }
-
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
 
     @Override
     public String toString() {
