@@ -130,16 +130,18 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
                 for (Ruta rutas : RD.listarRutas()) {
                     contador++;
                     if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty()) {
-                        Ruta ruta = RD.buscarRuta("Origen",jTexto.getText());
-                        if(ruta != null){
-                            if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                            modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
+                        
+                        if(RD.buscarRuta("Origen",jTexto.getText()) != null){
+                            for(Ruta ruta:RD.buscarRuta("Origen",jTexto.getText())){
+                                modelo.addRow(new Object[]{ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),ruta.isEstado()});
+                            }
                         }
                     } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty()) {
-                        Ruta ruta = RD.buscarRuta("Destino",jTexto.getText());
-                        if(ruta != null){
-                            if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                            modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
+                        
+                        if(RD.buscarRuta("Destino",jTexto.getText()) != null){
+                            for(Ruta ruta:RD.buscarRuta("Destino",jTexto.getText())){
+                                modelo.addRow(new Object[]{ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),ruta.isEstado()});
+                            }
                         }
                     }
                 }
