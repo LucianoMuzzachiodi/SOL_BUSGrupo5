@@ -1,6 +1,6 @@
 package sol_busgrupo5.vistas;
 
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.PasajeroData;
 import sol_busgrupo5.entidades.Pasajero;
 
@@ -15,14 +15,15 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
     private void llenarTabla(){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.addColumn("");
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido");
-        modelo.addColumn("DNI");
-        modelo.addColumn("Correo");
-        modelo.addColumn("Teléfono");
-        modelo.addColumn("Estado");
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Nombre","Apellido","DNI","Correo","Teléfono","Estado"});
+        jTabla.setModel(modelo);
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        columna1.setPreferredWidth(5);
+        columna2.setPreferredWidth(5);
+        columna6.setPreferredWidth(25);
         int contador = 0;
         for (Pasajero pasajero : PD.listarPasajeros()) {
             contador++; String activo;

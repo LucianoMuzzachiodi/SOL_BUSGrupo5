@@ -180,12 +180,8 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
         if (pasajeroData.listarPasajeros().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay pasajeros. Agregá uno antes.");
-            GestionPasajeros_Añadir gestionPasajeros_Añadir = new GestionPasajeros_Añadir();
-            gestionPasajeros_Añadir.setVisible(true);
         } else if (rutaData.listarRutas().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
-            GestionRutas_Añadir gestionRutas_Añadir = new GestionRutas_Añadir();
-            gestionRutas_Añadir.setVisible(true);
         } else if (colectivoData.listarColectivos().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay colectivos.");
         } else {

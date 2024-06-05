@@ -1,13 +1,16 @@
 package sol_busgrupo5.vistas;
 
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
 public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     PasajeroData PD = new PasajeroData();
+    RutaData RD = new RutaData();
     KeyEvent evt;
     
     public GestionPasajeros_Buscar() {
@@ -123,29 +126,46 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     private void llenarTabla(java.awt.event.KeyEvent evt){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.addColumn("");
-        modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Apellido");
-        modelo.addColumn("DNI");
-        modelo.addColumn("Correo");
-        modelo.addColumn("Teléfono");
-        modelo.addColumn("Estado");
-        int contador = 0;
-        for (Pasajero pasajeros : PD.listarPasajeros()) {
-            contador++; String dni = String.valueOf(pasajeros.getDni());
-            if (jComboBox.getSelectedItem().equals("Nombre") && pasajeros.getNombre().toLowerCase().startsWith(jTexto.getText().toLowerCase())) {
-                Pasajero pasajero = PD.buscarNombre(jTexto.getText()); String activo;
-                if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
-            } else if (jComboBox.getSelectedItem().equals("Apellido") && pasajeros.getApellido().toLowerCase().startsWith(jTexto.getText().toLowerCase())) {
-                Pasajero pasajero = PD.buscarApellido(jTexto.getText()); String activo;
-                if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
-            } else if (jComboBox.getSelectedItem().equals("DNI") && dni.startsWith(jTexto.getText())) {
-                Pasajero pasajero = PD.buscar(Integer.parseInt(jTexto.getText())); String activo;
-                if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Nombre","Apellido","DNI","Correo","Teléfono","Estado"});
+        jTabla.setModel(modelo);
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        columna1.setPreferredWidth(5);
+        columna2.setPreferredWidth(5);
+        columna6.setPreferredWidth(25);
+        if (PD.listarPasajeros().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay pasajeros. Agregá uno antes.");
+        } else if (RD.listarRutas().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
+        } else {
+            try {
+                int contador = 0; String activo;
+                for (Pasajero pasajeros : PD.listarPasajeros()) {
+                    contador++;
+                    if (jComboBox.getSelectedItem().equals("Nombre") && !jTexto.getText().isEmpty()) {
+                        Pasajero pasajero = PD.buscarNombre(jTexto.getText());
+                        if(pasajero != null){
+                            if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                            modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
+                        }
+                    } else if (jComboBox.getSelectedItem().equals("Apellido") && !jTexto.getText().isEmpty()) {
+                        Pasajero pasajero = PD.buscarApellido(jTexto.getText());
+                        if(pasajero != null){
+                            if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                            modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
+                        }
+                    } else if (jComboBox.getSelectedItem().equals("DNI") && !jTexto.getText().isEmpty()) {
+                        Pasajero pasajero = PD.buscar(Integer.parseInt(jTexto.getText()));
+                        if(pasajero != null){
+                            if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                            modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
+                        }
+                    }
+                }
+            } catch (HeadlessException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
             }
         }
         jTabla.setModel(modelo);

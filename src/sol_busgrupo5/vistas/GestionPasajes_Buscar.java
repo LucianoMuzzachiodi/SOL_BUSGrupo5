@@ -1,7 +1,7 @@
 package sol_busgrupo5.vistas;
 
 import java.sql.Date;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
@@ -9,7 +9,6 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     RutaData rutaData = new RutaData();
     PasajeData pasajeData = new PasajeData();
-    HorarioData horarioData = new HorarioData();
     PasajeroData pasajeroData = new PasajeroData();
     Colectivo colectivo = new Colectivo();
     Pasajero pasajero = new Pasajero();
@@ -109,16 +108,13 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     private void llenarTabla(Object o){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.addColumn("");
-        modelo.addColumn("ID");
-        modelo.addColumn("Pasajero");
-        modelo.addColumn("Colectivo");
-        modelo.addColumn("Ruta");
-        modelo.addColumn("Fecha");
-        modelo.addColumn("Hora de Salida");
-        modelo.addColumn("Asiento");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Estado");
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio","Estado"});
+        jTabla.setModel(modelo);
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        columna1.setPreferredWidth(5);
+        columna2.setPreferredWidth(5);
         int contador = 0; String activo;
         if(o != null && o.equals("Ruta") && !rutaData.listarRutas().isEmpty()){
             for (Pasaje pasajes : pasajeData.visualizarPorRuta(rutaData.listarRutas().get(contador).getIdRuta())) {

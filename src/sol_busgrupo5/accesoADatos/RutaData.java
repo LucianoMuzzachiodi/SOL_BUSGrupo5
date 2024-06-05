@@ -54,15 +54,14 @@ public class RutaData {
     }
 
     public Ruta buscarRuta(String decision, String nombre) {
-        Ruta ruta = new Ruta();
-        String sql = "SELECT * FROM ruta WHERE Origen = ?";
+        String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
         if (decision.equals("Destino")) {
-            sql = "SELECT * FROM ruta WHERE Destino = ?";
+            sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
         }
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, nombre);
+            ps.setString(1, nombre + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado"));
@@ -71,15 +70,15 @@ public class RutaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta");
         }
-        return ruta;
+        return null;
     }
 
     public Ruta buscarPorID(int ID_Ruta) {
-        String sql = "SELECT * FROM `ruta` WHERE ID_Ruta = ?";
+        String sql = "SELECT * FROM `ruta` WHERE ID_Ruta LIKE ?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, ID_Ruta);
+            ps.setString(1, "%" + ID_Ruta + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("Estado"));

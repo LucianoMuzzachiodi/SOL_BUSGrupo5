@@ -1,6 +1,6 @@
 package sol_busgrupo5.vistas;
 
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Ruta;
 
@@ -86,12 +86,14 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
     
     private void llenarTabla(){
         vaciarTabla();
-        modelo.addColumn("");
-        modelo.addColumn("ID");
-        modelo.addColumn("Origen");
-        modelo.addColumn("Destino");
-        modelo.addColumn("Duración");
-        modelo.addColumn("Estado");
+        modelo.setColumnCount(0);
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Origen","Destino","Duración","Estado"});
+        jTabla.setModel(modelo);
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        columna1.setPreferredWidth(5);
+        columna2.setPreferredWidth(5);
         int contador = 0;
         for (Ruta rutas : RD.listarRutas()) {
             contador++; String activo;
