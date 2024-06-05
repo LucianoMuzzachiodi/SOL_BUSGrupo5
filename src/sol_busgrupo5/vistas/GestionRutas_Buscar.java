@@ -116,7 +116,7 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     private void llenarTabla(java.awt.event.KeyEvent evt){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"","ID","Origen","Destino","Duración","Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"ID","Origen","Destino","Duración","Estado"});
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
         TableColumn columna2 = modeloColumna.getColumn(1);
@@ -126,10 +126,7 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
         } else {
             try {
-                int contador = 0; String activo;
-                for (Ruta rutas : RD.listarRutas()) {
-                    contador++;
-                    if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty()) {
+                if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty()) {
                         
                         if(RD.buscarRuta("Origen",jTexto.getText()) != null){
                             for(Ruta ruta:RD.buscarRuta("Origen",jTexto.getText())){
@@ -144,7 +141,6 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
                             }
                         }
                     }
-                }
             } catch (HeadlessException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }
