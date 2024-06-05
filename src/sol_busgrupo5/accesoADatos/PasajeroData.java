@@ -111,7 +111,7 @@ public class PasajeroData {
 
     //MODIFICAR PASAJERO
     public void modificar(Pasajero pasajero) {
-        String sql = "UPDATE pasajero SET Nombre = ?, Apellido = ?, DNI = ?, Correo = ?, Teléfono = ? WHERE ID_Pasajero = ?";
+        String sql = "UPDATE pasajero SET Nombre = ?, Apellido = ?, DNI = ?, Correo = ?, Teléfono = ?, Estado = ? WHERE ID_Pasajero = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -120,7 +120,8 @@ public class PasajeroData {
             ps.setInt(3, pasajero.getDni());
             ps.setString(4, pasajero.getCorreo());
             ps.setString(5, pasajero.getTelefono());
-            ps.setInt(6, pasajero.getIdPasajero());
+            ps.setBoolean(6, pasajero.isEstado());
+            ps.setInt(7, pasajero.getIdPasajero());
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Pasajero modificado");

@@ -65,7 +65,7 @@ public class RutaData {
             ps = con.prepareStatement(sql);
             ps.setString(1, nombre + "%");
             rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
