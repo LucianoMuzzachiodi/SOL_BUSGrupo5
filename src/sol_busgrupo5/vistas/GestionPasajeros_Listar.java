@@ -35,10 +35,12 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
         columna7.setPreferredWidth(70);
         columna8.setPreferredWidth(40);
         int contador = 0;
-        for (Pasajero pasajero : PD.listarPasajeros()) {
-            contador++; String activo;
-            if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-            modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
+        if(!PD.listarPasajeros().isEmpty()){
+            for (Pasajero pasajero : PD.listarPasajeros()) {
+                contador++; String activo;
+                if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
+            }
         }
         jTabla.setModel(modelo);
     }

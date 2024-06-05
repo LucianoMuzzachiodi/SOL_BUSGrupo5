@@ -136,23 +136,19 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         } else {
             try {
                 int contador = 0; String activo;
-                if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty()) {
-                        if(RD.buscarRuta("Origen",jTexto.getText()) != null){
-                            for(Ruta ruta:RD.buscarRuta("Origen",jTexto.getText())){
-                                contador++;
-                                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
-                            }
-                        }
-                    } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty()) {
-                        if(RD.buscarRuta("Destino",jTexto.getText()) != null){
-                            for(Ruta ruta:RD.buscarRuta("Destino",jTexto.getText())){
-                                contador++;
-                                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
-                            }
-                        }
+                if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty() && RD.buscarRuta("Origen", jTexto.getText()) != null) {
+                    for (Ruta ruta : RD.buscarRuta("Origen", jTexto.getText())) {
+                        contador++;
+                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
                     }
+                } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty() && RD.buscarRuta("Destino", jTexto.getText()) != null) {
+                    for (Ruta ruta : RD.buscarRuta("Destino", jTexto.getText())) {
+                        contador++;
+                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
+                    }
+                }
             } catch (HeadlessException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage());
             }

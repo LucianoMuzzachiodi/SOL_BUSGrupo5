@@ -67,18 +67,16 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(172, 172, 172)
-                        .addComponent(jSalir)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(249, 249, 249)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSalir)
+                .addGap(93, 93, 93))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,13 +106,29 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     private void llenarTabla(Object o){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"","ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio","Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio ($)","Estado"});
         jTabla.setModel(modelo);
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
         TableColumn columna2 = modeloColumna.getColumn(1);
-        columna1.setPreferredWidth(5);
-        columna2.setPreferredWidth(5);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        TableColumn columna9 = modeloColumna.getColumn(8);
+        TableColumn columna0 = modeloColumna.getColumn(9);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(175);
+        columna4.setPreferredWidth(100);
+        columna5.setPreferredWidth(175);
+        columna6.setPreferredWidth(75);
+        columna7.setPreferredWidth(100);
+        columna8.setPreferredWidth(50);
+        columna9.setPreferredWidth(60);
+        columna0.setPreferredWidth(40);
         int contador = 0; String activo;
         if(o != null && o.equals("Ruta") && !rutaData.listarRutas().isEmpty()){
             for (Pasaje pasajes : pasajeData.visualizarPorRuta(rutaData.listarRutas().get(contador).getIdRuta())) {

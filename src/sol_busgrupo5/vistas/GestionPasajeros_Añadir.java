@@ -83,6 +83,8 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
 
         jLabelID.setText("ID:");
 
+        jTextoID.setEditable(false);
+
         jLabelTextoPrincipal.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabelTextoPrincipal.setText("Añadir Pasajero");
 
