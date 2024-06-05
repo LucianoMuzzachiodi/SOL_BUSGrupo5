@@ -31,8 +31,8 @@ public class RutaData {
                 JOptionPane.showMessageDialog(null, "Ruta agregada");
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta." + ex.getMessage());
         }
     }
 
@@ -47,13 +47,15 @@ public class RutaData {
                 rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta." + ex.getMessage());
         }
         return rutas;
     }
 
-    public Ruta buscarRuta(String decision, String nombre) {
+    public List<Ruta> buscarRuta(String decision, String nombre) {
+        List<Ruta> rutas = new ArrayList<>();
+        
         String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
         if (decision.equals("Destino")) {
             sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
@@ -64,13 +66,13 @@ public class RutaData {
             ps.setString(1, nombre + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado"));
+                rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta. " + ex.getMessage());
         }
-        return null;
+        return rutas;
     }
 
     public Ruta buscarPorID(int ID_Ruta) {
@@ -78,7 +80,7 @@ public class RutaData {
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + ID_Ruta + "%");
+            ps.setString(1, ID_Ruta + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("Estado"));
@@ -86,8 +88,22 @@ public class RutaData {
                 JOptionPane.showMessageDialog(null, "No existe esa ruta");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta" + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta. " + ex.getMessage());
         }
         return null;
+    }
+    
+    public void modificarRuta(int ID_Ruta){
+        try {
+            ps = con.prepareStatement("UPDATE ruta SET estado = 0 WHERE ID_Ruta = ?");
+            ps.setInt(1, ID_Ruta);
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Ruta modificada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ruta. " + ex.getMessage());
+        }
     }
 }

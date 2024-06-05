@@ -62,7 +62,7 @@ public class PasajeroData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + nombre + "%");
+            ps.setString(1, nombre + "%");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
@@ -79,7 +79,7 @@ public class PasajeroData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + apellido + "%");
+            ps.setString(1, apellido + "%");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
@@ -97,7 +97,7 @@ public class PasajeroData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + dni + "%");
+            ps.setString(1, dni + "%");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
@@ -115,8 +115,8 @@ public class PasajeroData {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, pasajero.getNombre().toUpperCase());
-            ps.setString(2, pasajero.getApellido().toUpperCase());
+            ps.setString(1, pasajero.getNombre());
+            ps.setString(2, pasajero.getApellido());
             ps.setInt(3, pasajero.getDni());
             ps.setString(4, pasajero.getCorreo());
             ps.setString(5, pasajero.getTelefono());
