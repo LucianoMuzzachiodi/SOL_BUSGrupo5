@@ -16,8 +16,9 @@ public class PasajeData {
     }
 
     public void registrarVenta(Pasaje pasaje) {
-        String sql = "INSERT INTO `pasaje`(`ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`) "
-                + "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `pasaje`(`ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, Estado) "
+                + "VALUES (?,?,?,?,?,?,?,?)";
+        
 
         try {
             ps = con.prepareStatement(sql);
@@ -25,9 +26,10 @@ public class PasajeData {
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
             ps.setDate(4, (Date) pasaje.getFechaViaje());
-            ps.setDate(5, (Date) pasaje.getHoraViaje());
+            ps.setTime(5, (Time) pasaje.getHoraViaje());
             ps.setInt(6, buscarAsientoDisponible(pasaje.getAsiento()));
             ps.setDouble(7, pasaje.getPrecio());
+            ps.setBoolean(8, pasaje.isEstado());
             ps.executeUpdate();
 
             rs = ps.getGeneratedKeys();
@@ -37,7 +39,7 @@ public class PasajeData {
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje" + e);
         }
     }
 
@@ -57,7 +59,7 @@ public class PasajeData {
                 pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
                 pasaje.setRuta(RD.buscarPorID(ID_Ruta));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                pasaje.setHoraViaje(rs.getDate("Hora_Viaje"));
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
                 pasaje.setAsiento(rs.getInt("Asiento"));
                 pasaje.setPrecio(rs.getDouble("Precio"));
                 pasajes.add(pasaje);
@@ -83,7 +85,7 @@ public class PasajeData {
                 pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
                 pasaje.getRuta().setIdRuta(rs.getInt("ID_Ruta"));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                pasaje.setHoraViaje(rs.getDate("Hora_Viaje"));
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
                 pasaje.setAsiento(rs.getInt("Asiento"));
                 pasaje.setPrecio(rs.getDouble("Precio"));
                 pasajes.add(pasaje);
@@ -109,7 +111,7 @@ public class PasajeData {
                 pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
                 pasaje.getRuta().setIdRuta(rs.getInt("ID_Ruta"));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                pasaje.setHoraViaje(rs.getDate("Hora_Viaje"));
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
                 pasaje.setAsiento(rs.getInt("Asiento"));
                 pasaje.setPrecio(rs.getDouble("Precio"));
                 pasajes.add(pasaje);
@@ -129,7 +131,7 @@ public class PasajeData {
             ps.setInt(1, pasaje.getColectivo().getIdColectivo());
             ps.setInt(2, pasaje.getRuta().getIdRuta());
             ps.setDate(3, (Date)pasaje.getFechaViaje());
-            ps.setDate(4, (Date)pasaje.getHoraViaje());
+            ps.setTime(4, (Time)pasaje.getHoraViaje());
             ps.setInt(5, pasaje.getAsiento());
             ps.setDouble(6, pasaje.getPrecio());
             ps.setInt(7, pasaje.getIdPasaje());

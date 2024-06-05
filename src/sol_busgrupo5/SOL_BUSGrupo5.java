@@ -26,7 +26,7 @@ public class SOL_BUSGrupo5 {
         
         //PASAJERO
         
-//        PasajeroData pasaj = new PasajeroData();
+        PasajeroData pasaj = new PasajeroData();
         
         //AGREGAR PASAJERO
 //        Pasajero pablo = new Pasajero("Pablo", "Gonzalez", 41583970, "pablo@hotmail.com", "114769038", true);
@@ -56,9 +56,10 @@ public class SOL_BUSGrupo5 {
           //DAR DE BAJA PASAJERO
 //            pasaj.eliminar(4);
           
+
         //RUTA
         
-        //RutaData rut = new RutaData();
+        RutaData rut = new RutaData();
         
         //AGREGAR RUTA
 //        rut.agregarRuta(new Ruta("Villa Mercedes", "Carpintería", Time.valueOf(LocalTime.of(3, 00)), true));
@@ -83,10 +84,13 @@ public class SOL_BUSGrupo5 {
 //         rut.modificarRuta(1);
 
 
-
-
+        //PASAJE
         
-       
+        ColectivoData colectivo = new ColectivoData();
+        PasajeData pasaje = new PasajeData();
+        
+        //REGISTRAR VENTA
+        pasaje.registrarVenta(new Pasaje(pasaj.buscar(31201637), colectivo.buscar(1),rut.buscarPorID(11), Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf(LocalTime.of(17, 50)), 22, 7000, true));
         
     }
         

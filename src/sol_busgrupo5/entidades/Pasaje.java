@@ -1,5 +1,6 @@
 package sol_busgrupo5.entidades;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Pasaje {
@@ -7,13 +8,14 @@ public class Pasaje {
     private Pasajero pasajero;
     private Colectivo colectivo;
     private Ruta ruta;
-    private Date fechaViaje, horaViaje;
+    private Date fechaViaje;
+    private Time horaViaje;
     private double precio;
     private boolean estado;
 
     public Pasaje() {}
 
-    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.pasajero = pasajero;
         this.colectivo = colectivo;
@@ -25,7 +27,7 @@ public class Pasaje {
         this.estado = estado;
     }
 
-    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Date horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
         this.pasajero = pasajero;
         this.colectivo = colectivo;
         this.ruta = ruta;
@@ -65,10 +67,10 @@ public class Pasaje {
     public void setFechaViaje(Date fechaViaje) {
         this.fechaViaje = fechaViaje;
     }
-    public Date getHoraViaje() {
+    public Time getHoraViaje() {
         return horaViaje;
     }
-    public void setHoraViaje(Date horaViaje) {
+    public void setHoraViaje(Time horaViaje) {
         this.horaViaje = horaViaje;
     }
     public int getAsiento() {
