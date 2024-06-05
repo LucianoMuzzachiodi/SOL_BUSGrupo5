@@ -16,17 +16,15 @@ public class PasajeData {
     }
 
     public void registrarVenta(Pasaje pasaje) {
-        String sql = "INSERT INTO `pasaje`(`ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, Estado) "
-                + "VALUES (?,?,?,?,?,?,?,?)";
-        
+        String sql = "INSERT INTO pasaje (ID_Pasajero, ID_Colectivo, ID_Ruta, Fecha_Viaje, Hora_Viaje, Asiento, Precio, Estado) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
-            ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
-            ps.setDate(4, (Date) pasaje.getFechaViaje());
-            ps.setTime(5, (Time) pasaje.getHoraViaje());
+            ps.setDate(4, new java.sql.Date(pasaje.getFechaViaje().getTime()));
+            ps.setTime(5, new java.sql.Time(pasaje.getHoraViaje().getTime()));
             ps.setInt(6, buscarAsientoDisponible(pasaje.getAsiento()));
             ps.setDouble(7, pasaje.getPrecio());
             ps.setBoolean(8, pasaje.isEstado());
@@ -38,8 +36,8 @@ public class PasajeData {
                 JOptionPane.showMessageDialog(null, "Pasaje registrado");
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje" + e);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
         }
     }
 
@@ -65,8 +63,8 @@ public class PasajeData {
                 pasajes.add(pasaje);
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
         return pasajes;
     }
@@ -91,8 +89,8 @@ public class PasajeData {
                 pasajes.add(pasaje);
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
         return pasajes;
     }
@@ -117,8 +115,8 @@ public class PasajeData {
                 pasajes.add(pasaje);
             }
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
         return pasajes;
     }
@@ -141,7 +139,7 @@ public class PasajeData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje. " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje. " + ex.getMessage());
         }
     }
 
@@ -155,28 +153,34 @@ public class PasajeData {
             ps.setInt(3, ID_Ruta);
             rs = ps.executeQuery();
             ps.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
     }
     
-    public int buscarAsientoDisponible(int asiento){
+    public int buscarAsientoDisponible(int asiento) {
         try {
             ps = con.prepareStatement("SELECT Asiento FROM pasaje WHERE Asiento = ?");
             ps.setInt(1, asiento);
-            int exito = ps.executeUpdate();
-            if (exito == 1 && asiento > 0 && asiento <= 100) {
-                buscarAsientoDisponible(asiento + 1);
-                if(asiento == 100){
-                    JOptionPane.showMessageDialog(null, "No quedan asientos.");
-                }
+            rs = ps.executeQuery();
+            if (rs.next() && asiento > 0 && asiento <= 100) {
+                return buscarAsientoDisponible(asiento + 1);
+            } else if (asiento > 100) {
+                JOptionPane.showMessageDialog(null, "No quedan asientos.");
+                return 0;
             } else {
                 return asiento;
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
+            return 0;
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
-        return asiento;
     }
 }

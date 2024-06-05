@@ -116,28 +116,40 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     private void llenarTabla(java.awt.event.KeyEvent evt){
         vaciarTabla();
         modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"ID","Origen","Destino","Duración","Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"","ID","Origen","Destino","Duración","Estado"});
+        jTabla.setModel(modelo);
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
         TableColumn columna2 = modeloColumna.getColumn(1);
-        columna1.setPreferredWidth(5);
-        columna2.setPreferredWidth(5);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(120);
+        columna4.setPreferredWidth(120);
+        columna5.setPreferredWidth(40);
+        columna6.setPreferredWidth(40);
         if (RD.listarRutas().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
         } else {
             try {
+                int contador = 0; String activo;
                 if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty()) {
-                        
                         if(RD.buscarRuta("Origen",jTexto.getText()) != null){
                             for(Ruta ruta:RD.buscarRuta("Origen",jTexto.getText())){
-                                modelo.addRow(new Object[]{ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),ruta.isEstado()});
+                                contador++;
+                                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
                             }
                         }
                     } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty()) {
-                        
                         if(RD.buscarRuta("Destino",jTexto.getText()) != null){
                             for(Ruta ruta:RD.buscarRuta("Destino",jTexto.getText())){
-                                modelo.addRow(new Object[]{ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),ruta.isEstado()});
+                                contador++;
+                                if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                                modelo.addRow(new Object[]{contador,ruta.getIdRuta(),ruta.getOrigen(),ruta.getDestino(),ruta.getDuracionEstimada(),activo});
                             }
                         }
                     }

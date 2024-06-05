@@ -20,10 +20,20 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
         TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
         TableColumn columna6 = modeloColumna.getColumn(5);
-        columna1.setPreferredWidth(5);
-        columna2.setPreferredWidth(5);
-        columna6.setPreferredWidth(25);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(100);
+        columna4.setPreferredWidth(100);
+        columna5.setPreferredWidth(50);
+        columna6.setPreferredWidth(150);
+        columna7.setPreferredWidth(70);
+        columna8.setPreferredWidth(40);
         int contador = 0;
         for (Pasajero pasajero : PD.listarPasajeros()) {
             contador++; String activo;

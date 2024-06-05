@@ -131,10 +131,20 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
         TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
         TableColumn columna6 = modeloColumna.getColumn(5);
-        columna1.setPreferredWidth(5);
-        columna2.setPreferredWidth(5);
-        columna6.setPreferredWidth(25);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(100);
+        columna4.setPreferredWidth(100);
+        columna5.setPreferredWidth(50);
+        columna6.setPreferredWidth(150);
+        columna7.setPreferredWidth(70);
+        columna8.setPreferredWidth(40);
         if (PD.listarPasajeros().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay pasajeros. Agregá uno antes.");
         } else if (RD.listarRutas().isEmpty()) {
@@ -148,7 +158,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
                         Pasajero pasajero = PD.buscarNombre(jTexto.getText());
                         if(pasajero != null){
                             if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                            modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
+                            modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
                         }
                     } else if (jComboBox.getSelectedItem().equals("Apellido") && !jTexto.getText().isEmpty()) {
                         Pasajero pasajero = PD.buscarApellido(jTexto.getText());
@@ -165,7 +175,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
                     }
                 }
             } catch (HeadlessException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
+                JOptionPane.showMessageDialog(this, "No se permiten letras. " + ex.getMessage());
             }
         }
         jTabla.setModel(modelo);

@@ -32,7 +32,7 @@ public class RutaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta." + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta. " + ex.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class RutaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta." + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta. " + ex.getMessage());
         }
         return rutas;
     }
