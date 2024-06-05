@@ -12,13 +12,13 @@ public class PasajeData {
     private ResultSet rs;
 
     public PasajeData() {
-         con = Conexion.getConexion();
+        con = Conexion.getConexion();
     }
-    
-    public void registrarVenta(Pasaje pasaje){
+
+    public void registrarVenta(Pasaje pasaje) {
         String sql = "INSERT INTO `pasaje`(`ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`) "
                 + "VALUES (?,?,?,?,?,?,?)";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
@@ -26,12 +26,12 @@ public class PasajeData {
             ps.setInt(3, pasaje.getRuta().getIdRuta());
             ps.setDate(4, (Date) pasaje.getFechaViaje());
             ps.setDate(5, (Date) pasaje.getHoraViaje());
-            ps.setInt(6, pasaje.getAsiento());
+            ps.setInt(6, buscarAsientoDisponible(pasaje.getAsiento()));
             ps.setDouble(7, pasaje.getPrecio());
             ps.executeUpdate();
-            
+
             rs = ps.getGeneratedKeys();
-            if(rs.next()){
+            if (rs.next()) {
                 pasaje.setIdPasaje(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Pasaje registrado");
             }
@@ -40,12 +40,13 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
         }
     }
-    public List<Pasaje> visualizarPorRuta(int ID_Ruta){
+
+    public List<Pasaje> visualizarPorRuta(int ID_Ruta) {
         List<Pasaje> pasajes = new ArrayList<>();
         RutaData RD = new RutaData();
-        
+
         String sql = "SELECT * FROM pasaje WHERE ID_Ruta = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Ruta);
@@ -67,10 +68,11 @@ public class PasajeData {
         }
         return pasajes;
     }
-    public List<Pasaje> visualizarPorHorario(Date fechaViaje){
+
+    public List<Pasaje> visualizarPorHorario(Date fechaViaje) {
         List<Pasaje> pasajes = new ArrayList<>();
         String sql = "SELECT * FROM pasaje WHERE Fecha_Viaje = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setDate(1, fechaViaje);
@@ -92,10 +94,11 @@ public class PasajeData {
         }
         return pasajes;
     }
-    public List<Pasaje> visualizarPorPasajero(int ID_Pasajero){
+
+    public List<Pasaje> visualizarPorPasajero(int ID_Pasajero) {
         List<Pasaje> pasajes = new ArrayList<>();
         String sql = "SELECT * FROM pasaje WHERE ID_Pasajero = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Pasajero);
@@ -117,9 +120,32 @@ public class PasajeData {
         }
         return pasajes;
     }
-    public void eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta){
+    
+    public void modificar(Pasaje pasaje) {
+        String sql = "UPDATE pasaje SET ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasajero = ?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, pasaje.getColectivo().getIdColectivo());
+            ps.setInt(2, pasaje.getRuta().getIdRuta());
+            ps.setDate(3, (Date)pasaje.getFechaViaje());
+            ps.setDate(4, (Date)pasaje.getHoraViaje());
+            ps.setInt(5, pasaje.getAsiento());
+            ps.setDouble(6, pasaje.getPrecio());
+            ps.setInt(7, pasaje.getIdPasaje());
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Pasaje modificado");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje. " + ex);
+        }
+    }
+
+    public void eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta) {
         String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Pasajero);
@@ -130,5 +156,25 @@ public class PasajeData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje");
         }
+    }
+    
+    public int buscarAsientoDisponible(int asiento){
+        try {
+            ps = con.prepareStatement("SELECT Asiento FROM pasaje WHERE Asiento = ?");
+            ps.setInt(1, asiento);
+            int exito = ps.executeUpdate();
+            if (exito == 1 && asiento > 0 && asiento <= 100) {
+                buscarAsientoDisponible(asiento + 1);
+                if(asiento == 100){
+                    JOptionPane.showMessageDialog(null, "No quedan asientos.");
+                }
+            } else {
+                return asiento;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
+        }
+        return asiento;
     }
 }
