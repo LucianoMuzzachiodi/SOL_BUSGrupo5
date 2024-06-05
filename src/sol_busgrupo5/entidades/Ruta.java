@@ -1,15 +1,17 @@
 package sol_busgrupo5.entidades;
 
+import java.sql.Time;
+
 public class Ruta {
     private int idRuta;
     private String origen;
     private String destino;
-    private String duracionEstimada;
+    private Time duracionEstimada;
     private boolean estado;
     
     public Ruta() {}
 
-    public Ruta(int idRuta, String origen, String destino, String duracionEstimada, boolean estado) {
+    public Ruta(int idRuta, String origen, String destino, Time duracionEstimada, boolean estado) {
         this.idRuta = idRuta;
         this.origen = origen;
         this.destino = destino;
@@ -17,7 +19,7 @@ public class Ruta {
         this.estado = estado;
     }
 
-    public Ruta(String origen, String destino, String duracionEstimada, boolean estado) {
+    public Ruta(String origen, String destino, Time duracionEstimada, boolean estado) {
         this.origen = origen;
         this.destino = destino;
         this.duracionEstimada = duracionEstimada;
@@ -42,10 +44,10 @@ public class Ruta {
     public void setDestino(String destino) {
         this.destino = destino;
     }
-    public String getDuracionEstimada() {
+    public Time getDuracionEstimada() {
         return duracionEstimada;
     }
-    public void setDuracionEstimada(String duracionEstimada) {
+    public void setDuracionEstimada(Time duracionEstimada) {
         this.duracionEstimada = duracionEstimada;
     }
     public boolean isEstado() {

@@ -21,7 +21,7 @@ public class RutaData {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ruta.getOrigen());
             ps.setString(2, ruta.getDestino());
-            ps.setString(3, ruta.getDuracionEstimada());
+            ps.setTime(3, ruta.getDuracionEstimada());
             ps.setBoolean(4, ruta.isEstado());
             ps.executeUpdate();
 
@@ -44,7 +44,7 @@ public class RutaData {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado")));
+                rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
         } catch (SQLException ex) {
@@ -66,7 +66,7 @@ public class RutaData {
             ps.setString(1, nombre + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
-                rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("estado")));
+                rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
         } catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class RutaData {
             ps.setString(1, ID_Ruta + "%");
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getString("Duración_Estimada"), rs.getBoolean("Estado"));
+                return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("Estado"));
             } else {
                 JOptionPane.showMessageDialog(null, "No existe esa ruta");
             }
