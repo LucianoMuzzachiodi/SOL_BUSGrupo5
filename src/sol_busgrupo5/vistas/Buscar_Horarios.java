@@ -26,6 +26,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
      */
     public Buscar_Horarios() {
         initComponents();
+        
         Config("Rutas");
         JTable.setModel(DTMT);
     }
@@ -155,6 +156,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 
                 break;
         }
+        
     }//GEN-LAST:event_JComboBOX_Ruta_FechaActionPerformed
 
     private void JComboBOX_RutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_RutasActionPerformed
@@ -165,8 +167,10 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
             for(int i=DTMT.getRowCount()-1;i>=0;i--){
                 DTMT.removeRow(i);
             }
-            for(Horario horario:HD.Listar_Horarios("Por ruta",((Ruta)JComboBOX_Rutas.getSelectedItem()).getIdRuta(), null)){
+            if(HD.Listar_Horarios("Por ruta",((Ruta)JComboBOX_Rutas.getSelectedItem()).getIdRuta(), null)!=null){
+                for(Horario horario:HD.Listar_Horarios("Por ruta",((Ruta)JComboBOX_Rutas.getSelectedItem()).getIdRuta(), null)){
                 DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+                }
             }
         }
     }//GEN-LAST:event_JComboBOX_RutasActionPerformed
@@ -179,8 +183,12 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
             for(int i=DTMT.getRowCount()-1;i>=0;i--){
                 DTMT.removeRow(i);
             }
-            for(Horario horario:HD.Listar_Horarios("Por Fecha",0, (Time) JComboBOX_Salida.getSelectedItem())){
+            if(HD.Listar_Horarios("Por Fecha",0, (Time) JComboBOX_Salida.getSelectedItem())!=null){
+                for(Horario horario:HD.Listar_Horarios("Por Fecha",0, (Time) JComboBOX_Salida.getSelectedItem())){
                 DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "no hay rutas disponibles.");
             }
         }
     }//GEN-LAST:event_JComboBOX_SalidaActionPerformed
@@ -200,7 +208,12 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                     DTMT.removeRow(i);
                 }
                 DTMT.setColumnIdentifiers(new Object[]{"ID Horario","ID Ruta","Hora Salida","Hora Llegada"});
-                Ruta ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
+                Ruta ruta = new Ruta();
+                if(JComboBOX_Rutas.getSelectedIndex()!=-1){
+                    ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
+                } else {
+                    JOptionPane.showMessageDialog(this, "no hay rutas disponibles.");
+                }
                 if(HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null)!=null){
                     for(Horario horario:HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null)){
                         DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
@@ -213,6 +226,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
             case ("Fechas"):
                 R1.setVisible(false);
                 hl.setVisible(true);
+                hl.Config();
                 JComboBOX_Salida.setVisible(true);
                 JComboBOX_Salida.removeAllItems();
                 JComboBOX_Rutas.setVisible(false);
