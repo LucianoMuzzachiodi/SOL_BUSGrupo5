@@ -96,6 +96,6 @@ public class Pasaje {
     public String toString() {
         String activo;
         if(estado){activo = "Activo";}else{activo = "Inactivo";}
-        return idPasaje + "" + pasajero.getApellido() + "" + pasajero.getNombre() + "" + colectivo.getMarca() + "" + colectivo.getModelo() + "" + colectivo.getMatricula() + "" + ruta.getOrigen() + "" + ruta.getDestino() + "" + horaViaje + "" + ruta.getDuracionEstimada() + "" + asiento + "" + precio + "" + activo;
+        return "ID: " + idPasaje + ", Apellido del pasajero: " + pasajero.getApellido() + ", Nombre del pasajero: " + pasajero.getNombre() + ", Marca: " + colectivo.getMarca() + ", Modelo: " + colectivo.getModelo() + ", Matricula: " + colectivo.getMatricula() + ", Origen: " + ruta.getOrigen() + ", Destino: " + ruta.getDestino() + ", Hora de salida: " + horaViaje + ", Tiempo de viaje: " + ruta.getDuracionEstimada() + ", Asiento: " + asiento + ", Precio: " + precio + ", Estado: " + activo;
     }
 }

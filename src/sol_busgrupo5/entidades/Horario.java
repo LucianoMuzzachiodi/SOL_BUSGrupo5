@@ -60,6 +60,6 @@ public class Horario {
     public String toString() {
         String activo;
         if(estado){activo = "Activo";}else{activo = "Inactivo";}
-        return ruta.getOrigen() + '(' + horaSalida + ')' + ruta.getDestino() + '(' + horaLlegada + ')' + "" + activo;
+        return "Origen: " + ruta.getOrigen() +", Horario de salida: " + '(' + horaSalida + ')' + ", Destino: " + ruta.getDestino() + ", Horario de llegada: " + '(' + horaLlegada + ')' + ", Estado: " + activo;
     }
 }

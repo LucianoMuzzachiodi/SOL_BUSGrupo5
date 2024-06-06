@@ -15,108 +15,118 @@ public class SOL_BUSGrupo5 {
     public static void main(String[] args) {
        Connection con = Conexion.getConexion();
         
+        HorarioData horaD = new HorarioData();
+        PasajeroData pasajeroD = new PasajeroData();
+        PasajeData pasajeD = new PasajeData();
+        RutaData rutaD = new RutaData();
+        ColectivoData colectivoD = new ColectivoData();
         
         
-        
-        
-        
-        
-        
-        
-        
+//----------------------------------------------------------------------------------------------------------------------       
         //PASAJERO
         
-//        PasajeroData pasaj = new PasajeroData();
         
         //AGREGAR PASAJERO
 //        Pasajero pablo = new Pasajero("Pablo", "Gonzalez", 41583970, "pablo@hotmail.com", "114769038", true);
-//        pasaj.guardar(pablo);
+//        pasajeroD.guardar(pablo);
         
         //LISTA PASAJEROS
-//        for(Pasajero pasajero:pasaj.listarPasajeros()){
+//        for(Pasajero pasajero:pasajeroD.listarPasajeros()){
 //            System.out.println(pasajero);
 //        }
 
-        
          //BUSCAR POR NOMBRE
-//         System.out.println(pasaj.buscarNombre("Cintia"));
-
+//         System.out.println(pasajeroD.buscarNombre("Cintia"));
 
          //BUSCAR PASAJERO POR APELLIDO
-//        System.out.println(pasaj.buscarApellido("Andreani"));
+//        System.out.println(pasajeroD.buscarApellido("Andreani"));
 
-        
         //BUSCAR PASAJERO POR DNI
-//        System.out.println(pasaj.buscar(42697806));
-
+//        System.out.println(pasajeroD.buscar(42697806));
 
           //MODIFICAR PASAJERO
-//          pasaj.modificar(new Pasajero(1, "Luciano", "Muzzachiodi", 31201637, "luciano@hotmail.com", "2664307399", true));
+//          pasajeroD.modificar(new Pasajero(1, "Luciano", "Muzzachiodi", 31201637, "luciano@hotmail.com", "2664307399", true));
           
           //DAR DE BAJA PASAJERO
-//            pasaj.eliminar(4);
-          
+//            pasajeroD.eliminar(4);
+        
 
+//----------------------------------------------------------------------------------------------------------------------
         //RUTA
         
-//        RutaData rut = new RutaData();
         
         //AGREGAR RUTA
-//        rut.agregarRuta(new Ruta("Villa Mercedes", "Carpintería", Time.valueOf(LocalTime.of(3, 00)), true));
-        
+//        rutaD.agregarRuta(new Ruta("Villa Mercedes", "Carpintería", Time.valueOf(LocalTime.of(3, 00)), true));
         
         //LISTA RUTA
-//        for(Ruta ruta:rut.listarRutas()){
+//        for(Ruta ruta:rutaD.listarRutas()){
 //            System.out.println(ruta);
 //        }
         
         //BUSCAR RUTA POR ORIGEN
-//        for(Ruta ruta:rut.buscarRuta("Origen", "Villa de Merlo")){
+//        for(Ruta ruta:rutaD.buscarRuta_Lista("Origen", "Villa de Merlo")){
 //            System.out.println(ruta);
 //        }
         
         //BUSCAR POR DESTINO
-//        for(Ruta ruta:rut.buscarRuta("Destino", "San Luis")){
+//        for(Ruta ruta:rutaD.buscarRuta_Lista("Destino", "San Luis")){
 //            System.out.println(ruta);
 //        }
 
-        //DAR DE BAJA RUTA
-//         rut.modificarRuta(1);
+      //DAR DE BAJA RUTA
+//         rutaD.eliminarRuta(1);
 
 
+//----------------------------------------------------------------------------------------------------------------------
         //PASAJE
-        
-//        ColectivoData colectivo = new ColectivoData();
-//        PasajeData pasaje = new PasajeData();
-        
+             
         //REGISTRAR VENTA
-//    ???    pasaje.registrarVenta(new Pasaje(pasaj.buscar(31201637), colectivo.buscar(1),rut.buscarPorID(11), Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("17:50:00"), 24, 7000, true));
+//        Pasajero pasajero = pasajeroD.buscar(31201637);
+//        Colectivo colectivo = colectivoD.buscar(1);
+//        Ruta ruta = rutD.buscarPorID(11);
+//        Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("17:50:00"), 25, 7000, true);
+//        pasajeD.registrarVenta(pasaje);
         
-
         //LISTAR PASAJE POR RUTA
-//   ???     for(Pasaje pas:pasaje.visualizarPorRuta(11)){
+//        for(Pasaje pas:pasajeD.visualizarPorRuta(11)){
 //            System.out.println(pas);
 //        }
         
 //        //LISTAR PASAJES POR HORARIO
-//    ???    for(Pasaje pas:pasaje.visualizarPorHorario(Time.valueOf("00:00:17"))){
+//        for(Pasaje pas:pasajeD.visualizarPorHorario(Time.valueOf("00:00:17"))){
 //            System.out.println(pas);
 //        }
 
-        
+
+//----------------------------------------------------------------------------------------------------------------------        
         //COLECTIVO
         
-//        ColectivoData cole = new ColectivoData();
         
         //BUSCAR COLECTIVO
-        //System.out.println(cole.buscar(1));
-        
+//        System.out.println(colectivoD.buscar(1));
         
         //LISTAR COLECTIVO
-//        for(Colectivo colec: cole.listarColectivos()){
+//        for(Colectivo colec: colectivoD.listarColectivos()){
 //            System.out.println(colec);
 //        }
         
+
+//----------------------------------------------------------------------------------------------------------------------
+        //HORARIO
+             
+ 
+        //AGREGAR HORARIO
+//        hora.Añadir_Horario(new Horario(rut.buscarPorID(1), Time.valueOf("10:00:00"), Time.valueOf("13:00:00"), true));
+
+        //LISTAR HORARIOS
+//           System.out.println("----------por ruta(con la ID 1)");
+//           for(Horario horario:horaD.Listar_Horarios("Por ruta", 1, null)){
+//               System.out.println(horario);
+//           }
+//           System.out.println("---------------por Fecha(Muestra todos los horarios disponibles)");
+//           for(Horario horario:horaD.Listar_Horarios("Por Fecha", 0, Time.valueOf("04:00:00"))){
+//               System.out.println(horario);
+//           }
     }  
-    
 }
+    

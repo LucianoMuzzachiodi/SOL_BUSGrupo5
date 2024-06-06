@@ -16,7 +16,7 @@ public class PasajeData {
     }
 
     public void registrarVenta(Pasaje pasaje) {
-        String sql = "INSERT INTO pasaje (ID_Pasaje, ID_Pasajero, ID_Colectivo, ID_Ruta, Fecha_Viaje, Hora_Viaje, Asiento, Precio, Estado) VALUES (null,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO pasaje (ID_Pasajero, ID_Colectivo, ID_Ruta, Fecha_Viaje, Hora_Viaje, Asiento, Precio, Estado) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

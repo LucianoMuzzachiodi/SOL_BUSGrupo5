@@ -203,6 +203,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoID.requestFocus();
+            vaciarFormulario();
         }
     }//GEN-LAST:event_jBuscarActionPerformed
         
