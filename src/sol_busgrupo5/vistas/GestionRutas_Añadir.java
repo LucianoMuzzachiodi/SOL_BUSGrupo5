@@ -2,6 +2,7 @@ package sol_busgrupo5.vistas;
 
 import java.awt.HeadlessException;
 import java.sql.Time;
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Ruta;
@@ -25,7 +26,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextoDestino = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextoDuracion = new javax.swing.JTextField();
         jGuardar = new javax.swing.JButton();
         jSalir = new javax.swing.JButton();
         jLabelTitulo = new javax.swing.JLabel();
@@ -34,6 +34,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jNuevo = new javax.swing.JButton();
         jLabelID = new javax.swing.JLabel();
         jTextoID = new javax.swing.JTextField();
+        jComboBox = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Origen:");
 
@@ -81,6 +82,8 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
         jLabelID.setText("ID:");
 
+        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,14 +116,15 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextoDestino)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabelID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,8 +148,8 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jGuardar)
@@ -167,21 +171,17 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
         try {
-            jTextoID.setEditable(false);
             jTextoID.setText("");
+            jTextoID.setEditable(false);
             if (validar()) {
-                Time duration = Time.valueOf(jTextoDuracion.getText());
-                Ruta ruta = new Ruta(jTextoOrigen.getText(), jTextoDestino.getText(), duration, true);
+                Time duracion = Time.valueOf(jComboBox.getSelectedItem().toString());
                 if (jGuardar.getText().equals("Guardar")) {
-                    RD.agregarRuta(ruta);
+                    RD.agregarRuta(new Ruta(jTextoOrigen.getText(), jTextoDestino.getText(), duracion, true));
                 } else {
-                    RD.modificarRuta(new Ruta(Integer.parseInt(jTextoID.getText()), jTextoOrigen.getText(), jTextoDestino.getText(), duration, true));
+                    RD.modificarRuta(new Ruta(Integer.parseInt(jTextoID.getText()), jTextoOrigen.getText(), jTextoDestino.getText(), duracion, true));
                 }
                 vaciarFormulario();
             }
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "El formato de duración debe ser HH:mm:ss");
-            jTextoDuracion.requestFocus();
         } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado");
         }
@@ -198,7 +198,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
-            jTextoID.setEditable(true);
             jTextoID.requestFocus();
             llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
         } catch (NumberFormatException ex) {
@@ -216,38 +215,45 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoDestino.requestFocus();
             return false;
-        } else if (jTextoDuracion.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Valor inválido");
-            jTextoDuracion.requestFocus();
-            return false;
         }
         return true;
     }
 
     private void vaciarFormulario() {
-        jTextoDuracion.setText("00:00:00");
+        jComboBox.removeAllItems();
+        int aux = 0;
+        for (int i = 0; i < 144; i++) {
+            aux = aux + 10;
+            LocalTime LT = LocalTime.of(23, 50, 00);
+            jComboBox.addItem("" + Time.valueOf(LT.plusMinutes(aux)));
+        }
         jTextoDestino.setText("");
         jTextoOrigen.setText("");
         jTextoID.setText("");
         jLabelTitulo.setText("Añadir una Ruta");
         jGuardar.setText("Guardar");
         jEliminar.setVisible(false);
+        jTextoID.setEditable(true);
         jNuevo.setVisible(false);
         jTextoOrigen.requestFocus();
     }
 
     private void llenarFormulario(Ruta ruta) {
+        jComboBox.removeAllItems();
         jNuevo.setVisible(true);
+        jTextoID.setEditable(false);
         jEliminar.setVisible(true);
         jGuardar.setText("Modificar");
         jLabelTitulo.setText("Buscar una ruta");
         jTextoID.setText("" + ruta.getIdRuta());
         jTextoOrigen.setText(ruta.getOrigen());
         jTextoDestino.setText(ruta.getDestino());
-        jTextoDuracion.setText("" + ruta.getDuracionEstimada());
+        jComboBox.addItem("" + ruta.getDuracionEstimada());
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;
+    private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JButton jEliminar;
     private javax.swing.JButton jGuardar;
     private javax.swing.JLabel jLabel1;
@@ -258,7 +264,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     private javax.swing.JButton jNuevo;
     private javax.swing.JButton jSalir;
     private javax.swing.JTextField jTextoDestino;
-    private javax.swing.JTextField jTextoDuracion;
     private javax.swing.JTextField jTextoID;
     private javax.swing.JTextField jTextoOrigen;
     // End of variables declaration//GEN-END:variables
