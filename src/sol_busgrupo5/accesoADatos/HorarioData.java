@@ -29,14 +29,14 @@ public class HorarioData {
         ArrayList<Horario> horarios = new ArrayList();
         try{
             if(Condicional.equals("Por ruta")){
-                PreparedStatement PS = con.prepareStatement("SELECT * FROM `horario` WHERE horario.ID_Ruta = "+ID_Ruta);
+                PreparedStatement PS = con.prepareStatement("SELECT horario.ID_Horario,horario.ID_Ruta,horario.Hora_Salida,horario.Hora_Llegada,horario.Estado FROM `horario` WHERE horario.ID_Ruta = "+ID_Ruta);
                 ResultSet RS = PS.executeQuery();
                 Ruta ID = new Ruta();
                 for(Ruta ruti:RD.listarRutas()){
                     if(ruti.getIdRuta()==ID_Ruta) ID=ruti;
                 }
                 while(RS.next()){
-                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("estado"));
+                    Horario horario = new Horario(RS.getInt("ID_Horario"),ID,RS.getTime("Hora_Salida"),RS.getTime("Hora_Llegada"),RS.getBoolean("Estado"));
                     horarios.add(horario);
                 }
                 return horarios;
