@@ -14,7 +14,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         initComponents();
         vaciarFormulario();
         jEliminar.setVisible(false);
-        jNuevo.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -171,7 +170,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
         try {
-            jTextoID.setText("");
             jTextoID.setEditable(false);
             if (validar()) {
                 Time duracion = Time.valueOf(jComboBox.getSelectedItem().toString());
@@ -236,20 +234,18 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jGuardar.setText("Guardar");
         jEliminar.setVisible(false);
         jTextoID.setEditable(true);
-        jNuevo.setVisible(false);
-        jTextoOrigen.requestFocus();
+        jTextoID.requestFocus();
     }
 
     private void llenarFormulario(Ruta ruta) {
-        jNuevo.setVisible(true);
-        jTextoID.setEditable(false);
+        vaciarFormulario();
         jEliminar.setVisible(true);
         jGuardar.setText("Modificar");
         jLabelTitulo.setText("Buscar una ruta");
         jTextoID.setText("" + ruta.getIdRuta());
         jTextoOrigen.setText(ruta.getOrigen());
         jTextoDestino.setText(ruta.getDestino());
-        jComboBox.setSelectedItem("" + ruta.getDuracionEstimada());
+        jComboBox.setSelectedItem(ruta.getDuracionEstimada().toString());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
