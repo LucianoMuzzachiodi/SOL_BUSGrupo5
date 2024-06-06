@@ -198,8 +198,10 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
-            jTextoID.requestFocus();
-            llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+            if(RD.buscarPorID(Integer.parseInt(jTextoID.getText())) != null){
+                jTextoID.requestFocus();
+                llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoID.requestFocus();
@@ -239,7 +241,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     }
 
     private void llenarFormulario(Ruta ruta) {
-        jComboBox.removeAllItems();
         jNuevo.setVisible(true);
         jTextoID.setEditable(false);
         jEliminar.setVisible(true);
@@ -248,7 +249,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jTextoID.setText("" + ruta.getIdRuta());
         jTextoOrigen.setText(ruta.getOrigen());
         jTextoDestino.setText(ruta.getDestino());
-        jComboBox.addItem("" + ruta.getDuracionEstimada());
+        jComboBox.setSelectedItem("" + ruta.getDuracionEstimada());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
