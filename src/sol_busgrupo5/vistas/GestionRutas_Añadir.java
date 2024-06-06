@@ -198,8 +198,10 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
-            jTextoID.requestFocus();
-            llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+            if(RD.buscarPorID(Integer.parseInt(jTextoID.getText())) != null){
+                jTextoID.requestFocus();
+                llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoID.requestFocus();
