@@ -59,7 +59,7 @@ public class SOL_BUSGrupo5 {
 
         //RUTA
         
-        RutaData rut = new RutaData();
+//        RutaData rut = new RutaData();
         
         //AGREGAR RUTA
 //        rut.agregarRuta(new Ruta("Villa Mercedes", "Carpintería", Time.valueOf(LocalTime.of(3, 00)), true));
@@ -90,15 +90,33 @@ public class SOL_BUSGrupo5 {
 //        PasajeData pasaje = new PasajeData();
         
         //REGISTRAR VENTA
-//        pasaje.registrarVenta(new Pasaje(pasaj.buscar(31201637), colectivo.buscar(1),rut.buscarPorID(11), Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf(LocalTime.of(17, 50)), 22, 7000, true));
+//    ???    pasaje.registrarVenta(new Pasaje(pasaj.buscar(31201637), colectivo.buscar(1),rut.buscarPorID(11), Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("17:50:00"), 24, 7000, true));
         
+
         //LISTAR PASAJE POR RUTA
-//        for(Pasaje pas:pasaje.visualizarPorRuta(11)){
+//   ???     for(Pasaje pas:pasaje.visualizarPorRuta(11)){
 //            System.out.println(pas);
 //        }
         
-    }
+//        //LISTAR PASAJES POR HORARIO
+//    ???    for(Pasaje pas:pasaje.visualizarPorHorario(Time.valueOf("00:00:17"))){
+//            System.out.println(pas);
+//        }
+
+        
+        //COLECTIVO
+        
+//        ColectivoData cole = new ColectivoData();
+        
+        //BUSCAR COLECTIVO
+        //System.out.println(cole.buscar(1));
         
         
+        //LISTAR COLECTIVO
+//        for(Colectivo colec: cole.listarColectivos()){
+//            System.out.println(colec);
+//        }
+        
+    }  
     
 }

@@ -95,13 +95,13 @@ public class PasajeData {
         return pasajes;
     }
 
-    public List<Pasaje> visualizarPorHorario(Date fechaViaje) {
+    public List<Pasaje> visualizarPorHorario(Time horaViaje) {
         List<Pasaje> pasajes = new ArrayList<>();
-        String sql = "SELECT * FROM pasaje WHERE Fecha_Viaje = ?";
+        String sql = "SELECT * FROM pasaje WHERE Hora_viaje = ?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setDate(1, fechaViaje);
+            ps.setTime(1, horaViaje);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Pasaje pasaje = new Pasaje();

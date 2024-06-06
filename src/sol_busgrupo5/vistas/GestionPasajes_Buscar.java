@@ -1,6 +1,6 @@
 package sol_busgrupo5.vistas;
 
-import java.sql.Date;
+import java.sql.Time;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
@@ -134,7 +134,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
                 modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
             }
         } else if (o != null && o.equals("Horario")) {
-            for (Pasaje pasajes : pasajeData.visualizarPorHorario((Date)pasaje.getFechaViaje())) {
+            for (Pasaje pasajes : pasajeData.visualizarPorHorario((Time)pasaje.getFechaViaje())) {
                 contador++;
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
