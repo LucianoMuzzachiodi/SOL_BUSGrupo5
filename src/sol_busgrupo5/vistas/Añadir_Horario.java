@@ -218,14 +218,12 @@ public class Añadir_Horario extends javax.swing.JFrame {
         }
         for(int i=0;i<=119;i++){
             aux=aux+10;
-            System.out.println(aux);
             LocalTime LT = LocalTime.of(06, 00, 00);
             JComboBOX_Hora_Salida.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
         aux=0;
         for(int i=0;i<=119;i++){
             aux=aux+10;
-            System.out.println(aux);
             LocalTime LT = LocalTime.of(06, 00, 00);
             JComboBOX_Hora_Llegada.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
