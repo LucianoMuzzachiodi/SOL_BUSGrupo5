@@ -38,7 +38,7 @@ public class RutaData {
 
     public List<Ruta> listarRutas() {
         List<Ruta> rutas = new ArrayList<>();
-        String sql = "SELECT * FROM ruta";
+        String sql = "SELECT * FROM `ruta` WHERE Estado = true";
 
         try {
             ps = con.prepareStatement(sql);
