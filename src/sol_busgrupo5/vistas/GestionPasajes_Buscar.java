@@ -10,10 +10,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     RutaData rutaData = new RutaData();
     PasajeData pasajeData = new PasajeData();
     PasajeroData pasajeroData = new PasajeroData();
-    Colectivo colectivo = new Colectivo();
-    Pasajero pasajero = new Pasajero();
     Pasaje pasaje = new Pasaje();
-    Ruta ruta = new Ruta();
 
     public GestionPasajes_Buscar() {
         initComponents();
@@ -134,19 +131,19 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
             for (Pasaje pasajes : pasajeData.visualizarPorRuta(rutaData.listarRutas().get(contador).getIdRuta())) {
                 contador++;
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador, pasajero.getNombre() + "" + pasajero.getApellido(), colectivo.getMatricula(), ruta.getOrigen() + "" + ruta.getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
+                modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
             }
         } else if (o != null && o.equals("Horario")) {
             for (Pasaje pasajes : pasajeData.visualizarPorHorario((Date)pasaje.getFechaViaje())) {
                 contador++;
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador, pasajero.getNombre() + "" + pasajero.getApellido(), colectivo.getMatricula(), ruta.getOrigen() + "" + ruta.getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
+                modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
             }
         } else if (o != null && o.equals("Pasajero") && !pasajeroData.listarPasajeros().isEmpty()) {
             for (Pasaje pasajes : pasajeData.visualizarPorPasajero(pasajeroData.listarPasajeros().get(contador).getIdPasajero())) {
                 contador++;
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador, pasajero.getNombre() + "" + pasajero.getApellido(), colectivo.getMatricula(), ruta.getOrigen() + "" + ruta.getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
+                modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
             }
         }
         jTabla.setModel(modelo);

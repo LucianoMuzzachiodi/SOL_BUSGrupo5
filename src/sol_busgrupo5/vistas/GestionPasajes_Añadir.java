@@ -202,7 +202,33 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "El campo está vacío");
                     jTextoPrecio.requestFocus();
                 } else {
-                    LocalDate fechaViaje = LocalDate.of(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())));
+                    int mes;
+                    if(jComboBoxMes.getSelectedItem().equals("Enero")){
+                        mes = 0;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Febrero")){
+                        mes = 1;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Marzo")){
+                        mes = 2;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Abril")){
+                        mes = 3;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Mayo")){
+                        mes = 4;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Junio")){
+                        mes = 5;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Julio")){
+                        mes = 6;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Agosto")){
+                        mes = 7;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Septiembre")){
+                        mes = 8;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Octubre")){
+                        mes = 9;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Noviembre")){
+                        mes = 10;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Diciembre")){
+                        mes = 11;
+                    }
+                    LocalDate fechaViaje = LocalDate.of(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), mes, Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())));
                     Time horaViaje = (Time) jComboBoxHora.getSelectedItem();
                     pasajeData.registrarVenta(new Pasaje(pasajeroData.buscarNombre(jTextoNombre.getText()), colectivoData.buscar(Integer.parseInt(jTextoIDColectivo.getText())), rutaData.buscarPorID(Integer.parseInt(jTextoIDRuta.getText())), Date.valueOf(fechaViaje), horaViaje, Integer.parseInt(jTextoAsiento.getText()), Double.parseDouble(jTextoPrecio.getText()), true));
                 }

@@ -167,6 +167,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
         try {
             jTextoID.setEditable(false);
+            jTextoID.setText("");
             if (validar()) {
                 Time duration = Time.valueOf(jTextoDuracion.getText());
                 Ruta ruta = new Ruta(jTextoOrigen.getText(), jTextoDestino.getText(), duration, true);
