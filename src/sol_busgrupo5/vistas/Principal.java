@@ -26,7 +26,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuGestionPasajes = new javax.swing.JMenu();
         jAñadirPasaje_ = new javax.swing.JMenuItem();
         jBuscarPasaje_ = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jListarPasaje_ = new javax.swing.JMenuItem();
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,8 +137,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionPasajes.add(jBuscarPasaje_);
 
-        jMenuItem3.setText("jMenuItem3");
-        jMenuGestionPasajes.add(jMenuItem3);
+        jListarPasaje_.setText("Listar");
+        jListarPasaje_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jListarPasaje_ActionPerformed(evt);
+            }
+        });
+        jMenuGestionPasajes.add(jListarPasaje_);
 
         jMenuBar1.add(jMenuGestionPasajes);
 
@@ -249,6 +254,14 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.add(gestionPasajes_Buscar);
     }//GEN-LAST:event_jBuscarPasaje_ActionPerformed
 
+    private void jListarPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarPasaje_ActionPerformed
+        JDesktop.removeAll();
+        JDesktop.repaint();
+        GestionPasajes_Listar gestionPasajes_Listar = new GestionPasajes_Listar();
+        gestionPasajes_Listar.setVisible(true);
+        JDesktop.add(gestionPasajes_Listar);
+    }//GEN-LAST:event_jListarPasaje_ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -295,6 +308,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jBuscarPasaje_;
     private javax.swing.JMenuItem jBuscarPasajero_;
     private javax.swing.JMenuItem jBuscarRuta_;
+    private javax.swing.JMenuItem jListarPasaje_;
     private javax.swing.JMenuItem jListarPasajero_;
     private javax.swing.JMenuItem jListarRuta_;
     private javax.swing.JMenuBar jMenuBar1;
@@ -302,7 +316,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuGestionPasajeros;
     private javax.swing.JMenu jMenuGestionPasajes;
     private javax.swing.JMenu jMenuGestionRutas;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jMenuSalir;
     // End of variables declaration//GEN-END:variables
 }

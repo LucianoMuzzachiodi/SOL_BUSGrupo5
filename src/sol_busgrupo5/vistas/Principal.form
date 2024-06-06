@@ -110,10 +110,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBuscarPasaje_ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="jListarPasaje_">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jMenuItem3"/>
+                <Property name="text" type="java.lang.String" value="Listar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jListarPasaje_ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -172,9 +172,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     }
 
     private void vaciarTabla() {
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {
-            modelo.removeRow(i);
-        }
+        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {modelo.removeRow(i);}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

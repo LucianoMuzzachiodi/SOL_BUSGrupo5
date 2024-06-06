@@ -40,6 +40,32 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
         }
     }
+    
+    public List<Pasaje> visualizarPasajes() {
+        List<Pasaje> pasajes = new ArrayList<>();
+
+        String sql = "SELECT * FROM pasaje";
+
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasaje.getPasajero().setIdPasajero(rs.getInt("ID_Pasajero"));
+                pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
+                pasaje.getRuta().setIdRuta(rs.getInt("ID_Ruta"));
+                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
+                pasaje.setAsiento(rs.getInt("Asiento"));
+                pasaje.setPrecio(rs.getDouble("Precio"));
+                pasajes.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        }
+        return pasajes;
+    }
 
     public List<Pasaje> visualizarPorRuta(int ID_Ruta) {
         List<Pasaje> pasajes = new ArrayList<>();

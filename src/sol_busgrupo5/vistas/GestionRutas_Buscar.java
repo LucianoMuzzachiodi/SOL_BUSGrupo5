@@ -1,7 +1,6 @@
 package sol_busgrupo5.vistas;
 
 import java.awt.HeadlessException;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
@@ -10,11 +9,10 @@ import sol_busgrupo5.entidades.*;
 public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     RutaData RD = new RutaData();
-    KeyEvent evt;
     
     public GestionRutas_Buscar() {
         initComponents();
-        llenarTabla(evt);
+        llenarTabla();
         jComboBox.removeAllItems();
         jComboBox.addItem("Origen");
         jComboBox.addItem("Destino");
@@ -111,10 +109,39 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextoKeyReleased
-        llenarTabla(evt);
+        cargarDatos();
     }//GEN-LAST:event_jTextoKeyReleased
-    private void llenarTabla(java.awt.event.KeyEvent evt){
-        vaciarTabla();
+    
+    private void cargarDatos(){
+        if (RD.listarRutas().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
+        } else if (jTexto.getText().isEmpty()) {
+            llenarTabla();
+        } else {
+            try {
+                vaciarTabla();
+                int contador = 0; String activo;
+                if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty() && RD.buscarRuta("Origen", jTexto.getText()) != null) {
+                    for (Ruta ruta : RD.buscarRuta_Lista("Origen", jTexto.getText())) {
+                        contador++;
+                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
+                    }
+                } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty() && RD.buscarRuta("Destino", jTexto.getText()) != null) {
+                    for (Ruta ruta : RD.buscarRuta_Lista("Destino", jTexto.getText())) {
+                        contador++;
+                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
+                    }
+                }
+            } catch (HeadlessException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage());
+            }
+        }
+    }
+    
+    private void llenarTabla(){
+        vaciarTabla(); int contador = 0; String activo;
         modelo.setColumnCount(0);
         modelo.setColumnIdentifiers(new Object[]{"","ID","Origen","Destino","Duración","Estado"});
         jTabla.setModel(modelo);
@@ -131,29 +158,12 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         columna4.setPreferredWidth(120);
         columna5.setPreferredWidth(40);
         columna6.setPreferredWidth(40);
-        if (RD.listarRutas().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay rutas. Agregá una antes.");
-        } else {
-            try {
-                int contador = 0; String activo;
-                if (jComboBox.getSelectedItem().equals("Origen") && !jTexto.getText().isEmpty() && RD.buscarRuta("Origen", jTexto.getText()) != null) {
-                    for (Ruta ruta : RD.buscarRuta("Origen", jTexto.getText())) {
-                        contador++;
-                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
-                    }
-                } else if (jComboBox.getSelectedItem().equals("Destino") && !jTexto.getText().isEmpty() && RD.buscarRuta("Destino", jTexto.getText()) != null) {
-                    for (Ruta ruta : RD.buscarRuta("Destino", jTexto.getText())) {
-                        contador++;
-                        if(ruta.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                        modelo.addRow(new Object[]{contador, ruta.getIdRuta(), ruta.getOrigen(), ruta.getDestino(), ruta.getDuracionEstimada(), activo});
-                    }
-                }
-            } catch (HeadlessException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage());
-            }
-        }
         jTabla.setModel(modelo);
+        for (Ruta rutas : RD.listarRutas()) {
+            contador++;
+            if(rutas.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+            modelo.addRow(new Object[]{contador, rutas.getIdRuta(), rutas.getOrigen(), rutas.getDestino(), rutas.getDuracionEstimada(), activo});
+        }
     }
     private void vaciarTabla(){
         for (int i = modelo.getRowCount() - 1; i >= 0; i--) {

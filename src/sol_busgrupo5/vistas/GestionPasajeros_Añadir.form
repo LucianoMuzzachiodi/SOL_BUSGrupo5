@@ -26,8 +26,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextoTelefono" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextoTelefono" min="-2" pref="142" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -146,9 +146,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextoNombre">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextoNombreActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -156,9 +153,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextoApellido">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextoApellidoActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -176,7 +170,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
+        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono: (+54)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextoTelefono">

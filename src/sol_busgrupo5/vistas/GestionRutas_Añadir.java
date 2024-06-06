@@ -1,5 +1,6 @@
 package sol_busgrupo5.vistas;
 
+import java.awt.HeadlessException;
 import java.sql.Time;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.RutaData;
@@ -10,6 +11,8 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     public GestionRutas_Añadir() {
         initComponents();
+        jEliminar.setVisible(false);
+        jNuevo.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,17 +27,16 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jTextoDuracion = new javax.swing.JTextField();
         jGuardar = new javax.swing.JButton();
         jSalir = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jBuscar = new javax.swing.JButton();
+        jEliminar = new javax.swing.JButton();
+        jNuevo = new javax.swing.JButton();
+        jLabelID = new javax.swing.JLabel();
+        jTextoID = new javax.swing.JTextField();
 
         jLabel1.setText("Origen:");
 
         jLabel2.setText("Destino:");
-
-        jTextoDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextoDestinoActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Duración estimada (hs):");
 
@@ -52,94 +54,210 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jLabel4.setText("Añadir una Ruta");
+        jLabelTitulo.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        jLabelTitulo.setText("Añadir una Ruta");
+
+        jBuscar.setText("Buscar");
+        jBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscarActionPerformed(evt);
+            }
+        });
+
+        jEliminar.setText("Eliminar");
+        jEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEliminarActionPerformed(evt);
+            }
+        });
+
+        jNuevo.setText("Nuevo");
+        jNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNuevoActionPerformed(evt);
+            }
+        });
+
+        jLabelID.setText("ID:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabelTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jSalir)
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextoDuracion))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextoDestino))
+                        .addComponent(jEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jNuevo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(3, 3, 3)
-                        .addComponent(jTextoOrigen)))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextoOrigen))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextoDestino)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel4)
+                .addContainerGap()
+                .addComponent(jLabelID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(22, 22, 22)
+                .addComponent(jLabelTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelID))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                    .addComponent(jTextoDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextoDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jGuardar)
+                    .addComponent(jBuscar)
+                    .addComponent(jNuevo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jEliminar)
                     .addComponent(jSalir))
-                .addGap(37, 37, 37))
+                .addGap(4, 4, 4))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextoDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextoDestinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextoDestinoActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
-        if(jTextoOrigen.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"El primer campo está vacío"); jTextoOrigen.requestFocus();
-        }else if(jTextoDestino.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"El segundo campo está vacío"); jTextoDestino.requestFocus();
-        }else if(jTextoDuracion.getText().equals("")){
-            JOptionPane.showMessageDialog(this,"El tercer campo está vacío"); jTextoDuracion.requestFocus();
-        }else{
-            RD.agregarRuta(new Ruta(jTextoOrigen.getText(),jTextoDestino.getText(),Time.valueOf(jTextoDuracion.getText()),true));
+        try {
+            jTextoID.setEditable(false);
+            if (validar()) {
+                Time duration = Time.valueOf(jTextoDuracion.getText());
+                Ruta ruta = new Ruta(jTextoOrigen.getText(), jTextoDestino.getText(), duration, true);
+                if (jGuardar.getText().equals("Guardar")) {
+                    RD.agregarRuta(ruta);
+                } else {
+                    RD.modificarRuta(new Ruta(Integer.parseInt(jTextoID.getText()), jTextoOrigen.getText(), jTextoDestino.getText(), duration, true));
+                }
+                vaciarFormulario();
+            }
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "El formato de duración debe ser HH:mm:ss");
+            jTextoDuracion.requestFocus();
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado");
         }
     }//GEN-LAST:event_jGuardarActionPerformed
 
+    private void jNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoActionPerformed
+        vaciarFormulario();
+    }//GEN-LAST:event_jNuevoActionPerformed
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
+        RD.eliminarRuta(Integer.parseInt(jTextoID.getText()));
+        jNuevoActionPerformed(evt);
+    }//GEN-LAST:event_jEliminarActionPerformed
+
+    private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
+        try {
+            jTextoID.setEditable(true);
+            jTextoID.requestFocus();
+            llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Valor inválido");
+            jTextoID.requestFocus();
+        }
+    }//GEN-LAST:event_jBuscarActionPerformed
+        
+    private boolean validar() {
+        if (jTextoOrigen.getText().isEmpty() || !jTextoOrigen.getText().matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Valor inválido");
+            jTextoOrigen.requestFocus();
+            return false;
+        } else if (jTextoDestino.getText().isEmpty() || !jTextoDestino.getText().matches("[a-zA-Z ]+")) {
+            JOptionPane.showMessageDialog(this, "Valor inválido");
+            jTextoDestino.requestFocus();
+            return false;
+        } else if (jTextoDuracion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Valor inválido");
+            jTextoDuracion.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private void vaciarFormulario() {
+        jTextoDuracion.setText("00:00:00");
+        jTextoDestino.setText("");
+        jTextoOrigen.setText("");
+        jTextoID.setText("");
+        jLabelTitulo.setText("Añadir una Ruta");
+        jGuardar.setText("Guardar");
+        jEliminar.setVisible(false);
+        jNuevo.setVisible(false);
+        jTextoOrigen.requestFocus();
+    }
+
+    private void llenarFormulario(Ruta ruta) {
+        jNuevo.setVisible(true);
+        jEliminar.setVisible(true);
+        jGuardar.setText("Modificar");
+        jLabelTitulo.setText("Buscar una ruta");
+        jTextoID.setText("" + ruta.getIdRuta());
+        jTextoOrigen.setText(ruta.getOrigen());
+        jTextoDestino.setText(ruta.getDestino());
+        jTextoDuracion.setText("" + ruta.getDuracionEstimada());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBuscar;
+    private javax.swing.JButton jEliminar;
     private javax.swing.JButton jGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelID;
+    private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JButton jNuevo;
     private javax.swing.JButton jSalir;
     private javax.swing.JTextField jTextoDestino;
     private javax.swing.JTextField jTextoDuracion;
+    private javax.swing.JTextField jTextoID;
     private javax.swing.JTextField jTextoOrigen;
     // End of variables declaration//GEN-END:variables
 }
