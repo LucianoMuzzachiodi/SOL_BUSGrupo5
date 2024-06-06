@@ -202,7 +202,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "El campo está vacío");
                     jTextoPrecio.requestFocus();
                 } else {
-                    int mes;
+                    int mes = 0;
                     if(jComboBoxMes.getSelectedItem().equals("Enero")){
                         mes = 0;
                     } else if(jComboBoxMes.getSelectedItem().equals("Febrero")){

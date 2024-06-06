@@ -11,6 +11,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     public GestionRutas_Añadir() {
         initComponents();
+        vaciarFormulario();
         jEliminar.setVisible(false);
         jNuevo.setVisible(false);
     }
