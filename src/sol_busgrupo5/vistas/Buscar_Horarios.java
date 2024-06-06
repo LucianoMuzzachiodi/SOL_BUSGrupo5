@@ -5,6 +5,7 @@
 package sol_busgrupo5.vistas;
 import java.sql.Time;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.HorarioData;
 import sol_busgrupo5.accesoADatos.RutaData;
@@ -56,7 +57,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
 
         JComboBOX_Ruta_Fecha.setFont(new java.awt.Font("DialogInput", 0, 15)); // NOI18N
         JComboBOX_Ruta_Fecha.setMaximumRowCount(2);
-        JComboBOX_Ruta_Fecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ruta", "Fecha" }));
+        JComboBOX_Ruta_Fecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ruta", "Horarios" }));
         JComboBOX_Ruta_Fecha.setToolTipText("");
         JComboBOX_Ruta_Fecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +150,7 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 Config("Rutas");
                 
                 break;
-            case ("Fecha"):
+            case ("Horarios"):
                 Config("Fechas");
                 
                 break;
@@ -204,6 +205,8 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                     for(Horario horario:HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null)){
                         DTMT.addRow(new Object[]{horario.getIdHorario(),horario.getRuta().getIdRuta(),horario.getHoraSalida(),horario.getHoraLlegada()});
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this, "no hay rutas disponibles.");
                 }
                 
                 break;
