@@ -204,32 +204,32 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                 } else {
                     int mes = 0;
                     if(jComboBoxMes.getSelectedItem().equals("Enero")){
-                        mes = 0;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Febrero")){
                         mes = 1;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Marzo")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Febrero")){
                         mes = 2;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Abril")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Marzo")){
                         mes = 3;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Mayo")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Abril")){
                         mes = 4;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Junio")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Mayo")){
                         mes = 5;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Julio")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Junio")){
                         mes = 6;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Agosto")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Julio")){
                         mes = 7;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Septiembre")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Agosto")){
                         mes = 8;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Octubre")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Septiembre")){
                         mes = 9;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Noviembre")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Octubre")){
                         mes = 10;
-                    } else if(jComboBoxMes.getSelectedItem().equals("Diciembre")){
+                    } else if(jComboBoxMes.getSelectedItem().equals("Noviembre")){
                         mes = 11;
+                    } else if(jComboBoxMes.getSelectedItem().equals("Diciembre")){
+                        mes = 12;
                     }
                     LocalDate fechaViaje = LocalDate.of(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), mes, Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())));
-                    Time horaViaje = (Time) jComboBoxHora.getSelectedItem();
+                    Time horaViaje = Time.valueOf(jComboBoxHora.getSelectedItem().toString());
                     pasajeData.registrarVenta(new Pasaje(pasajeroData.buscarNombre(jTextoNombre.getText()), colectivoData.buscar(Integer.parseInt(jTextoIDColectivo.getText())), rutaData.buscarPorID(Integer.parseInt(jTextoIDRuta.getText())), Date.valueOf(fechaViaje), horaViaje, Integer.parseInt(jTextoAsiento.getText()), Double.parseDouble(jTextoPrecio.getText()), true));
                 }
             } catch (HeadlessException | NumberFormatException ex) {
