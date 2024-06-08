@@ -241,11 +241,8 @@ public class Principal extends javax.swing.JFrame {
     private void jAñadirPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirPasaje_ActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
-        GestionPasajes_Añadir gestionPasajes_Añadir = new GestionPasajes_Añadir();
-        gestionPasajes_Añadir.setVisible(true);
         Venta_Pasajes VP = new Venta_Pasajes();
         VP.setVisible(true);
-        JDesktop.add(gestionPasajes_Añadir);
         JDesktop.add(VP);
     }//GEN-LAST:event_jAñadirPasaje_ActionPerformed
 
