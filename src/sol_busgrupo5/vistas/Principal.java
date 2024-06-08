@@ -36,11 +36,11 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.setLayout(JDesktopLayout);
         JDesktopLayout.setHorizontalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 920, Short.MAX_VALUE)
+            .addGap(0, 1121, Short.MAX_VALUE)
         );
         JDesktopLayout.setVerticalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 607, Short.MAX_VALUE)
+            .addGap(0, 650, Short.MAX_VALUE)
         );
 
         jMenuGestionRutas.setText("Gestión de Rutas");
@@ -243,7 +243,10 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.repaint();
         GestionPasajes_Añadir gestionPasajes_Añadir = new GestionPasajes_Añadir();
         gestionPasajes_Añadir.setVisible(true);
+        Venta_Pasajes VP = new Venta_Pasajes();
+        VP.setVisible(true);
         JDesktop.add(gestionPasajes_Añadir);
+        JDesktop.add(VP);
     }//GEN-LAST:event_jAñadirPasaje_ActionPerformed
 
     private void jBuscarPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarPasaje_ActionPerformed

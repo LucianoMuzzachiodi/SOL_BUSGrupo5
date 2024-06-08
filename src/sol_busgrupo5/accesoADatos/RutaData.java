@@ -89,10 +89,11 @@ public class RutaData {
                 rutas.add(new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("estado")));
             }
             ps.close();
+            return rutas;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla ruta. " + ex.getMessage());
         }
-        return rutas;
+        return null;
     }
 
     public Ruta buscarPorID(int ID_Ruta) {

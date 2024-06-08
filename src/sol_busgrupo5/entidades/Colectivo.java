@@ -65,6 +65,6 @@ public class Colectivo {
     public String toString() {
         String activo;
         if(estado){activo = "Activo";}else{activo = "Inactivo";}
-        return "ID: " + idColectivo + ", matrícula: " + matricula + ", marca: " + marca + ", modelo: " + modelo + ", capacidad: " + capacidad + ", estado: " + activo;
+        return "modelo: " + modelo;
     }  
 }
