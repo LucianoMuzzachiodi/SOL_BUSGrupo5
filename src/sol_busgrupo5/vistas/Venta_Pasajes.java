@@ -697,7 +697,12 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
     private void JButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_GuardarActionPerformed
         try{
             Pasaje pasaje = new Pasaje(PD.buscarPorID(Integer.parseInt(JTextID_Pasajero.getText())),CD.buscar(Integer.parseInt(JTextID_Colectivo.getText())),RD.buscarPorID(Integer.parseInt(JTextID_Ruta.getText())),Date.valueOf(JTextFecha.getText()),Time.valueOf(JTextHora_viaje.getText()),Integer.parseInt(JTextAsiento.getText()),Double.parseDouble(JTextPrecio.getText()),true);
-            PasajeD.registrarVenta(pasaje);
+            int aux = PasajeD.registrarVenta(pasaje);
+            if(aux==1){
+                JOptionPane.showMessageDialog(this, "venta agregada.");
+            } else {
+                JOptionPane.showMessageDialog(this, "no se pudo agregar venta.");
+            }
         }catch(NumberFormatException NFE){
             
         }

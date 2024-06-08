@@ -3,6 +3,7 @@ package sol_busgrupo5.accesoADatos;
 import java.sql.*;
 import java.util.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.*;
 
@@ -10,29 +11,31 @@ public class PasajeData {
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
-
     public PasajeData() {
         con = Conexion.getConexion();
     }
 
-    public void registrarVenta(Pasaje pasaje) {
-        String sql = "INSERT INTO `pasaje` (`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`) VALUES (?,?,?,?,?,?,?,?)";
-
+    public int registrarVenta(Pasaje pasaje) {
         try {
-            ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `pasaje`(`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
-            ps.setDate(4, new java.sql.Date(pasaje.getFechaViaje().getTime()));
-            ps.setTime(5, new java.sql.Time(pasaje.getHoraViaje().getTime()));
-            ps.setInt(6, buscarAsientoDisponible(pasaje.getAsiento()));
+            ps.setDate(4, (Date)pasaje.getFechaViaje());
+            ps.setTime(5, pasaje.getHoraViaje());
+            ps.setInt(6, pasaje.getAsiento());
             ps.setDouble(7, pasaje.getPrecio());
-            ps.setBoolean(8, pasaje.isEstado());
-            ps.executeUpdate();
-            ps.close();
+            ps.setBoolean(8, true);
+            return ps.executeUpdate();
+            
         } catch (SQLException ex) {
+            System.out.println(ex);
+            System.out.println(ex.fillInStackTrace());
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
+        } catch(NullPointerException NPE){
+            System.err.println(NPE);
         }
+        return 0;
     }
     
     public List<Pasaje> visualizarPasajes() {
