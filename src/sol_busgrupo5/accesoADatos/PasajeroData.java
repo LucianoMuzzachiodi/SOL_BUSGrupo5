@@ -108,7 +108,21 @@ public class PasajeroData {
         }
         return null;
     }
+    public Pasajero buscarPorID(int ID) {
+        String sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = "+ID;
 
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
+        }
+        return null;
+    }
     //MODIFICAR PASAJERO
     public void modificar(Pasajero pasajero) {
         String sql = "UPDATE pasajero SET Nombre = ?, Apellido = ?, DNI = ?, Correo = ?, Teléfono = ?, Estado = ? WHERE ID_Pasajero = ?";

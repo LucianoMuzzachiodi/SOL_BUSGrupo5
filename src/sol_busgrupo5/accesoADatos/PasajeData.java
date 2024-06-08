@@ -16,10 +16,10 @@ public class PasajeData {
     }
 
     public void registrarVenta(Pasaje pasaje) {
-        String sql = "INSERT INTO pasaje (ID_Pasajero, ID_Colectivo, ID_Ruta, Fecha_Viaje, Hora_Viaje, Asiento, Precio, Estado) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `pasaje` (`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
-            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(sql);
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
@@ -29,12 +29,6 @@ public class PasajeData {
             ps.setDouble(7, pasaje.getPrecio());
             ps.setBoolean(8, pasaje.isEstado());
             ps.executeUpdate();
-
-            rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                pasaje.setIdPasaje(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Pasaje registrado");
-            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
