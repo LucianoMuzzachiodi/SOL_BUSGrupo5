@@ -218,12 +218,13 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTextGmail, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(JTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -576,12 +577,13 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel21)
-                        .addComponent(JTextAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel20)
-                        .addComponent(JTextHora_viaje, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JTextID_Pasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(JTextID_Pasajero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(JTextAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20)
+                            .addComponent(JTextHora_viaje, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -644,21 +646,24 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
         try{
             if(JDNI.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "campo Vacio.");
+                JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
             } else if (Integer.parseInt(JDNI.getText())<=0){
-                JDNI.setText("");
                 JOptionPane.showMessageDialog(this, "valor invalido.");
+                JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
             } else {
                 if(PD.buscar(Integer.parseInt(JDNI.getText()))!=null){
                     Pasajero pasajero = PD.buscar(Integer.parseInt(JDNI.getText()));
                     JTextID_Pasajero.setText(""+pasajero.getIdPasajero());
                     JTextNombre.setText(pasajero.getNombre()); JTextApellido.setText(pasajero.getApellido()); JTextGmail.setText(pasajero.getCorreo()); JTextTelefono.setText(pasajero.getTelefono());
                 } else {
+                    
                     JOptionPane.showMessageDialog(this, "Pasajero no encontrado, DNI invalido o no registrado.");
+                    JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
                 }
             }
             
         }catch(NumberFormatException NFE){
-            JDNI.setText("");
+            JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
             JOptionPane.showMessageDialog(this, "No debe contener letras.");
         }
     }//GEN-LAST:event_JButton_BuscarPasajeroActionPerformed
@@ -704,7 +709,20 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "no se pudo agregar venta.");
             }
         }catch(NumberFormatException NFE){
+            if(JTextID_Pasajero.getText().equals("ID Pasajero")){
+                JOptionPane.showMessageDialog(this, "Falta la ID del Pasajero");
+            } else if (JTextID_Colectivo.getText().equals("ID Colectivo")){
+                JOptionPane.showMessageDialog(this, "Falta la ID del Colectivo");
+            } else if (JTextID_Ruta.getText().equals("ID Ruta")){
+                JOptionPane.showMessageDialog(this, "Falta la ID de Ruta");
+            } else if (JTextAsiento.getText().equals("Asiento")){
+                JOptionPane.showMessageDialog(this, "Asiento debe contener un Numero.");
+            } else if (JTextPrecio.getText().equals("Precio")){
+                JOptionPane.showMessageDialog(this, "Precio debe contener solamente Numeros.");
+            }
             
+        }catch(IllegalArgumentException IAE){
+            JOptionPane.showMessageDialog(this, "Fecha y Hora deben contener valores Validos.");
         }
     }//GEN-LAST:event_JButton_GuardarActionPerformed
     public void Clean(){
