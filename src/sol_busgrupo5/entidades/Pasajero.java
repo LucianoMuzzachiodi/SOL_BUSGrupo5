@@ -73,6 +73,6 @@ public class Pasajero {
     public String toString() {
         String activo;
         if(estado){activo = "Activo";}else{activo = "Inactivo";}
-        return idPasajero + "" + nombre + "" + apellido + "" + dni + "" + correo + "" + telefono + "" + activo;
+        return "Id: " + idPasajero + ", Nombre: " + nombre + ", Apellido: " + apellido + ", DNI: " + dni + ", Correo: " + correo + ", Teléfono: " + telefono + ", Estado: " + activo;
     }
 }

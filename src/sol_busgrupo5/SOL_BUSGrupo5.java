@@ -45,10 +45,10 @@ public class SOL_BUSGrupo5 {
 //        System.out.println(pasajeroD.buscar(42697806));
 
           //MODIFICAR PASAJERO
-//          pasajeroD.modificar(new Pasajero(1, "Luciano", "Muzzachiodi", 31201637, "luciano@hotmail.com", "2664307399", true));
+//          pasajeroD.modificar(new Pasajero(1, "Luciano", "Muzzachiodi", 31201637, "luciano@hotmail.com", "2664307390", true));
           
           //DAR DE BAJA PASAJERO
-//            pasajeroD.eliminar(4);
+//            pasajeroD.eliminar(7);
         
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ public class SOL_BUSGrupo5 {
         //REGISTRAR VENTA
 //        Pasajero pasajero = pasajeroD.buscar(31201637);
 //        Colectivo colectivo = colectivoD.buscar(1);
-//        Ruta ruta = rutD.buscarPorID(11);
+//        Ruta ruta = rutaD.buscarPorID(11);
 //        Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("17:50:00"), 25, 7000, true);
 //        pasajeD.registrarVenta(pasaje);
         
@@ -93,7 +93,7 @@ public class SOL_BUSGrupo5 {
 //        }
         
 //        //LISTAR PASAJES POR HORARIO
-//        for(Pasaje pas:pasajeD.visualizarPorHorario(Time.valueOf("00:00:17"))){
+//    ?????      for(Pasaje pas:pasajeD.visualizarPorHorario(Time.valueOf("17:50:00"))){
 //            System.out.println(pas);
 //        }
 
@@ -116,14 +116,15 @@ public class SOL_BUSGrupo5 {
              
  
         //AGREGAR HORARIO
-//        hora.Añadir_Horario(new Horario(rut.buscarPorID(1), Time.valueOf("10:00:00"), Time.valueOf("13:00:00"), true));
+//   ?????     horaD.Añadir_Horario(new Horario(rutaD.buscarPorID(1), Time.valueOf("10:00:00"), Time.valueOf("13:00:00"), true));
 
         //LISTAR HORARIOS
-//           System.out.println("----------por ruta(con la ID 1)");
+//           System.out.println("              Por ruta(con la ID 1):");
 //           for(Horario horario:horaD.Listar_Horarios("Por ruta", 1, null)){
 //               System.out.println(horario);
 //           }
-//           System.out.println("---------------por Fecha(Muestra todos los horarios disponibles)");
+//           System.out.println("");
+//           System.out.println("              Por Fecha(Muestra todos los horarios disponibles):");
 //           for(Horario horario:horaD.Listar_Horarios("Por Fecha", 0, Time.valueOf("04:00:00"))){
 //               System.out.println(horario);
 //           }
