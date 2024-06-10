@@ -108,15 +108,24 @@ public class PasajeData {
             ps = con.prepareStatement(sql);
             ps.setTime(1, horaViaje);
             rs = ps.executeQuery();
+            PasajeroData pasaj = new PasajeroData();
+            ColectivoData colectivoData = new ColectivoData();
             while (rs.next()) {
-                Pasaje pasaje = new Pasaje();
-                pasaje.getPasajero().setIdPasajero(rs.getInt("ID_Pasajero"));
-                pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
-                pasaje.getRuta().setIdRuta(rs.getInt("ID_Ruta"));
-                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
-                pasaje.setAsiento(rs.getInt("Asiento"));
-                pasaje.setPrecio(rs.getDouble("Precio"));
+                Pasajero AUX_Pasajero = new Pasajero();
+                Colectivo colectivos = new Colectivo();
+                Ruta rutas = new Ruta();
+                for(Colectivo colectivo:colectivoData.listarColectivos()){
+                    if(rs.getInt("ID_Colectivo")==colectivo.getIdColectivo()){
+                        colectivos = colectivo;
+                    }
+                }
+                for(Pasajero pasajeroos:pasaj.listarPasajeros()){
+                    if(rs.getInt("ID_Pasajero")==pasajeroos.getIdPasajero()){
+                        AUX_Pasajero=pasajeroos;
+                    }
+                }
+                Pasaje pasaje = new Pasaje(AUX_Pasajero,colectivos,rutas,rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
+                
                 pasajes.add(pasaje);
             }
             ps.close();

@@ -82,9 +82,9 @@ public class SOL_BUSGrupo5 {
              
         //REGISTRAR VENTA
 //        Pasajero pasajero = pasajeroD.buscar(31201637);
-//        Colectivo colectivo = colectivoD.buscar(1);
-//        Ruta ruta = rutaD.buscarPorID(11);
-//        Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("17:50:00"), 25, 7000, true);
+//        Colectivo colectivo = colectivoD.buscar(2);
+//        Ruta ruta = rutaD.buscarPorID(13);
+//        Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("09:40:00"), 2, 7000, true);
 //        pasajeD.registrarVenta(pasaje);
         
         //LISTAR PASAJE POR RUTA
@@ -93,7 +93,7 @@ public class SOL_BUSGrupo5 {
 //        }
         
 //        //LISTAR PASAJES POR HORARIO
-//    ?????      for(Pasaje pas:pasajeD.visualizarPorHorario(Time.valueOf("17:50:00"))){
+//          for(Pasaje pas:pasajeD.visualizarPorHorario(Time.valueOf("09:40:00"))){
 //            System.out.println(pas);
 //        }
 
