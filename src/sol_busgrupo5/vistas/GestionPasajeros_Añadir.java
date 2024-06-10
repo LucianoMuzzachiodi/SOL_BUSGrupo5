@@ -70,6 +70,11 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jLabelID.setText("ID:");
 
         jTextoID.setEditable(false);
+        jTextoID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextoIDActionPerformed(evt);
+            }
+        });
 
         jLabelTextoPrincipal.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabelTextoPrincipal.setText("Añadir Pasajero");
@@ -192,13 +197,13 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
             if (jTextoNombre.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Campo nombre vacío");
                 jTextoNombre.requestFocus();
-            } else if (!jTextoNombre.getText().matches("[a-zA-Z]+")) {
+            } else if (!jTextoNombre.getText().matches("[\\p{L}\\s]+")) {
                 JOptionPane.showMessageDialog(this, "Nombre inválido");
                 jTextoNombre.requestFocus();
             } else if (jTextoApellido.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Campo apellido vacío");
                 jTextoApellido.requestFocus();
-            } else if (!jTextoApellido.getText().matches("[a-zA-Z]+")) {
+            } else if (!jTextoApellido.getText().matches("[\\p{L}\\s]+")) {
                 JOptionPane.showMessageDialog(this, "Apellido inválido");
                 jTextoApellido.requestFocus();
             } else if (jTextoDNI.getText().equals("")) {
@@ -354,6 +359,17 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jEliminar.setVisible(false);
         jTextoNombre.requestFocus();
     }
+    }//GEN-LAST:event_jNuevoActionPerformed
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
+        PD.eliminar(Integer.parseInt(jTextoID.getText()));
+        jNuevoActionPerformed(evt);
+    }//GEN-LAST:event_jEliminarActionPerformed
+
+    private void jTextoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextoIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextoIDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;
