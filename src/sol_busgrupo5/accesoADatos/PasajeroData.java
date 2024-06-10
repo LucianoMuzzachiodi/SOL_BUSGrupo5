@@ -57,8 +57,8 @@ public class PasajeroData {
     }
 
     //BUSCAR POR NOMBRE
-    public ArrayList<Pasajero> buscarNombre(String nombre) {
-        ArrayList<Pasajero> pasajeros = new ArrayList();
+    public List<Pasajero> buscarNombre(String nombre) {
+        List<Pasajero> pasajeros = new ArrayList();
         String sql = "SELECT * FROM `pasajero` WHERE Nombre LIKE ?";
 
         try {
@@ -77,15 +77,17 @@ public class PasajeroData {
     }
 
     //BUSCAR POR APELLIDO
-    public Pasajero buscarApellido(String apellido) {
+    public List<Pasajero> buscarApellido(String apellido) {
+        List<Pasajero> pasajeros = new ArrayList();
         String sql = "SELECT * FROM `pasajero` WHERE Apellido LIKE ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, apellido + "%");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+            while (rs.next()) {
+                Pasajero pasajero = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+                pasajeros.add(pasajero);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -95,15 +97,17 @@ public class PasajeroData {
     }
 
     //BUSCAR POR DNI
-    public Pasajero buscar(int dni) {
+    public List<Pasajero> buscarDNI(int dni) {
+        List<Pasajero> pasajeros = new ArrayList();
         String sql = "SELECT * FROM `pasajero` WHERE DNI LIKE ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, dni + "%");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+            while (rs.next()) {
+                Pasajero pasajero = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+                pasajeros.add(pasajero);
             }
             ps.close();
         } catch (SQLException ex) {
@@ -111,8 +115,10 @@ public class PasajeroData {
         }
         return null;
     }
+    
+    //BUSCAR POR ID
     public Pasajero buscarPorID(int ID) {
-        String sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = "+ID;
+        String sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = " + ID;
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -126,6 +132,7 @@ public class PasajeroData {
         }
         return null;
     }
+    
     //MODIFICAR PASAJERO
     public void modificar(Pasajero pasajero) {
         String sql = "UPDATE pasajero SET Nombre = ?, Apellido = ?, DNI = ?, Correo = ?, Teléfono = ?, Estado = ? WHERE ID_Pasajero = ?";
@@ -163,5 +170,87 @@ public class PasajeroData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
         }
+    }
+    
+    public Pasajero buscar(String objeto, String s) {
+        String sql; PreparedStatement ps; ResultSet rs;
+        
+        try {
+            switch (objeto) {
+                case "Nombre":
+                    sql = "SELECT * FROM `pasajero` WHERE Nombre LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                case "Apellido":
+                    sql = "SELECT * FROM `pasajero` WHERE Apellido LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                case "DNI":
+                    sql = "SELECT * FROM `pasajero` WHERE DNI LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                default:
+                    sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s);
+                    rs = ps.executeQuery();
+                    break;
+            }
+            if (rs.next()) {
+                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
+        }
+        return null;
+    }
+    
+    public List<Pasajero> buscar_Lista(String objeto, String s) {
+        List<Pasajero> pasajeros = new ArrayList();
+        String sql; PreparedStatement ps; ResultSet rs;
+        
+        try {
+            switch (objeto) {
+                case "Nombre":
+                    sql = "SELECT * FROM `pasajero` WHERE Nombre LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                case "Apellido":
+                    sql = "SELECT * FROM `pasajero` WHERE Apellido LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                case "DNI":
+                    sql = "SELECT * FROM `pasajero` WHERE DNI LIKE ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s + "%");
+                    rs = ps.executeQuery();
+                    break;
+                default:
+                    sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, s);
+                    rs = ps.executeQuery();
+                    break;
+            }
+            while (rs.next()) {
+                Pasajero pasajero = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+                pasajeros.add(pasajero);
+            }
+            return pasajeros;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
+        }
+        return null;
     }
 }

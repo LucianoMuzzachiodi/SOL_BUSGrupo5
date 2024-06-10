@@ -196,9 +196,20 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
-            if(RD.buscarPorID(Integer.parseInt(jTextoID.getText())) != null){
+            if(RD.buscarPorID(Integer.parseInt(jTextoID.getText())) != null && !jTextoID.getText().isEmpty() && jTextoOrigen.getText().isEmpty() && jTextoDestino.getText().isEmpty()){
                 jTextoID.requestFocus();
                 llenarFormulario(RD.buscarPorID(Integer.parseInt(jTextoID.getText())));
+            } else if(RD.buscarRuta("Origen", jTextoOrigen.getText()) != null && jTextoID.getText().isEmpty() && !jTextoOrigen.getText().isEmpty() && jTextoDestino.getText().isEmpty()){
+                jTextoOrigen.requestFocus();
+                llenarFormulario(RD.buscarRuta("Origen", jTextoOrigen.getText()));
+            } else if(RD.buscarRuta("Destino", jTextoDestino.getText()) != null && jTextoID.getText().isEmpty() && jTextoOrigen.getText().isEmpty() && !jTextoDestino.getText().isEmpty()){
+                jTextoDestino.requestFocus();
+                llenarFormulario(RD.buscarRuta("Origen", jTextoOrigen.getText()));
+            } else if(RD.listarRutas().isEmpty()){
+                JOptionPane.showMessageDialog(this, "No hay rutas");
+            } else if(jTextoID.getText().isEmpty() && jTextoOrigen.getText().isEmpty() && jTextoDestino.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Llene algún campo");
+                jTextoID.requestFocus();
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
