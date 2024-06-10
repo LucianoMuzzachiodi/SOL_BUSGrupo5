@@ -444,6 +444,11 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
 
         jButton3.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
         jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel10.add(jButton3);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -725,6 +730,10 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Fecha y Hora deben contener valores Validos.");
         }
     }//GEN-LAST:event_JButton_GuardarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
     public void Clean(){
         JDNI.setText("");
         JTextNombre.setText("");
