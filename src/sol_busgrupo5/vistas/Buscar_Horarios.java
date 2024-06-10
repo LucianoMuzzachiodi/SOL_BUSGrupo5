@@ -252,9 +252,9 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
                 for(int i=DTMT.getRowCount()-1;i>=0;i--){
                     DTMT.removeRow(i);
                 }
-                JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(06, 00, 00)));
-                for(int i=1;i<=58;i++){
-                    JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(06, 00, 00).plusMinutes(10*i)));
+                JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(00, 00, 00)));
+                for(int i=1;i<=130;i++){
+                    JComboBOX_Salida.addItem(Time.valueOf(LocalTime.of(00, 00, 00).plusMinutes(10*i)));
                 }
                 break;
         }

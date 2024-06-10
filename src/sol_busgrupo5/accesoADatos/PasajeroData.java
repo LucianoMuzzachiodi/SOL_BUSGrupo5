@@ -57,16 +57,19 @@ public class PasajeroData {
     }
 
     //BUSCAR POR NOMBRE
-    public Pasajero buscarNombre(String nombre) {
+    public ArrayList<Pasajero> buscarNombre(String nombre) {
+        ArrayList<Pasajero> pasajeros = new ArrayList();
         String sql = "SELECT * FROM `pasajero` WHERE Nombre LIKE ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre + "%");
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+            while(rs.next()){
+                Pasajero pasajero = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
+                pasajeros.add(pasajero);
             }
+            return pasajeros;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
         }

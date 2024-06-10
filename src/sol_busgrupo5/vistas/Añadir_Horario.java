@@ -89,6 +89,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
             }
         });
 
+        jButton_Salir.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
         jButton_Salir.setText("Salir");
         jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,12 +125,11 @@ public class Añadir_Horario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(JComboBOX_Hora_Llegada, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton_Salir))
+                                .addComponent(jButton_Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(JComboBOX_Hora_Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(JButton_Añadir)))
-                        .addGap(0, 10, Short.MAX_VALUE)))
+                                .addComponent(JButton_Añadir)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -231,15 +231,15 @@ public class Añadir_Horario extends javax.swing.JFrame {
         for(Ruta ruta:RD.listarRutas()){
             JComboBOX_Rutas.addItem(ruta);
         }
-        for(int i=0;i<=119;i++){
+        for(int i=0;i<=138;i++){
             aux=aux+10;
-            LocalTime LT = LocalTime.of(06, 00, 00);
+            LocalTime LT = LocalTime.of(23, 50, 00);
             JComboBOX_Hora_Salida.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
         aux=0;
-        for(int i=0;i<=119;i++){
+        for(int i=0;i<=138;i++){
             aux=aux+10;
-            LocalTime LT = LocalTime.of(06, 00, 00);
+            LocalTime LT = LocalTime.of(23, 50, 00);
             JComboBOX_Hora_Llegada.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
     }
