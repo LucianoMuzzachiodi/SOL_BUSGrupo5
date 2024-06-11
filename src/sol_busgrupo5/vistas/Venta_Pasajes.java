@@ -8,23 +8,24 @@ import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
 public class Venta_Pasajes extends javax.swing.JInternalFrame {
-    PasajeroData PD = new PasajeroData(); RutaData RD = new RutaData(); ColectivoData CD = new ColectivoData(); HorarioData HD = new HorarioData(); PasajeData PasajeD = new PasajeData();
     DefaultTableModel DTMT = new DefaultTableModel();
+    ColectivoData CD = new ColectivoData();
+    PasajeData PasajeD = new PasajeData();
+    PasajeroData PD = new PasajeroData();
+    HorarioData HD = new HorarioData();
+    RutaData RD = new RutaData();
 
     public Venta_Pasajes() {
         initComponents();
         JComboS();
         EstoEsCine();
-        DTMT.setColumnIdentifiers(new String[]{"Destino","Hora Salida","Hora Llegada"});
+        DTMT.setColumnIdentifiers(new String[]{"Destino", "Hora Salida", "Hora Llegada"});
         JTable_Destinos.setModel(DTMT);
-        for(int i=DTMT.getRowCount()-1;i>=0;i--){
-                DTMT.removeRow(i);
-            }
-            for (Horario horario:HD.Listar_Horarios("Por ruta",RD.buscarRuta("Origen", String.valueOf(JCombo_Origen.getSelectedItem())).getIdRuta(), null)){
-                DTMT.addRow(new Object[]{horario.getRuta().getDestino(),horario.getHoraSalida(),horario.getHoraLlegada()});
-            }
-            
-            JTable_Destinos.setModel(DTMT);
+        DTMT.setRowCount(0);
+        for (Horario horario : HD.Listar_Horarios("Por ruta", RD.buscarRuta("Origen", String.valueOf(JCombo_Origen.getSelectedItem())).getIdRuta(), null)) {
+            DTMT.addRow(new Object[]{horario.getRuta().getDestino(), horario.getHoraSalida(), horario.getHoraLlegada()});
+        }
+        JTable_Destinos.setModel(DTMT);
     }
 
     @SuppressWarnings("unchecked")
@@ -622,53 +623,51 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JButton_BuscarPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_BuscarPasajeroActionPerformed
-        
-        try{
-            if(JDNI.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "campo Vacio.");
-                JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
-            } else if (Integer.parseInt(JDNI.getText())<=0){
-                JOptionPane.showMessageDialog(this, "valor invalido.");
-                JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
+        try {
+            if (JDNI.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Campo vacío.");
+                limpiarTextos();
+            } else if (!JDNI.getText().matches("[1-9][0-9]{7}+")) {
+                JOptionPane.showMessageDialog(this, "Valor inválido.");
+                limpiarTextos();
             } else {
-                if(PD.buscar("DNI",JDNI.getText())!=null){
-                    Pasajero pasajero = PD.buscar("DNI",JDNI.getText());
-                    JTextID_Pasajero.setText(""+pasajero.getIdPasajero());
-                    JTextNombre.setText(pasajero.getNombre()); JTextApellido.setText(pasajero.getApellido()); JTextGmail.setText(pasajero.getCorreo()); JTextTelefono.setText(pasajero.getTelefono());
+                if (PD.buscar("DNI", JDNI.getText()) != null) {
+                    Pasajero pasajero = PD.buscar("DNI", JDNI.getText());
+                    JTextID_Pasajero.setText("" + pasajero.getIdPasajero());
+                    JTextNombre.setText(pasajero.getNombre());
+                    JTextApellido.setText(pasajero.getApellido());
+                    JTextGmail.setText(pasajero.getCorreo());
+                    JTextTelefono.setText(pasajero.getTelefono());
                 } else {
-                    
-                    JOptionPane.showMessageDialog(this, "Pasajero no encontrado, DNI invalido o no registrado.");
-                    JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
+                    JOptionPane.showMessageDialog(this, "Pasajero no encontrado, DNI inválido o no registrado.");
+                    limpiarTextos();
                 }
             }
-            
-        }catch(NumberFormatException NFE){
-            JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
+        } catch (NumberFormatException NFE) {
             JOptionPane.showMessageDialog(this, "No debe contener letras.");
+            limpiarTextos();
         }
     }//GEN-LAST:event_JButton_BuscarPasajeroActionPerformed
 
     private void JCombo_OrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCombo_OrigenActionPerformed
-        for(int i=DTMT.getRowCount()-1;i>=0;i--){
-                DTMT.removeRow(i);
-            }
-            for (Horario horario:HD.Listar_Horarios("Por ruta",RD.buscarRuta("Origen", String.valueOf(JCombo_Origen.getSelectedItem())).getIdRuta(), null)){
-                JTextID_Ruta.setText(""+horario.getRuta().getIdRuta());
-                DTMT.addRow(new Object[]{horario.getRuta().getDestino(),horario.getHoraSalida(),horario.getHoraLlegada()});
-            }
-            JTable_Destinos.setModel(DTMT);
+        DTMT.setRowCount(0);
+        for (Horario horario : HD.Listar_Horarios("Por ruta", RD.buscarRuta("Origen", String.valueOf(JCombo_Origen.getSelectedItem())).getIdRuta(), null)) {
+            JTextID_Ruta.setText("" + horario.getRuta().getIdRuta());
+            DTMT.addRow(new Object[]{horario.getRuta().getDestino(), horario.getHoraSalida(), horario.getHoraLlegada()});
+        }
+        JTable_Destinos.setModel(DTMT);
     }//GEN-LAST:event_JCombo_OrigenActionPerformed
 
     private void JComboBox_TransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBox_TransportesActionPerformed
         Colectivo colectivo = ((Colectivo) JComboBox_Transportes.getSelectedItem());
-        JTextMarca.setText(""+colectivo.getMarca());
-        JTextCapacidad.setText(""+colectivo.getCapacidad());
-        JTextMatricula.setText(""+colectivo.getMatricula());
-        JTextID_Colectivo.setText(""+colectivo.getIdColectivo());
+        JTextMarca.setText("" + colectivo.getMarca());
+        JTextCapacidad.setText("" + colectivo.getCapacidad());
+        JTextMatricula.setText("" + colectivo.getMatricula());
+        JTextID_Colectivo.setText("" + colectivo.getIdColectivo());
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
 
     private void JTable_DestinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTable_DestinosMouseClicked
-        JTextHora_viaje.setText(""+DTMT.getValueAt(JTable_Destinos.getSelectedRow(), 1));
+        JTextHora_viaje.setText("" + DTMT.getValueAt(JTable_Destinos.getSelectedRow(), 1));
     }//GEN-LAST:event_JTable_DestinosMouseClicked
 
     private void JButton_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_NuevoActionPerformed
@@ -676,76 +675,82 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JButton_NuevoActionPerformed
 
     private void JButton_AplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_AplicarActionPerformed
-        JTextFecha.setText(JCombo_Año.getSelectedItem()+"-"+JCombo_Mes.getSelectedItem()+"-"+JCombo_Dia.getSelectedItem());
+        JTextFecha.setText(JCombo_Año.getSelectedItem() + "-" + JCombo_Mes.getSelectedItem() + "-" + JCombo_Dia.getSelectedItem());
     }//GEN-LAST:event_JButton_AplicarActionPerformed
 
     private void JButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_GuardarActionPerformed
-        try{
-            Pasaje pasaje = new Pasaje(PD.buscar("ID",JTextID_Pasajero.getText()),CD.buscar(Integer.parseInt(JTextID_Colectivo.getText())),RD.buscarPorID(Integer.parseInt(JTextID_Ruta.getText())),Date.valueOf(JTextFecha.getText()),Time.valueOf(JTextHora_viaje.getText()),Integer.parseInt(JTextAsiento.getText()),Double.parseDouble(JTextPrecio.getText()),true);
+        try {
+            Pasaje pasaje = new Pasaje(PD.buscar("ID", JTextID_Pasajero.getText()), CD.buscar(Integer.parseInt(JTextID_Colectivo.getText())), RD.buscarPorID(Integer.parseInt(JTextID_Ruta.getText())), Date.valueOf(JTextFecha.getText()), Time.valueOf(JTextHora_viaje.getText()), Integer.parseInt(JTextAsiento.getText()), Double.parseDouble(JTextPrecio.getText()), true);
             int aux = PasajeD.registrarVenta(pasaje);
-            if(aux==1){
-                JOptionPane.showMessageDialog(this, "venta agregada.");
+            if (aux == 1) {
+                JOptionPane.showMessageDialog(this, "Venta agregada.");
             } else {
-                JOptionPane.showMessageDialog(this, "no se pudo agregar venta.");
+                JOptionPane.showMessageDialog(this, "No se pudo agregar la venta.");
             }
-        }catch(NumberFormatException NFE){
-            if(JTextID_Pasajero.getText().equals("ID Pasajero")){
-                JOptionPane.showMessageDialog(this, "Falta la ID del Pasajero");
-            } else if (JTextID_Colectivo.getText().equals("ID Colectivo")){
-                JOptionPane.showMessageDialog(this, "Falta la ID del Colectivo");
-            } else if (JTextID_Ruta.getText().equals("ID Ruta")){
-                JOptionPane.showMessageDialog(this, "Falta la ID de Ruta");
-            } else if (JTextAsiento.getText().equals("Asiento")){
-                JOptionPane.showMessageDialog(this, "Asiento debe contener un Numero.");
-            } else if (JTextPrecio.getText().equals("Precio")){
-                JOptionPane.showMessageDialog(this, "Precio debe contener solamente Numeros.");
+        } catch (NumberFormatException NFE) {
+            if (JTextID_Pasajero.getText().equals("ID Pasajero")) {
+                JOptionPane.showMessageDialog(this, "Falta el ID del Pasajero");
+            } else if (JTextID_Colectivo.getText().equals("ID Colectivo")) {
+                JOptionPane.showMessageDialog(this, "Falta el ID del Colectivo");
+            } else if (JTextID_Ruta.getText().equals("ID Ruta")) {
+                JOptionPane.showMessageDialog(this, "Falta el ID de la Ruta");
+            } else if (JTextAsiento.getText().equals("Asiento")) {
+                JOptionPane.showMessageDialog(this, "Asiento debe contener un número.");
+            } else if (JTextPrecio.getText().equals("Precio")) {
+                JOptionPane.showMessageDialog(this, "Precio debe contener solamente números.");
             }
-            
-        }catch(IllegalArgumentException IAE){
-            JOptionPane.showMessageDialog(this, "Fecha y Hora deben contener valores Validos.");
+        } catch (IllegalArgumentException IAE) {
+            JOptionPane.showMessageDialog(this, "Fecha y Hora deben contener valores válidos.");
         }
     }//GEN-LAST:event_JButton_GuardarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
-    public void Clean(){
-        JDNI.setText("");
-        JTextNombre.setText("");
-        JTextGmail.setText("");
-        JTextApellido.setText("");
-        JTextTelefono.setText("");
+
+    public void Clean() {
+        limpiarTextos();
         JTextID_Pasajero.setText("ID Pasajero");
         JTextID_Colectivo.setText("ID Colectivo");
         JTextID_Ruta.setText("ID Ruta");
         JTextPrecio.setText("Precio");
         JTextHora_viaje.setText("Hora");
     }
-    public void JComboS(){
-        for(Ruta ruta:RD.listarRutas()){
+
+    public void limpiarTextos() {
+        JDNI.setText("");
+        JTextNombre.setText("");
+        JTextGmail.setText("");
+        JTextApellido.setText("");
+        JTextTelefono.setText("");
+    }
+
+    public void JComboS() {
+        for (Ruta ruta : RD.listarRutas()) {
             JCombo_Origen.addItem(ruta.getOrigen());
         }
-        for(Colectivo colectivo:CD.listarColectivos()){
+        for (Colectivo colectivo : CD.listarColectivos()) {
             JComboBox_Transportes.addItem(colectivo);
         }
     }
-    public void EstoEsCine(){
-        for(int i=LocalDate.now().getDayOfMonth();i<=31;i++){
-            if(i<=9){
-                JCombo_Dia.addItem("0"+i);
+
+    public void EstoEsCine() {
+        for (int i = LocalDate.now().getDayOfMonth(); i <= 31; i++) {
+            if (i <= 9) {
+                JCombo_Dia.addItem("0" + i);
             } else {
-                JCombo_Dia.addItem(""+i);
+                JCombo_Dia.addItem("" + i);
             }
         }
-        for(int i=LocalDate.now().getMonth().getValue();i<=12;i++){
-            if(i>=1 && i<10){
-                JCombo_Mes.addItem("0"+i);
+        for (int i = LocalDate.now().getMonth().getValue(); i <= 12; i++) {
+            if (i >= 1 && i < 10) {
+                JCombo_Mes.addItem("0" + i);
             } else {
-                JCombo_Mes.addItem(""+i);
+                JCombo_Mes.addItem("" + i);
             }
         }
-        
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FF;
     private javax.swing.JLabel Fecha;

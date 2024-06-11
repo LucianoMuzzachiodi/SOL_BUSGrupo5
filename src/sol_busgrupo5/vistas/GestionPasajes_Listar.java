@@ -70,10 +70,10 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton_SalirActionPerformed
 
-    private void llenarTabla(){
-        vaciarTabla();
+    private void llenarTabla() {
+        modelo.setRowCount(0);
         modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"","ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio ($)","Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"", "ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado"});
         jTabla.setModel(modelo);
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
@@ -96,18 +96,16 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         columna8.setPreferredWidth(50);
         columna9.setPreferredWidth(60);
         columna0.setPreferredWidth(40);
-        int contador = 0; String activo;
-        if (!pasajeData.visualizarPasajes().isEmpty()){
+        int contador = 0;
+        String activo;
+        if (!pasajeData.visualizarPasajes().isEmpty()) {
             for (Pasaje pasajes : pasajeData.visualizarPasajes()) {
                 contador++;
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador, pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
+                modelo.addRow(new Object[]{contador, pasajes.getIdPasaje(), pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
             }
         }
         jTabla.setModel(modelo);
-    }
-    private void vaciarTabla(){
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {modelo.removeRow(i);}
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
