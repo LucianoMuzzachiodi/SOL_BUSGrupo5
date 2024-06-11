@@ -37,6 +37,8 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jNuevo = new javax.swing.JButton();
         jEliminar = new javax.swing.JButton();
 
+        setTitle("Gestión de pasajeros");
+
         jLabel1.setText("Nombre:");
 
         jLabel2.setText("Apellido:");

@@ -32,6 +32,8 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSalir = new javax.swing.JButton();
 
+        setTitle("Busqueda de pasajeros");
+
         jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

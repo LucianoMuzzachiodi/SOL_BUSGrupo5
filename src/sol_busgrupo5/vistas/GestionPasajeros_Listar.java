@@ -22,6 +22,8 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
         jButton_Salir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
+        setTitle("Lista de pasajeros");
+
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

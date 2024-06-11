@@ -22,6 +22,8 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
         jTabla = new javax.swing.JTable();
         jSalir = new javax.swing.JButton();
 
+        setTitle("Lista de rutas");
+
         jLabel1.setFont(new java.awt.Font("Yu Gothic Medium", 0, 18)); // NOI18N
         jLabel1.setText("Viajes actuales");
 

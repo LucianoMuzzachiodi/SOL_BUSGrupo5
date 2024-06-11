@@ -52,6 +52,8 @@ public class Buscar_Horarios extends javax.swing.JInternalFrame {
         JTable = new javax.swing.JTable();
         jButton_Salir = new javax.swing.JButton();
 
+        setTitle("Busqueda de horarios");
+
         jLabel1.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ordenar por");

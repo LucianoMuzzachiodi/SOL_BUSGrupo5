@@ -43,22 +43,23 @@ public class Principal extends javax.swing.JFrame {
         jMenuSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SOLBUS LA PUNTA");
         setResizable(false);
 
         javax.swing.GroupLayout JDesktopLayout = new javax.swing.GroupLayout(JDesktop);
         JDesktop.setLayout(JDesktopLayout);
         JDesktopLayout.setHorizontalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1029, Short.MAX_VALUE)
         );
         JDesktopLayout.setVerticalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 760, Short.MAX_VALUE)
+            .addGap(0, 733, Short.MAX_VALUE)
         );
 
-        jMenuGestionRutas.setText("Gestión de Rutas");
+        jMenuGestionRutas.setText("Rutas");
 
-        jAñadirRuta_.setText("Añadir");
+        jAñadirRuta_.setText("Gestionar Rutas");
         jAñadirRuta_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirRuta_ActionPerformed(evt);
@@ -74,7 +75,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionRutas.add(jBuscarRuta_);
 
-        jListarRuta_.setText("Listar");
+        jListarRuta_.setText("Lista Rutas");
         jListarRuta_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarRuta_ActionPerformed(evt);
@@ -84,9 +85,9 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuGestionRutas);
 
-        jMenuGestionHorarios.setText("Gestión de Horarios");
+        jMenuGestionHorarios.setText("Horarios");
 
-        jAñadirHorario.setText("Añadir");
+        jAñadirHorario.setText("Agregar");
         jAñadirHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirHorarioActionPerformed(evt);
@@ -94,7 +95,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionHorarios.add(jAñadirHorario);
 
-        jAñadirHorario1.setText("Listar");
+        jAñadirHorario1.setText("Lista Horarios");
         jAñadirHorario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirHorario1ActionPerformed(evt);
@@ -104,9 +105,9 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuGestionHorarios);
 
-        jMenuGestionPasajeros.setText("Gestión de Pasajeros");
+        jMenuGestionPasajeros.setText("Pasajeros");
 
-        jAñadirPasajero_.setText("Añadir");
+        jAñadirPasajero_.setText("Gestionar Pasajeros");
         jAñadirPasajero_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirPasajero_ActionPerformed(evt);
@@ -122,7 +123,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionPasajeros.add(jBuscarPasajero_);
 
-        jListarPasajero_.setText("Listar");
+        jListarPasajero_.setText("Lista Pasajeros");
         jListarPasajero_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarPasajero_ActionPerformed(evt);
@@ -132,9 +133,9 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuGestionPasajeros);
 
-        jMenuGestionPasajes.setText("Gestión de Pasajes");
+        jMenuGestionPasajes.setText("Pasajes");
 
-        jAñadirPasaje_.setText("Añadir");
+        jAñadirPasaje_.setText("Vender");
         jAñadirPasaje_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirPasaje_ActionPerformed(evt);
@@ -150,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionPasajes.add(jBuscarPasaje_);
 
-        jListarPasaje_.setText("Listar");
+        jListarPasaje_.setText("Lista Pasajes");
         jListarPasaje_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarPasaje_ActionPerformed(evt);
@@ -178,7 +179,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JDesktop)
+            .addComponent(JDesktop, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -331,7 +332,4 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuGestionRutas;
     private javax.swing.JMenu jMenuSalir;
     // End of variables declaration//GEN-END:variables
-
-
-
 }

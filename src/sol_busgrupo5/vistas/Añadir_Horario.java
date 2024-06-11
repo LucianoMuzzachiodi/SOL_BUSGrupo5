@@ -37,7 +37,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Horarios");
+        jLabel7.setText("AGREGAR Horarios");
 
         jLabel2.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -45,7 +45,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         JButton_Añadir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        JButton_Añadir.setText("Añadir Horario");
+        JButton_Añadir.setText("AGREGAR");
         JButton_Añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButton_AñadirActionPerformed(evt);

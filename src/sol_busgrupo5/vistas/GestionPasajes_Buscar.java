@@ -33,6 +33,8 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         JComboBOX_Pasajeros = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
+        setTitle("Busqueda de pasajes");
+
         JTabla_Pasajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

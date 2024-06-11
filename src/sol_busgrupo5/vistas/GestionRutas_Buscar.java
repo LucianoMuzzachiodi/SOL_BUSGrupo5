@@ -29,6 +29,8 @@ public class GestionRutas_Buscar extends javax.swing.JInternalFrame {
         jSalir = new javax.swing.JButton();
         jTexto = new javax.swing.JTextField();
 
+        setTitle("Busqueda de rutas");
+
         jLabel1.setText("Buscar por");
 
         jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

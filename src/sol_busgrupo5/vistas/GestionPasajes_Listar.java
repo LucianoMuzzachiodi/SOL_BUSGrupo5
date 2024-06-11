@@ -22,6 +22,8 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         jTabla = new javax.swing.JTable();
         jButton_Salir = new javax.swing.JButton();
 
+        setTitle("Lista de pasajes");
+
         jTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

@@ -34,6 +34,8 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
         jTextoID = new javax.swing.JTextField();
         jComboBox = new javax.swing.JComboBox<>();
 
+        setTitle("Gestión de rutas");
+
         jLabel1.setText("Origen:");
 
         jLabel2.setText("Destino:");

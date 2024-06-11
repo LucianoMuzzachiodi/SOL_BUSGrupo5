@@ -94,6 +94,8 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
         JTextFecha = new javax.swing.JTextField();
         JButton_Aplicar = new javax.swing.JButton();
 
+        setTitle("Venta de pasajes");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
@@ -410,7 +412,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
         jPanel10.add(JButton_Nuevo);
 
         JButton_Guardar.setFont(new java.awt.Font("DialogInput", 0, 12)); // NOI18N
-        JButton_Guardar.setText("Guardar");
+        JButton_Guardar.setText("Vender");
         JButton_Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JButton_GuardarActionPerformed(evt);
