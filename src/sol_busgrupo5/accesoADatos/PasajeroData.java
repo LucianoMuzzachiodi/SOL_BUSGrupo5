@@ -40,7 +40,6 @@ public class PasajeroData {
     //LISTAR PASAJEROS
     public List<Pasajero> listarPasajeros() {
         ArrayList<Pasajero> pasajeroAux = new ArrayList<>();
-
         String sql = "SELECT * FROM `pasajero` WHERE Estado = 1";
 
         try {

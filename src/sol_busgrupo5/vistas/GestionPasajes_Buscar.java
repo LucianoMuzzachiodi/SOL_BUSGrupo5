@@ -9,16 +9,15 @@ import sol_busgrupo5.entidades.*;
 
 public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
-    RutaData rutaData = new RutaData();
-    PasajeData pasajeData = new PasajeData();
     PasajeroData pasajeroData = new PasajeroData();
-    Pasaje pasaje = new Pasaje();
-    
+    PasajeData pasajeData = new PasajeData();
+    RutaData rutaData = new RutaData();
+
     public GestionPasajes_Buscar() {
         initComponents();
         llenarTabla();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -134,7 +133,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
-        
+
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
@@ -142,74 +141,67 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void JComboBOX_Ruta_Horario_PasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Ruta_Horario_PasajeroActionPerformed
-        
-        
-        if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Rutas")){
-            if(!JComboBOX_Rutas.isVisible()){
-                vaciarTabla();
+        modelo.setRowCount(0);
+        if (JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex() != -1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Rutas")) {
+            if (!JComboBOX_Rutas.isVisible()) {
                 JComboBOX_Rutas.removeAllItems();
-            for(Ruta rutas:rutaData.listarRutas()){
-                JComboBOX_Rutas.addItem(rutas);
-            }
-            JComboBOX_Rutas.setVisible(true);
-            JComboBOX_Horarios.setVisible(false);
-            JComboBOX_Pasajeros.setVisible(false);
-            }
-            
-        } else if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Horarios")){
-            if(!JComboBOX_Horarios.isVisible()){
-                vaciarTabla();
-            JComboBOX_Horarios.setVisible(true);
-            JComboBOX_Pasajeros.setVisible(false);
-            JComboBOX_Rutas.setVisible(false);
-            }
-        } else if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Pasajeros")){
-            if(!JComboBOX_Pasajeros.isVisible()){
-                vaciarTabla();
+                for (Ruta rutas : rutaData.listarRutas()) {
+                    JComboBOX_Rutas.addItem(rutas);
+                }
+                JComboBOX_Rutas.setVisible(true);
                 JComboBOX_Horarios.setVisible(false);
-            JComboBOX_Rutas.setVisible(false);
-            JComboBOX_Pasajeros.removeAllItems();
-            for(Pasajero pasajero:pasajeroData.listarPasajeros()){
-                JComboBOX_Pasajeros.addItem(pasajero);
+                JComboBOX_Pasajeros.setVisible(false);
             }
-            JComboBOX_Pasajeros.setVisible(true);
+        } else if (JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex() != -1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Horarios")) {
+            if (!JComboBOX_Horarios.isVisible()) {
+                JComboBOX_Horarios.setVisible(true);
+                JComboBOX_Pasajeros.setVisible(false);
+                JComboBOX_Rutas.setVisible(false);
             }
-            
+        } else if (JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex() != -1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Pasajeros")) {
+            if (!JComboBOX_Pasajeros.isVisible()) {
+                JComboBOX_Horarios.setVisible(false);
+                JComboBOX_Rutas.setVisible(false);
+                JComboBOX_Pasajeros.removeAllItems();
+                for (Pasajero pasajero : pasajeroData.listarPasajeros()) {
+                    JComboBOX_Pasajeros.addItem(pasajero);
+                }
+                JComboBOX_Pasajeros.setVisible(true);
+            }
         }
     }//GEN-LAST:event_JComboBOX_Ruta_Horario_PasajeroActionPerformed
 
     private void JComboBOX_RutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_RutasActionPerformed
-
-        if(JComboBOX_Rutas.isVisible()){
-            vaciarTabla();
-            Ruta ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
-            if(pasajeData.visualizarPorRuta(ruta.getIdRuta())!=null){
-                for(Pasaje pasaje:pasajeData.visualizarPorRuta(ruta.getIdRuta())){
-                modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
-            }
-            } else if(pasajeData.visualizarPorRuta(ruta.getIdRuta()).isEmpty()){
+        if (JComboBOX_Rutas.isVisible()) {
+            modelo.setRowCount(0);
+            Ruta ruta = (Ruta) JComboBOX_Rutas.getSelectedItem();
+            if (pasajeData.visualizarPorRuta(ruta.getIdRuta()) != null) {
+                for (Pasaje pasaje : pasajeData.visualizarPorRuta(ruta.getIdRuta())) {
+                    modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+                }
+            } else if (pasajeData.visualizarPorRuta(ruta.getIdRuta()).isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No hay ventas para mostrar.");
             }
         }
     }//GEN-LAST:event_JComboBOX_RutasActionPerformed
 
     private void JComboBOX_HorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_HorariosActionPerformed
-        if(JComboBOX_Horarios.isVisible() && JComboBOX_Horarios.getSelectedIndex()!=-1){
-            vaciarTabla();
-            for(Pasaje pasaje:pasajeData.visualizarPorHorario(((Time)JComboBOX_Horarios.getSelectedItem()))){
-                modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
+        if (JComboBOX_Horarios.isVisible() && JComboBOX_Horarios.getSelectedIndex() != -1) {
+            modelo.setRowCount(0);
+            for (Pasaje pasaje : pasajeData.visualizarPorHorario(((Time) JComboBOX_Horarios.getSelectedItem()))) {
+                modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
             }
         }
     }//GEN-LAST:event_JComboBOX_HorariosActionPerformed
 
     private void JComboBOX_PasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_PasajerosActionPerformed
-        if(JComboBOX_Pasajeros.isVisible() && JComboBOX_Pasajeros.getSelectedIndex()!=-1){
-            vaciarTabla();
-            if(pasajeData.visualizarPorPasajero(((Pasajero)JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())!=null){
-                for(Pasaje pasaje:pasajeData.visualizarPorPasajero(((Pasajero)JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())){
-                modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
-            }
-            } else{
+        if (JComboBOX_Pasajeros.isVisible() && JComboBOX_Pasajeros.getSelectedIndex() != -1) {
+            modelo.setRowCount(0);
+            if (pasajeData.visualizarPorPasajero(((Pasajero) JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero()) != null) {
+                for (Pasaje pasaje : pasajeData.visualizarPorPasajero(((Pasajero) JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())) {
+                    modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, "no se encontraron pasajes con este id de pasjaero.");
             }
         }
@@ -219,32 +211,29 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void llenarTabla(){
-        modelo.setColumnIdentifiers(new Object[]{"ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio ($)","Estado"});
+    private void llenarTabla() {
+        modelo.setColumnIdentifiers(new Object[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado"});
         JTabla_Pasajes.setModel(modelo);
-        vaciarTabla();
-        
+        modelo.setRowCount(0);
+
         JComboBOX_Pasajeros.setVisible(false);
         JComboBOX_Horarios.setVisible(false);
         JComboBOX_Rutas.setVisible(true);
         JComboBOX_Rutas.removeAllItems();
         JComboBOX_Rutas.setVisible(true);
-            for(Ruta rutas:rutaData.listarRutas()){
-                JComboBOX_Rutas.addItem(rutas);
-            }
-            
-        
-            int aux=0;
-            JComboBOX_Horarios.removeAllItems();
-            for(int i=0;i<=138;i++){
-            aux=aux+10;
+        for (Ruta rutas : rutaData.listarRutas()) {
+            JComboBOX_Rutas.addItem(rutas);
+        }
+
+        int aux = 0;
+        JComboBOX_Horarios.removeAllItems();
+        for (int i = 0; i <= 138; i++) {
+            aux = aux + 10;
             LocalTime LT = LocalTime.of(23, 50, 00);
             JComboBOX_Horarios.addItem(Time.valueOf(LT.plusMinutes(aux)));
-            }
+        }
     }
-    private void vaciarTabla(){
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {modelo.removeRow(i);}
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Time> JComboBOX_Horarios;
     private javax.swing.JComboBox<Pasajero> JComboBOX_Pasajeros;

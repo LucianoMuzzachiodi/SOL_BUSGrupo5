@@ -7,11 +7,14 @@ import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.*;
 
 public class PasajeData {
+
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
-    private PasajeroData pasajeroData = new PasajeroData();private ColectivoData colectivoData = new ColectivoData();RutaData rutaData = new RutaData();
-    
+    private PasajeroData pasajeroData = new PasajeroData();
+    private ColectivoData colectivoData = new ColectivoData();
+    RutaData rutaData = new RutaData();
+
     public PasajeData() {
         con = Conexion.getConexion();
     }
@@ -23,23 +26,29 @@ public class PasajeData {
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
-            ps.setDate(4, (Date)pasaje.getFechaViaje());
+            ps.setDate(4, (Date) pasaje.getFechaViaje());
             ps.setTime(5, pasaje.getHoraViaje());
             ps.setInt(6, pasaje.getAsiento());
             ps.setDouble(7, pasaje.getPrecio());
             ps.setBoolean(8, true);
             return ps.executeUpdate();
-            
         } catch (SQLException ex) {
             System.out.println(ex);
             System.out.println(ex.fillInStackTrace());
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
-        } catch(NullPointerException NPE){
+        } catch (NullPointerException NPE) {
             System.err.println(NPE);
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
         return 0;
     }
-    
+
     //VER PASAJES (ACTIVOS)
     public List<Pasaje> visualizarPasajes() {
         List<Pasaje> pasajes = new ArrayList<>();
@@ -62,6 +71,13 @@ public class PasajeData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
         return pasajes;
     }
@@ -76,30 +92,34 @@ public class PasajeData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Ruta);
             rs = ps.executeQuery();
-            
-            
+
             while (rs.next()) {
                 Pasajero AUX_Pasajero = new Pasajero();
                 Colectivo colectivos = new Colectivo();
-                for(Colectivo colectivo:colectivoData.listarColectivos()){
-                    if(rs.getInt("ID_Colectivo")==colectivo.getIdColectivo()){
+                for (Colectivo colectivo : colectivoData.listarColectivos()) {
+                    if (rs.getInt("ID_Colectivo") == colectivo.getIdColectivo()) {
                         colectivos = colectivo;
                     }
                 }
-                for(Pasajero pasajeroos:pasaj.listarPasajeros()){
-                    if(rs.getInt("ID_Pasajero")==pasajeroos.getIdPasajero()){
-                        AUX_Pasajero=pasajeroos;
+                for (Pasajero pasajeroos : pasaj.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeroos.getIdPasajero()) {
+                        AUX_Pasajero = pasajeroos;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"),AUX_Pasajero,colectivos,rutaData.buscarPorID(ID_Ruta),rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
-                
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, rutaData.buscarPorID(ID_Ruta), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
-        
         return null;
     }
 
@@ -118,28 +138,34 @@ public class PasajeData {
                 Pasajero AUX_Pasajero = new Pasajero();
                 Colectivo colectivos = new Colectivo();
                 Ruta rutas = new Ruta();
-                for(Colectivo colectivo:colectivoData.listarColectivos()){
-                    if(rs.getInt("ID_Colectivo")==colectivo.getIdColectivo()){
+                for (Colectivo colectivo : colectivoData.listarColectivos()) {
+                    if (rs.getInt("ID_Colectivo") == colectivo.getIdColectivo()) {
                         colectivos = colectivo;
                     }
                 }
-                for(Pasajero pasajeroos:pasaj.listarPasajeros()){
-                    if(rs.getInt("ID_Pasajero")==pasajeroos.getIdPasajero()){
-                        AUX_Pasajero=pasajeroos;
+                for (Pasajero pasajeroos : pasaj.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeroos.getIdPasajero()) {
+                        AUX_Pasajero = pasajeroos;
                     }
                 }
-                for(Ruta rutta:rutaData.listarRutas()){
-                    if(rs.getInt("ID_Ruta")==rutta.getIdRuta()){
-                        rutas=rutta;
+                for (Ruta rutta : rutaData.listarRutas()) {
+                    if (rs.getInt("ID_Ruta") == rutta.getIdRuta()) {
+                        rutas = rutta;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"),AUX_Pasajero,colectivos,rutas,rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
-                
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, rutas, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
         return null;
     }
@@ -154,16 +180,23 @@ public class PasajeData {
             ps.setInt(1, ID_Pasajero);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"),pasajeroData.buscar("ID", (Object)rs.getInt("ID_Pasajero")),colectivoData.buscar(rs.getInt("ID_Colectivo")),rutaData.buscarPorID(rs.getInt("ID_Ruta")),rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), pasajeroData.buscar("ID", (Object) rs.getInt("ID_Pasajero")), colectivoData.buscar(rs.getInt("ID_Colectivo")), rutaData.buscarPorID(rs.getInt("ID_Ruta")), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) {ps.close();}
+                if (rs != null) {rs.close();}
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
+            }
         }
         return null;
     }
-    
+
     //MODIFICAR UN PASAJE
     public void modificar(Pasaje pasaje) {
         String sql = "UPDATE pasaje SET ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasajero = ?";
@@ -172,8 +205,8 @@ public class PasajeData {
             ps = con.prepareStatement(sql);
             ps.setInt(1, pasaje.getColectivo().getIdColectivo());
             ps.setInt(2, pasaje.getRuta().getIdRuta());
-            ps.setDate(3, (Date)pasaje.getFechaViaje());
-            ps.setTime(4, (Time)pasaje.getHoraViaje());
+            ps.setDate(3, (Date) pasaje.getFechaViaje());
+            ps.setTime(4, (Time) pasaje.getHoraViaje());
             ps.setInt(5, pasaje.getAsiento());
             ps.setDouble(6, pasaje.getPrecio());
             ps.setInt(7, pasaje.getIdPasaje());
@@ -202,7 +235,7 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
     }
-    
+
     //BUSCAR UN ASIENTO DISPONIBLE
     public int buscarAsientoDisponible(int asiento) {
         try {

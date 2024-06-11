@@ -1,5 +1,6 @@
 package sol_busgrupo5.vistas;
 
+import java.sql.*;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
@@ -101,8 +102,16 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         if (!pasajeData.visualizarPasajes().isEmpty()) {
             for (Pasaje pasajes : pasajeData.visualizarPasajes()) {
                 contador++;
+                int idPasaje = pasajes.getIdPasaje(); 
+                String nombreYapellido = pasajes.getPasajero().getNombre() + " " + pasajes.getPasajero().getApellido();
+                String matricula = pasajes.getColectivo().getMatricula();
+                String origenYdestino = pasajes.getRuta().getOrigen() + " - " + pasajes.getRuta().getDestino();
+                Date fechaViaje = (Date) pasajes.getFechaViaje();
+                Time horaViaje = pasajes.getHoraViaje();
+                int asiento = pasajes.getAsiento();
+                double precio = pasajes.getPrecio();
                 if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador, pasajes.getIdPasaje(), pasajes.getPasajero().getNombre() + "" + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + "" + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), "$" + pasajes.getPrecio(), activo});
+                modelo.addRow(new Object[]{contador, idPasaje, nombreYapellido, matricula, origenYdestino, fechaViaje, horaViaje, asiento, "$" + precio, activo});
             }
         }
         jTabla.setModel(modelo);
