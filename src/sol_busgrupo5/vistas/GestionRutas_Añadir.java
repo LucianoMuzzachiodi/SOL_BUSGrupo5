@@ -208,11 +208,11 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBuscarActionPerformed
         
     private boolean validar() {
-        if (jTextoOrigen.getText().isEmpty() || !jTextoOrigen.getText().matches("[a-zA-Z ]+")) {
+        if (jTextoOrigen.getText().isEmpty() || !jTextoOrigen.getText().matches("[\\p{L}\\s]+")) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoOrigen.requestFocus();
             return false;
-        } else if (jTextoDestino.getText().isEmpty() || !jTextoDestino.getText().matches("[a-zA-Z ]+")) {
+        } else if (jTextoDestino.getText().isEmpty() || !jTextoDestino.getText().matches("[\\p{L}\\s]+")) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoDestino.requestFocus();
             return false;
