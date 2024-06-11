@@ -631,7 +631,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "valor invalido.");
                 JDNI.setText(""); JTextNombre.setText(""); JTextGmail.setText(""); JTextApellido.setText(""); JTextTelefono.setText("");
             } else {
-                if(PD.buscarDNI(Integer.parseInt(JDNI.getText()))!=null){
+                if(PD.buscar("DNI",JDNI.getText())!=null){
                     Pasajero pasajero = PD.buscar("DNI",JDNI.getText());
                     JTextID_Pasajero.setText(""+pasajero.getIdPasajero());
                     JTextNombre.setText(pasajero.getNombre()); JTextApellido.setText(pasajero.getApellido()); JTextGmail.setText(pasajero.getCorreo()); JTextTelefono.setText(pasajero.getTelefono());
@@ -681,7 +681,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
 
     private void JButton_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_GuardarActionPerformed
         try{
-            Pasaje pasaje = new Pasaje(PD.buscar("ID",Integer.valueOf(JTextID_Pasajero.getText())),CD.buscar(Integer.parseInt(JTextID_Colectivo.getText())),RD.buscarPorID(Integer.parseInt(JTextID_Ruta.getText())),Date.valueOf(JTextFecha.getText()),Time.valueOf(JTextHora_viaje.getText()),Integer.parseInt(JTextAsiento.getText()),Double.parseDouble(JTextPrecio.getText()),true);
+            Pasaje pasaje = new Pasaje(PD.buscar("ID",JTextID_Pasajero.getText()),CD.buscar(Integer.parseInt(JTextID_Colectivo.getText())),RD.buscarPorID(Integer.parseInt(JTextID_Ruta.getText())),Date.valueOf(JTextFecha.getText()),Time.valueOf(JTextHora_viaje.getText()),Integer.parseInt(JTextAsiento.getText()),Double.parseDouble(JTextPrecio.getText()),true);
             int aux = PasajeD.registrarVenta(pasaje);
             if(aux==1){
                 JOptionPane.showMessageDialog(this, "venta agregada.");

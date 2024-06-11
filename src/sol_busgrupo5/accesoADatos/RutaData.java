@@ -53,9 +53,9 @@ public class RutaData {
         return rutas;
     }
 
-    public Ruta buscarRuta(String decision, String nombre) {
+    public Ruta buscarRuta(String clasificacion, String nombre) {
         String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
-        if (decision.equals("Destino")) {
+        if (clasificacion.equals("Destino")) {
             sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
         }
 
@@ -73,11 +73,11 @@ public class RutaData {
         return null;
     }
     
-    public List<Ruta> buscarRuta_Lista(String decision, String nombre) {
+    public List<Ruta> buscarRuta_Lista(String clasificacion, String nombre) {
         List<Ruta> rutas = new ArrayList<>();
         
         String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
-        if (decision.equals("Destino")) {
+        if (clasificacion.equals("Destino")) {
             sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
         }
 
@@ -97,11 +97,11 @@ public class RutaData {
     }
 
     public Ruta buscarPorID(int ID_Ruta) {
-        String sql = "SELECT * FROM `ruta` WHERE ID_Ruta LIKE ?";
+        String sql = "SELECT * FROM `ruta` WHERE ID_Ruta = ?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, ID_Ruta + "%");
+            ps.setInt(1, ID_Ruta);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Ruta(rs.getInt("ID_Ruta"), rs.getString("Origen"), rs.getString("Destino"), rs.getTime("Duración_Estimada"), rs.getBoolean("Estado"));

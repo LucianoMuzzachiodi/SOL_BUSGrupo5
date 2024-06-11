@@ -189,7 +189,7 @@ public class PasajeroData {
                     break;
                 case "DNI":
                     ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ?");
-                    ps.setString(1, objeto + "%");
+                    ps.setInt(1, Integer.parseInt(objeto + "%"));
                     rs = ps.executeQuery();
                     break;
                 case "ID":
@@ -212,34 +212,34 @@ public class PasajeroData {
         return null;
     }
     
-    public List<Pasajero> buscar_Lista(String objeto, String s) {
+    public List<Pasajero> buscar_Lista(String clasificacion, Object objeto) {
         List<Pasajero> pasajeros = new ArrayList();
-        String sql; PreparedStatement ps; ResultSet rs;
+        PreparedStatement ps; ResultSet rs;
         
         try {
-            switch (objeto) {
+            switch (clasificacion) {
                 case "Nombre":
-                    sql = "SELECT * FROM `pasajero` WHERE Nombre LIKE ?";
-                    ps = con.prepareStatement(sql);
-                    ps.setString(1, s + "%");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ?");
+                    ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "Apellido":
-                    sql = "SELECT * FROM `pasajero` WHERE Apellido LIKE ?";
-                    ps = con.prepareStatement(sql);
-                    ps.setString(1, s + "%");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ?");
+                    ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "DNI":
-                    sql = "SELECT * FROM `pasajero` WHERE DNI LIKE ?";
-                    ps = con.prepareStatement(sql);
-                    ps.setString(1, s + "%");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ?");
+                    ps.setInt(1, Integer.parseInt(objeto + "%"));
+                    rs = ps.executeQuery();
+                    break;
+                case "ID":
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE ID_Pasajero = ?");
+                    ps.setInt(1, (int) objeto);
                     rs = ps.executeQuery();
                     break;
                 default:
-                    sql = "SELECT * FROM `pasajero` WHERE ID_Pasajero = ?";
-                    ps = con.prepareStatement(sql);
-                    ps.setString(1, s);
+                    ps = con.prepareStatement("SELECT * FROM `pasajero`");
                     rs = ps.executeQuery();
                     break;
             }
