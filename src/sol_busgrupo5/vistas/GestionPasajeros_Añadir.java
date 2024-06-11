@@ -9,10 +9,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
 
     public GestionPasajeros_Añadir() {
         initComponents();
-        jTextoID.setVisible(false);
-        jLabelID.setVisible(false);
-        jNuevo.setVisible(false);
-        jEliminar.setVisible(false);
+        vaciarFormulario();
     }
 
     @SuppressWarnings("unchecked")
@@ -86,7 +83,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jEliminar.setText("Eliminar");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEliminarActionPerformed(evt);
+                jEliminar_Accion(evt);
             }
         });
 
@@ -194,13 +191,13 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
             if (jTextoNombre.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Campo nombre vacío");
                 jTextoNombre.requestFocus();
-            } else if (!jTextoNombre.getText().matches("[a-zA-Z]+")) {
+            } else if (!jTextoNombre.getText().matches("[\\p{L}\\s]+")) {
                 JOptionPane.showMessageDialog(this, "Nombre inválido");
                 jTextoNombre.requestFocus();
             } else if (jTextoApellido.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Campo apellido vacío");
                 jTextoApellido.requestFocus();
-            } else if (!jTextoApellido.getText().matches("[a-zA-Z]+")) {
+            } else if (!jTextoApellido.getText().matches("[\\p{L}\\s]+")) {
                 JOptionPane.showMessageDialog(this, "Apellido inválido");
                 jTextoApellido.requestFocus();
             } else if (jTextoDNI.getText().equals("")) {
@@ -279,7 +276,81 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Ingresá nombre, apellido o DNI");
                 jTextoNombre.requestFocus();
+            if(PD.listarPasajeros().isEmpty()){
+                JOptionPane.showMessageDialog(this, "No hay pasajeros"); return;
+            } else if (jTextoID.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Llena algún campo"); return;
             }
+            if(!jTextoID.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()){
+                llenarFormulario(PD.buscar("ID", jTextoID.getText())); return;
+            }
+            if(PD.buscar_Lista("Nombre", jTextoNombre.getText()).size() > 1 && jTextoID.getText().isEmpty() &&  !jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Existen varias personas con ese nombre. Busque por ID");
+                vaciarFormulario();
+            } else if(PD.buscar_Lista("Nombre", jTextoNombre.getText()).size() == 1 && jTextoID.getText().isEmpty() &&  !jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()){
+                llenarFormulario(PD.buscar("Nombre", jTextoNombre.getText())); return;
+            }
+            if (PD.buscar_Lista("Apellido", jTextoApellido.getText()).size() > 1 && jTextoID.getText().isEmpty() &&  jTextoNombre.getText().isEmpty() && !jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Existen varias personas con ese apellido. Busque por ID");
+                vaciarFormulario();
+            } else if(PD.buscar_Lista("Apellido", jTextoApellido.getText()).size() == 1 && jTextoID.getText().isEmpty() &&  jTextoNombre.getText().isEmpty() && !jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()){
+                llenarFormulario(PD.buscar("Apellido", jTextoApellido.getText())); return;
+            }
+            if(jTextoID.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && !jTextoDNI.getText().isEmpty()){
+                llenarFormulario(PD.buscar("DNI", jTextoDNI.getText()));
+            }
+
+//            if (PD.buscarNombre(jTextoNombre.getText()) != null && !jTextoNombre.getText().equals("") && jTextoApellido.getText().equals("") && jTextoDNI.getText().equals("")) {
+//                for (Pasajero pasajeros : PD.buscarNombre(jTextoNombre.getText())) {
+//                    jTextoID.setText("" + pasajeros.getIdPasajero());
+//                    jTextoNombre.setText("" + pasajeros.getNombre());
+//                    jTextoApellido.setText("" + pasajeros.getApellido());
+//                    jTextoDNI.setText("" + pasajeros.getDni());
+//                    jTextoCorreo.setText("" + pasajeros.getCorreo());
+//                    jTextoTelefono.setText("" + pasajeros.getTelefono());
+//                    jLabelTextoPrincipal.setText("Buscar Pasajero");
+//                    jGuardar.setText("Modificar");
+//                    jTextoID.setVisible(true);
+//                    jLabelID.setVisible(true);
+//                    jEliminar.setVisible(true);
+//                    jNuevo.setVisible(true);
+//                }
+//            } else if (PD.buscarApellido(jTextoApellido.getText()) != null && jTextoNombre.getText().equals("") && !jTextoApellido.getText().equals("") && jTextoDNI.getText().equals("")) {
+//                for (Pasajero pasajeros : PD.buscarApellido(jTextoApellido.getText())) {
+//                    jTextoID.setText("" + pasajeros.getIdPasajero());
+//                    jTextoNombre.setText("" + pasajeros.getNombre());
+//                    jTextoApellido.setText("" + pasajeros.getApellido());
+//                    jTextoDNI.setText("" + pasajeros.getDni());
+//                    jTextoCorreo.setText("" + pasajeros.getCorreo());
+//                    jTextoTelefono.setText("" + pasajeros.getTelefono());
+//                    jLabelTextoPrincipal.setText("Buscar Pasajero");
+//                    jGuardar.setText("Modificar");
+//                    jTextoID.setVisible(true);
+//                    jLabelID.setVisible(true);
+//                    jEliminar.setVisible(true);
+//                    jNuevo.setVisible(true);
+//                }
+//            } else if (PD.buscarDNI(Integer.parseInt(jTextoDNI.getText())) != null && jTextoNombre.getText().equals("") && jTextoApellido.getText().equals("") && !jTextoDNI.getText().equals("")) {
+//                for (Pasajero pasajeros : PD.buscarDNI(Integer.parseInt(jTextoDNI.getText()))) {
+//                    jTextoID.setText("" + pasajeros.getIdPasajero());
+//                    jTextoNombre.setText("" + pasajeros.getNombre());
+//                    jTextoApellido.setText("" + pasajeros.getApellido());
+//                    jTextoDNI.setText("" + pasajeros.getDni());
+//                    jTextoCorreo.setText("" + pasajeros.getCorreo());
+//                    jTextoTelefono.setText("" + pasajeros.getTelefono());
+//                    jLabelTextoPrincipal.setText("Buscar Pasajero");
+//                    jGuardar.setText("Modificar");
+//                    jTextoID.setVisible(true);
+//                    jLabelID.setVisible(true);
+//                    jEliminar.setVisible(true);
+//                    jNuevo.setVisible(true);
+//                }
+//            } else if (!jTextoNombre.getText().isEmpty() || !jTextoApellido.getText().isEmpty() || !jTextoDNI.getText().isEmpty()) {
+//                jNuevoActionPerformed(evt);
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Ingresá nombre, apellido o DNI");
+//                jTextoNombre.requestFocus();
+//            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoDNI.setText("");
@@ -292,26 +363,48 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoActionPerformed
+        vaciarFormulario();
+    }//GEN-LAST:event_jNuevoActionPerformed
+
+    private void jEliminar_Accion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminar_Accion
+        PD.eliminar(Integer.parseInt(jTextoID.getText()));
+        vaciarFormulario();
+    }//GEN-LAST:event_jEliminar_Accion
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        PD.eliminar(Integer.parseInt(jTextoID.getText()));
+        vaciarFormulario();
+    }                                         
+
+    private void llenarFormulario(Pasajero pasajero) {
+        vaciarFormulario();
+        jTextoID.setText("" + pasajero.getIdPasajero());
+        jTextoNombre.setText("" + pasajero.getNombre());
+        jTextoApellido.setText("" + pasajero.getApellido());
+        jTextoDNI.setText("" + pasajero.getDni());
+        jTextoCorreo.setText("" + pasajero.getCorreo());
+        jTextoTelefono.setText("" + pasajero.getTelefono());
+        jLabelTextoPrincipal.setText("Buscar Pasajero");
+        jGuardar.setText("Modificar");
+        jTextoID.setEditable(false);
+        jEliminar.setVisible(true);
+        jNuevo.setVisible(true);
+    }
+
+    private void vaciarFormulario() {
+        jLabelTextoPrincipal.setText("Añadir Pasajero");
+        jTextoID.setText("");
         jTextoNombre.setText("");
         jTextoApellido.setText("");
         jTextoDNI.setText("");
         jTextoCorreo.setText("");
         jTextoTelefono.setText("");
-        jTextoNombre.requestFocus();
-        jNuevo.setVisible(false);
-        jEliminar.setVisible(false);
         jGuardar.setText("Guardar");
-        jLabelTextoPrincipal.setText("Añadir Pasajero");
-        jLabelID.setVisible(false);
-        jTextoID.setVisible(false);
+        jNuevo.setVisible(false);
+        jTextoID.setEditable(true);
+        jEliminar.setVisible(false);
         jTextoNombre.requestFocus();
-    }//GEN-LAST:event_jNuevoActionPerformed
-
-    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
-        PD.eliminar(Integer.parseInt(jTextoID.getText()));
-        jNuevoActionPerformed(evt);
-    }//GEN-LAST:event_jEliminarActionPerformed
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;

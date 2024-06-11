@@ -42,7 +42,7 @@ public class SOL_BUSGrupo5 {
 //        System.out.println(pasajeroD.buscarApellido("Andreani"));
 
         //BUSCAR PASAJERO POR DNI
-//        System.out.println(pasajeroD.buscar(42697806));
+//        System.out.println(pasajeroD.buscarDNI(42697806));
 
           //MODIFICAR PASAJERO
 //          pasajeroD.modificar(new Pasajero(1, "Luciano", "Muzzachiodi", 31201637, "luciano@hotmail.com", "2664307390", true));
@@ -81,8 +81,8 @@ public class SOL_BUSGrupo5 {
         //PASAJE
              
         //REGISTRAR VENTA
-//        Pasajero pasajero = pasajeroD.buscar(31201637);
-//        Colectivo colectivo = colectivoD.buscar(2);
+//        Pasajero pasajero = pasajeroD.buscarDNI(31201637);
+//        Colectivo colectivo = colectivoD.buscarDNI(2);
 //        Ruta ruta = rutaD.buscarPorID(13);
 //        Pasaje pasaje = new Pasaje(pasajero, colectivo, ruta, Date.valueOf(LocalDate.of(2024, 6, 26)), Time.valueOf("09:40:00"), 2, 7000, true);
 //        pasajeD.registrarVenta(pasaje);
@@ -103,7 +103,7 @@ public class SOL_BUSGrupo5 {
         
         
         //BUSCAR COLECTIVO
-//        System.out.println(colectivoD.buscar(1));
+//        System.out.println(colectivoD.buscarDNI(1));
         
         //LISTAR COLECTIVO
 //        for(Colectivo colec: colectivoD.listarColectivos()){

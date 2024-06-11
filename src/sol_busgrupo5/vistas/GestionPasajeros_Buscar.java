@@ -1,7 +1,6 @@
 package sol_busgrupo5.vistas;
 
 import java.awt.HeadlessException;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
@@ -10,12 +9,10 @@ import sol_busgrupo5.entidades.*;
 public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     PasajeroData PD = new PasajeroData();
-    RutaData RD = new RutaData();
-    KeyEvent evt;
     
     public GestionPasajeros_Buscar() {
         initComponents();
-        llenarTabla(evt);
+        configurarTabla();
         jComboBox.removeAllItems();
         jComboBox.addItem("Nombre");
         jComboBox.addItem("Apellido");
@@ -116,15 +113,33 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void jTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextoKeyReleased
-        llenarTabla(evt);
+        llenarTabla();
     }//GEN-LAST:event_jTextoKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    private void llenarTabla(java.awt.event.KeyEvent evt) {
-        vaciarTabla();
+    private void llenarTabla() {
+        if (!PD.listarPasajeros().isEmpty()) {
+            try {
+                int contador = 0; String activo;
+                if(!jTexto.getText().isEmpty()){
+                    modelo.setRowCount(0);
+                    for (Pasajero pasajero : PD.buscar_Lista(jComboBox.getSelectedItem().toString(), jTexto.getText())) {
+                        contador++;
+                        if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});                    
+                    }
+                }
+            } catch (HeadlessException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "No se permiten letras. " + ex.getMessage());
+            }
+        }
+    }
+
+    private void configurarTabla(){
+        modelo.setRowCount(0);
         modelo.setColumnCount(0);
         modelo.setColumnIdentifiers(new Object[]{"", "ID", "Nombre", "Apellido", "DNI", "Correo", "Teléfono", "Estado"});
         jTabla.setModel(modelo);
