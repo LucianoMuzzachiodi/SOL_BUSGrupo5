@@ -1,7 +1,13 @@
 package sol_busgrupo5.vistas;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 public class Principal extends javax.swing.JFrame {
     Añadir_Horario AH = new Añadir_Horario();
+   
     public Principal() {
         initComponents();
     }
@@ -10,7 +16,14 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JDesktop = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("SolBus.png"));
+        Image image = icon.getImage();
+        JDesktop = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuGestionRutas = new javax.swing.JMenu();
         jAñadirRuta_ = new javax.swing.JMenuItem();
@@ -36,11 +49,11 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.setLayout(JDesktopLayout);
         JDesktopLayout.setHorizontalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1364, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         JDesktopLayout.setVerticalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
 
         jMenuGestionRutas.setText("Gestión de Rutas");
@@ -318,4 +331,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuGestionRutas;
     private javax.swing.JMenu jMenuSalir;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
