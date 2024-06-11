@@ -36,7 +36,7 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.setLayout(JDesktopLayout);
         JDesktopLayout.setHorizontalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1121, Short.MAX_VALUE)
+            .addGap(0, 1319, Short.MAX_VALUE)
         );
         JDesktopLayout.setVerticalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

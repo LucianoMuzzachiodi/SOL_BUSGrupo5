@@ -66,16 +66,16 @@ public class PasajeData {
 
     public List<Pasaje> visualizarPorRuta(int ID_Ruta) {
         List<Pasaje> pasajes = new ArrayList<>();
-        RutaData RD = new RutaData();
-
-        String sql = "SELECT * FROM pasaje WHERE ID_Ruta = ?";
+        RutaData RD = new RutaData(); ColectivoData colectivoData = new ColectivoData(); 
+        PasajeroData pasaj = new PasajeroData();
+        String sql = "SELECT * FROM pasaje WHERE pasaje.ID_Ruta = ?";
 
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, ID_Ruta);
             rs = ps.executeQuery();
-            PasajeroData pasaj = new PasajeroData();
-            ColectivoData colectivoData = new ColectivoData();
+            
+            
             while (rs.next()) {
                 Pasajero AUX_Pasajero = new Pasajero();
                 Colectivo colectivos = new Colectivo();
@@ -93,16 +93,17 @@ public class PasajeData {
                 
                 pasajes.add(pasaje);
             }
-            ps.close();
+            return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
-        return pasajes;
+        
+        return null;
     }
 
     public List<Pasaje> visualizarPorHorario(Time horaViaje) {
         List<Pasaje> pasajes = new ArrayList<>();
-        String sql = "SELECT * FROM pasaje WHERE Hora_viaje = ?";
+        String sql = "SELECT * FROM pasaje WHERE Hora_viaje >= ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -128,11 +129,11 @@ public class PasajeData {
                 
                 pasajes.add(pasaje);
             }
-            ps.close();
+            return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
-        return pasajes;
+        return null;
     }
 
     public List<Pasaje> visualizarPorPasajero(int ID_Pasajero) {

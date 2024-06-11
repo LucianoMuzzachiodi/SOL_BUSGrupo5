@@ -1,5 +1,7 @@
 package sol_busgrupo5.vistas;
 
+import java.awt.HeadlessException;
+import java.util.List;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.PasajeroData;
 import sol_busgrupo5.entidades.Pasajero;
@@ -9,10 +11,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
 
     public GestionPasajeros_Añadir() {
         initComponents();
-        jTextoID.setVisible(false);
-        jLabelID.setVisible(false);
-        jNuevo.setVisible(false);
-        jEliminar.setVisible(false);
+        vaciarFormulario();
     }
 
     @SuppressWarnings("unchecked")
@@ -72,11 +71,6 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jLabelID.setText("ID:");
 
         jTextoID.setEditable(false);
-        jTextoID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextoIDActionPerformed(evt);
-            }
-        });
 
         jLabelTextoPrincipal.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabelTextoPrincipal.setText("Añadir Pasajero");
@@ -91,7 +85,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jEliminar.setText("Eliminar");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEliminarActionPerformed(evt);
+                jEliminar_Accion(evt);
             }
         });
 
@@ -237,58 +231,57 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
-            if (PD.buscarNombre(jTextoNombre.getText()) != null && !jTextoNombre.getText().equals("") && jTextoApellido.getText().equals("") && jTextoDNI.getText().equals("")) {
-                Pasajero pasajero = PD.buscarNombre(jTextoNombre.getText());
-                jTextoID.setText("" + pasajero.getIdPasajero());
-                jTextoNombre.setText("" + pasajero.getNombre());
-                jTextoApellido.setText("" + pasajero.getApellido());
-                jTextoDNI.setText("" + pasajero.getDni());
-                jTextoCorreo.setText("" + pasajero.getCorreo());
-                jTextoTelefono.setText("" + pasajero.getTelefono());
-                jLabelTextoPrincipal.setText("Buscar Pasajero");
-                jGuardar.setText("Modificar");
-                jTextoID.setVisible(true);
-                jLabelID.setVisible(true);
-                jEliminar.setVisible(true);
-                jNuevo.setVisible(true);
-            } else if (PD.buscarApellido(jTextoApellido.getText()) != null && jTextoNombre.getText().equals("") && !jTextoApellido.getText().equals("") && jTextoDNI.getText().equals("")) {
-                Pasajero pasajero = PD.buscarApellido(jTextoApellido.getText());
-                jTextoID.setText("" + pasajero.getIdPasajero());
-                jTextoNombre.setText("" + pasajero.getNombre());
-                jTextoApellido.setText("" + pasajero.getApellido());
-                jTextoDNI.setText("" + pasajero.getDni());
-                jTextoCorreo.setText("" + pasajero.getCorreo());
-                jTextoTelefono.setText("" + pasajero.getTelefono());
-                jLabelTextoPrincipal.setText("Buscar Pasajero");
-                jGuardar.setText("Modificar");
-                jTextoID.setVisible(true);
-                jLabelID.setVisible(true);
-                jEliminar.setVisible(true);
-                jNuevo.setVisible(true);
-            } else if (PD.buscar(Integer.parseInt(jTextoDNI.getText())) != null && jTextoNombre.getText().equals("") && jTextoApellido.getText().equals("") && !jTextoDNI.getText().equals("")) {
-                Pasajero pasajero = PD.buscar(Integer.parseInt(jTextoDNI.getText()));
-                jTextoID.setText("" + pasajero.getIdPasajero());
-                jTextoNombre.setText("" + pasajero.getNombre());
-                jTextoApellido.setText("" + pasajero.getApellido());
-                jTextoDNI.setText("" + pasajero.getDni());
-                jTextoCorreo.setText("" + pasajero.getCorreo());
-                jTextoTelefono.setText("" + pasajero.getTelefono());
-                jLabelTextoPrincipal.setText("Buscar Pasajero");
-                jGuardar.setText("Modificar");
-                jTextoID.setVisible(true);
-                jLabelID.setVisible(true);
-                jEliminar.setVisible(true);
-                jNuevo.setVisible(true);
-            } else if (!jTextoNombre.getText().isEmpty() || !jTextoApellido.getText().isEmpty() || !jTextoDNI.getText().isEmpty()) {
-                jNuevoActionPerformed(evt);
-            } else {
-                JOptionPane.showMessageDialog(this, "Ingresá nombre, apellido o DNI");
-                jTextoNombre.requestFocus();
+            if (PD.listarPasajeros().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay pasajeros"); return;
+            } else if (jTextoID.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Llena algún campo"); return;
+            }
+
+            if (!jTextoID.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                if (PD.buscar("ID", jTextoID.getText()) != null) {
+                    llenarFormulario(PD.buscar("ID", jTextoID.getText()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró ningún pasajero con ese ID.");
+                }
+                return;
+            }
+            if (!jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                List<Pasajero> pasajeros = PD.buscar_Lista("Nombre", jTextoNombre.getText());
+                if (pasajeros.size() > 1) {
+                    JOptionPane.showMessageDialog(this, "Existen varias personas con ese nombre. Busque por ID");
+                    vaciarFormulario();
+                } else if (pasajeros.size() == 1) {
+                    llenarFormulario(pasajeros.get(0));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró ningún pasajero con ese nombre.");
+                }
+                return;
+            }
+            if (!jTextoApellido.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoDNI.getText().isEmpty()) {
+                List<Pasajero> pasajeros = PD.buscar_Lista("Apellido", jTextoApellido.getText());
+                if (pasajeros.size() > 1) {
+                    JOptionPane.showMessageDialog(this, "Existen varias personas con ese apellido. Busque por ID");
+                    vaciarFormulario();
+                } else if (pasajeros.size() == 1) {
+                    llenarFormulario(pasajeros.get(0));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró ningún pasajero con ese apellido.");
+                }
+                return;
+            }
+            if (!jTextoDNI.getText().isEmpty() && jTextoNombre.getText().isEmpty() && jTextoApellido.getText().isEmpty() && jTextoID.getText().isEmpty()) {
+                if (PD.buscar("DNI", jTextoDNI.getText()) != null) {
+                    llenarFormulario(PD.buscar("DNI", jTextoDNI.getText()));
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró ningún pasajero con ese DNI.");
+                }
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoDNI.setText("");
             jTextoDNI.requestFocus();
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + ex.getMessage());
         }
     }//GEN-LAST:event_jBuscarActionPerformed
 
@@ -297,30 +290,43 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
 
     private void jNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNuevoActionPerformed
+        vaciarFormulario();
+    }//GEN-LAST:event_jNuevoActionPerformed
+
+    private void jEliminar_Accion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminar_Accion
+        PD.eliminar(Integer.parseInt(jTextoID.getText()));
+        vaciarFormulario();
+    }//GEN-LAST:event_jEliminar_Accion
+                                     
+    private void llenarFormulario(Pasajero pasajero) {
+        vaciarFormulario();
+        jTextoID.setText("" + pasajero.getIdPasajero());
+        jTextoNombre.setText("" + pasajero.getNombre());
+        jTextoApellido.setText("" + pasajero.getApellido());
+        jTextoDNI.setText("" + pasajero.getDni());
+        jTextoCorreo.setText("" + pasajero.getCorreo());
+        jTextoTelefono.setText("" + pasajero.getTelefono());
+        jLabelTextoPrincipal.setText("Buscar Pasajero");
+        jGuardar.setText("Modificar");
+        jTextoID.setEditable(false);
+        jEliminar.setVisible(true);
+        jNuevo.setVisible(true);
+    }
+
+    private void vaciarFormulario() {
+        jLabelTextoPrincipal.setText("Añadir Pasajero");
+        jTextoID.setText("");
         jTextoNombre.setText("");
         jTextoApellido.setText("");
         jTextoDNI.setText("");
         jTextoCorreo.setText("");
         jTextoTelefono.setText("");
-        jTextoNombre.requestFocus();
-        jNuevo.setVisible(false);
-        jEliminar.setVisible(false);
         jGuardar.setText("Guardar");
-        jLabelTextoPrincipal.setText("Añadir Pasajero");
-        jLabelID.setVisible(false);
-        jTextoID.setVisible(false);
-        jTextoNombre.requestFocus();
-    }//GEN-LAST:event_jNuevoActionPerformed
-
-    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
-        PD.eliminar(Integer.parseInt(jTextoID.getText()));
-        jNuevoActionPerformed(evt);
-    }//GEN-LAST:event_jEliminarActionPerformed
-
-    private void jTextoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextoIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextoIDActionPerformed
-
+        jNuevo.setVisible(false);
+        jTextoID.setEditable(true);
+        jEliminar.setVisible(false);
+        jTextoID.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;
