@@ -230,8 +230,7 @@ public class PasajeroData {
                     rs = ps.executeQuery();
                     break;
                 case "DNI":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ?");
-                    ps.setInt(1, Integer.parseInt(objeto + "%"));
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE \""+(String)objeto+"%\"");
                     rs = ps.executeQuery();
                     break;
                 case "ID":
