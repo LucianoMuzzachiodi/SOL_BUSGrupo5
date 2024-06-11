@@ -3,7 +3,6 @@ package sol_busgrupo5.accesoADatos;
 import java.sql.*;
 import java.util.*;
 import java.sql.Date;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.*;
 
@@ -15,6 +14,7 @@ public class PasajeData {
         con = Conexion.getConexion();
     }
 
+    //GUARDAR UN PASAJE
     public int registrarVenta(Pasaje pasaje) {
         try {
             PreparedStatement ps = con.prepareStatement("INSERT INTO `pasaje`(`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -38,10 +38,10 @@ public class PasajeData {
         return 0;
     }
     
+    //VER PASAJES (ACTIVOS)
     public List<Pasaje> visualizarPasajes() {
         List<Pasaje> pasajes = new ArrayList<>();
-
-        String sql = "SELECT * FROM pasaje";
+        String sql = "SELECT * FROM pasaje WHERE Estado = 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -64,11 +64,12 @@ public class PasajeData {
         return pasajes;
     }
 
+    //VER PASAJES POR RUTA
     public List<Pasaje> visualizarPorRuta(int ID_Ruta) {
         List<Pasaje> pasajes = new ArrayList<>();
         RutaData RD = new RutaData(); ColectivoData colectivoData = new ColectivoData(); 
         PasajeroData pasaj = new PasajeroData();
-        String sql = "SELECT * FROM pasaje WHERE pasaje.ID_Ruta = ?";
+        String sql = "SELECT * FROM pasaje WHERE pasaje.ID_Ruta = ? AND Estado = 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -101,9 +102,10 @@ public class PasajeData {
         return null;
     }
 
+    //VER PASAJES SEGÚN UN HORARIO
     public List<Pasaje> visualizarPorHorario(Time horaViaje) {
         List<Pasaje> pasajes = new ArrayList<>();
-        String sql = "SELECT * FROM pasaje WHERE Hora_viaje >= ?";
+        String sql = "SELECT * FROM pasaje WHERE Hora_viaje >= ? AND Estado = 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -136,9 +138,10 @@ public class PasajeData {
         return null;
     }
 
+    //VER PASAJES
     public List<Pasaje> visualizarPorPasajero(int ID_Pasajero) {
         List<Pasaje> pasajes = new ArrayList<>();
-        String sql = "SELECT * FROM pasaje WHERE ID_Pasajero = ?";
+        String sql = "SELECT * FROM pasaje WHERE ID_Pasajero = ? AND Estado = 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -162,6 +165,7 @@ public class PasajeData {
         return pasajes;
     }
     
+    //MODIFICAR UN PASAJE
     public void modificar(Pasaje pasaje) {
         String sql = "UPDATE pasaje SET ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasajero = ?";
 
@@ -184,6 +188,7 @@ public class PasajeData {
         }
     }
 
+    //ELIMINAR UN PASAJE
     public void eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta) {
         String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
 
@@ -199,6 +204,7 @@ public class PasajeData {
         }
     }
     
+    //BUSCAR UN ASIENTO DISPONIBLE
     public int buscarAsientoDisponible(int asiento) {
         try {
             ps = con.prepareStatement("SELECT Asiento FROM pasaje WHERE Asiento = ?");

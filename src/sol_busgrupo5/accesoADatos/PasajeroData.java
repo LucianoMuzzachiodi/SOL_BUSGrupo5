@@ -41,7 +41,7 @@ public class PasajeroData {
     public List<Pasajero> listarPasajeros() {
         ArrayList<Pasajero> pasajeroAux = new ArrayList<>();
 
-        String sql = "SELECT * FROM `pasajero`";
+        String sql = "SELECT * FROM `pasajero` WHERE Estado = 1";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -63,17 +63,17 @@ public class PasajeroData {
         try {
             switch (clasificacion) {
                 case "Nombre":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ? AND Estado = 1");
                     ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "Apellido":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ? AND Estado = 1");
                     ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "DNI":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ? AND Estado = 1");
                     ps.setString(1, objeto.toString() + "%");
                     rs = ps.executeQuery();
                     break;
@@ -83,7 +83,7 @@ public class PasajeroData {
                     rs = ps.executeQuery();
                     break;
                 default:
-                    ps = con.prepareStatement("SELECT * FROM `pasajero`");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Estado = 1");
                     rs = ps.executeQuery();
                     break;
             }
@@ -105,17 +105,17 @@ public class PasajeroData {
         try {
             switch (clasificacion) {
                 case "Nombre":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ? AND Estado = 1");
                     ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "Apellido":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ? AND Estado = 1");
                     ps.setString(1, objeto + "%");
                     rs = ps.executeQuery();
                     break;
                 case "DNI":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ?");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE ? AND Estado = 1");
                     ps.setString(1, objeto.toString() + "%");
                     rs = ps.executeQuery();
                     break;
@@ -125,7 +125,7 @@ public class PasajeroData {
                     rs = ps.executeQuery();
                     break;
                 default:
-                    ps = con.prepareStatement("SELECT * FROM `pasajero`");
+                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Estado = 1");
                     rs = ps.executeQuery();
                     break;
             }

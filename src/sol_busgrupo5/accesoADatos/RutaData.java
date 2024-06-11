@@ -14,6 +14,7 @@ public class RutaData {
         con = Conexion.getConexion();
     }
 
+    //AGREGAR RUTA
     public void agregarRuta(Ruta ruta) {
         String sql = "INSERT INTO `ruta`(`Origen`, `Destino`, `Duración_Estimada`, `Estado`)" + " VALUES (?,?,?,?)";
 
@@ -36,9 +37,10 @@ public class RutaData {
         }
     }
 
+    //LISTAR RUTAS
     public List<Ruta> listarRutas() {
         List<Ruta> rutas = new ArrayList<>();
-        String sql = "SELECT * FROM `ruta` WHERE Estado = true";
+        String sql = "SELECT * FROM `ruta` WHERE Estado = 1";
 
         try {
             ps = con.prepareStatement(sql);
@@ -53,10 +55,11 @@ public class RutaData {
         return rutas;
     }
 
+    //BUSCAR UNA RUTA POR ORIGEN O DESTINO (INDIVIDUAL)
     public Ruta buscarRuta(String clasificacion, String nombre) {
-        String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
+        String sql = "SELECT * FROM ruta WHERE Origen LIKE ? AND Estado = 1";
         if (clasificacion.equals("Destino")) {
-            sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
+            sql = "SELECT * FROM ruta WHERE Destino LIKE ? AND Estado = 1";
         }
 
         try {
@@ -73,12 +76,13 @@ public class RutaData {
         return null;
     }
     
+    //BUSCAR UNA RUTA POR ORIGEN O DESTINO (LISTA)
     public List<Ruta> buscarRuta_Lista(String clasificacion, String nombre) {
         List<Ruta> rutas = new ArrayList<>();
         
-        String sql = "SELECT * FROM ruta WHERE Origen LIKE ?";
+        String sql = "SELECT * FROM ruta WHERE Origen LIKE ? AND Estado = 1";
         if (clasificacion.equals("Destino")) {
-            sql = "SELECT * FROM ruta WHERE Destino LIKE ?";
+            sql = "SELECT * FROM ruta WHERE Destino LIKE ? AND Estado = 1";
         }
 
         try {
@@ -96,6 +100,7 @@ public class RutaData {
         return null;
     }
 
+    //BUSCAR RUTA POR ID
     public Ruta buscarPorID(int ID_Ruta) {
         String sql = "SELECT * FROM `ruta` WHERE ID_Ruta = ?";
 
@@ -114,6 +119,7 @@ public class RutaData {
         return null;
     }
     
+    //MODIFICAR RUTA
     public void modificarRuta(Ruta ruta){
         try {
             ps = con.prepareStatement("UPDATE ruta SET Origen = ?, Destino = ?, Duración_Estimada = ? WHERE ID_Ruta = ?", Statement.RETURN_GENERATED_KEYS);
@@ -131,6 +137,7 @@ public class RutaData {
         }
     }
     
+    //ELIMINAR RUTA
     public void eliminarRuta(int ID_Ruta){
         try {
             ps = con.prepareStatement("UPDATE ruta SET estado = 0 WHERE ID_Ruta = ?", Statement.RETURN_GENERATED_KEYS);

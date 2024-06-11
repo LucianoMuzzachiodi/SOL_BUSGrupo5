@@ -8,10 +8,12 @@ import sol_busgrupo5.entidades.Ruta;
 public class HorarioData {
     private Connection con;
     RutaData RD = new RutaData();
+    
     public HorarioData() {
         con = Conexion.getConexion();
-        
     }
+    
+    //AÑADIR UN HORARIO
     public int Añadir_Horario(Horario horario){
         try{
             PreparedStatement PS = con.prepareStatement("INSERT INTO `horario` (`ID_Horario`, `ID_Ruta`, `Hora_Salida`, `Hora_Llegada`,`estado` ) VALUES (NULL, ?, ?, ?, ?)");
@@ -26,6 +28,8 @@ public class HorarioData {
         }
         return 0;
     }
+    
+    //LISTAR HORARIOS
     public ArrayList<Horario> Listar_Horarios(String Condicional, int ID_Ruta, Time time){
         ArrayList<Horario> horarios = new ArrayList();
         try{
