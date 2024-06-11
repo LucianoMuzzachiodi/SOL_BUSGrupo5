@@ -151,7 +151,7 @@ public class PasajeData {
             ps.setInt(1, ID_Pasajero);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"),pasajeroData.buscarPorID(rs.getInt("ID_Pasajero")),colectivoData.buscar(rs.getInt("ID_Colectivo")),rutaData.buscarPorID(rs.getInt("ID_Ruta")),rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"),pasajeroData.buscar("ID", (Object)rs.getInt("ID_Pasajero")),colectivoData.buscar(rs.getInt("ID_Colectivo")),rutaData.buscarPorID(rs.getInt("ID_Ruta")),rs.getDate("Fecha_Viaje"),rs.getTime("Hora_Viaje"),rs.getInt("Asiento"),rs.getDouble("Precio"),rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
             return pasajes;
