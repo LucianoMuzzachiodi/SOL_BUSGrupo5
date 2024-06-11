@@ -5,7 +5,6 @@ import sol_busgrupo5.accesoADatos.PasajeroData;
 import sol_busgrupo5.entidades.Pasajero;
 
 public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
-
     PasajeroData PD = new PasajeroData();
 
     public GestionPasajeros_Añadir() {
@@ -70,11 +69,6 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jLabelID.setText("ID:");
 
         jTextoID.setEditable(false);
-        jTextoID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextoIDActionPerformed(evt);
-            }
-        });
 
         jLabelTextoPrincipal.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabelTextoPrincipal.setText("Añadir Pasajero");
@@ -89,7 +83,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jEliminar.setText("Eliminar");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEliminarActionPerformed(evt);
+                jEliminar_Accion(evt);
             }
         });
 
@@ -325,10 +319,15 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         vaciarFormulario();
     }//GEN-LAST:event_jNuevoActionPerformed
 
-    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
+    private void jEliminar_Accion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminar_Accion
         PD.eliminar(Integer.parseInt(jTextoID.getText()));
         vaciarFormulario();
-    }//GEN-LAST:event_jEliminarActionPerformed
+    }//GEN-LAST:event_jEliminar_Accion
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        PD.eliminar(Integer.parseInt(jTextoID.getText()));
+        vaciarFormulario();
+    }                                         
 
     private void llenarFormulario(Pasajero pasajero) {
         vaciarFormulario();
@@ -359,17 +358,6 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
         jEliminar.setVisible(false);
         jTextoNombre.requestFocus();
     }
-    }//GEN-LAST:event_jNuevoActionPerformed
-
-    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
-        PD.eliminar(Integer.parseInt(jTextoID.getText()));
-        jNuevoActionPerformed(evt);
-    }//GEN-LAST:event_jEliminarActionPerformed
-
-    private void jTextoIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextoIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextoIDActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBuscar;

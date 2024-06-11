@@ -7,48 +7,12 @@ import sol_busgrupo5.entidades.Pasajero;
 public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     PasajeroData PD = new PasajeroData();
-    
+
     public GestionPasajeros_Listar() {
         initComponents();
         llenarTabla();
     }
-    private void llenarTabla(){
-        vaciarTabla();
-        modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"","ID","Nombre","Apellido","DNI","Correo","Teléfono","Estado"});
-        jTabla.setModel(modelo);
-        TableColumnModel modeloColumna = jTabla.getColumnModel();
-        TableColumn columna1 = modeloColumna.getColumn(0);
-        TableColumn columna2 = modeloColumna.getColumn(1);
-        TableColumn columna3 = modeloColumna.getColumn(2);
-        TableColumn columna4 = modeloColumna.getColumn(3);
-        TableColumn columna5 = modeloColumna.getColumn(4);
-        TableColumn columna6 = modeloColumna.getColumn(5);
-        TableColumn columna7 = modeloColumna.getColumn(6);
-        TableColumn columna8 = modeloColumna.getColumn(7);
-        columna1.setPreferredWidth(0);
-        columna2.setPreferredWidth(0);
-        columna3.setPreferredWidth(100);
-        columna4.setPreferredWidth(100);
-        columna5.setPreferredWidth(50);
-        columna6.setPreferredWidth(150);
-        columna7.setPreferredWidth(70);
-        columna8.setPreferredWidth(40);
-        int contador = 0;
-        if(!PD.listarPasajeros().isEmpty()){
-            for (Pasajero pasajero : PD.listarPasajeros()) {
-                contador++; String activo;
-                if(pasajero.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
-                modelo.addRow(new Object[]{contador,pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(),pasajero.getTelefono(),activo});
-            }
-        }
-        jTabla.setModel(modelo);
-    }
-    private void vaciarTabla(){
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {
-            modelo.removeRow(i);
-        }
-    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,6 +69,43 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButton_SalirActionPerformed
 
+    private void llenarTabla() {
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        modelo.setColumnIdentifiers(new Object[]{"", "ID", "Nombre", "Apellido", "DNI", "Correo", "Teléfono", "Estado"});
+        jTabla.setModel(modelo);
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(100);
+        columna4.setPreferredWidth(100);
+        columna5.setPreferredWidth(50);
+        columna6.setPreferredWidth(150);
+        columna7.setPreferredWidth(70);
+        columna8.setPreferredWidth(40);
+        int contador = 0;
+        if (!PD.listarPasajeros().isEmpty()) {
+            for (Pasajero pasajero : PD.listarPasajeros()) {
+                contador++;
+                String activo;
+                if (pasajero.isEstado()) {
+                    activo = "Activo";
+                } else {
+                    activo = "Inactivo";
+                }
+                modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
+            }
+        }
+        jTabla.setModel(modelo);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Salir;

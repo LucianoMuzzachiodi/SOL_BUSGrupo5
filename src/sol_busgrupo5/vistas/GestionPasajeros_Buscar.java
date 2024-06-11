@@ -12,7 +12,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     
     public GestionPasajeros_Buscar() {
         initComponents();
-        llenarTabla();
+        configurarTabla();
         jComboBox.removeAllItems();
         jComboBox.addItem("Nombre");
         jComboBox.addItem("Apellido");
@@ -121,7 +121,25 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void llenarTabla() {
-        vaciarTabla();
+        if (!PD.listarPasajeros().isEmpty()) {
+            try {
+                int contador = 0; String activo;
+                if(!jTexto.getText().isEmpty()){
+                    modelo.setRowCount(0);
+                    for (Pasajero pasajero : PD.buscar_Lista(jComboBox.getSelectedItem().toString(), jTexto.getText())) {
+                        contador++;
+                        if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
+                        modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});                    
+                    }
+                }
+            } catch (HeadlessException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "No se permiten letras. " + ex.getMessage());
+            }
+        }
+    }
+
+    private void configurarTabla(){
+        modelo.setRowCount(0);
         modelo.setColumnCount(0);
         modelo.setColumnIdentifiers(new Object[]{"", "ID", "Nombre", "Apellido", "DNI", "Correo", "Teléfono", "Estado"});
         jTabla.setModel(modelo);
@@ -142,25 +160,6 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         columna6.setPreferredWidth(150);
         columna7.setPreferredWidth(70);
         columna8.setPreferredWidth(40);
-        if (!PD.listarPasajeros().isEmpty()) {
-            try {
-                int contador = 0; String activo;
-                if(!jTexto.getText().isEmpty()){
-                    for (Pasajero pasajero : PD.buscar_Lista(jComboBox.getSelectedItem().toString(), jTexto.getText())) {
-                        contador++;
-                        if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
-                        modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});                    
-                    }
-                }
-            } catch (HeadlessException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "No se permiten letras. " + ex.getMessage());
-            }
-        }
-        jTabla.setModel(modelo);
-    }
-
-    private void vaciarTabla() {
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {modelo.removeRow(i);}
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
