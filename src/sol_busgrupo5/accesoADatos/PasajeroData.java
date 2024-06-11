@@ -56,7 +56,7 @@ public class PasajeroData {
         return pasajeroAux;
     }
 
-    //BUSCAR POR ID, NOMBRE, APELLIDO O DNI
+    //BUSCAR POR ID, NOMBRE, APELLIDO O DNI (INDIVIDUAL)
     public Pasajero buscar(String clasificacion, Object objeto) {
         PreparedStatement ps; ResultSet rs;
         
@@ -97,6 +97,7 @@ public class PasajeroData {
         return null;
     }
     
+    //BUSCAR POR ID, NOMBRE, APELLIDO O DNI (LISTA)
     public List<Pasajero> buscar_Lista(String clasificacion, Object objeto) {
         List<Pasajero> pasajeros = new ArrayList();
         PreparedStatement ps; ResultSet rs;
@@ -176,85 +177,5 @@ public class PasajeroData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
         }
-    }
-    
-    public Pasajero buscar(String clasificacion, Object objeto) {
-        PreparedStatement ps; ResultSet rs;
-        
-        try {
-            switch (clasificacion) {
-                case "Nombre":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ?");
-                    ps.setString(1, objeto + "%");
-                    rs = ps.executeQuery();
-                    break;
-                case "Apellido":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ?");
-                    ps.setString(1, objeto + "%");
-                    rs = ps.executeQuery();
-                    break;
-                case "DNI":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE \""+(String)objeto+"%\"");
-                    rs = ps.executeQuery();
-                    break;
-                case "ID":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE ID_Pasajero = ?");
-                    ps.setInt(1, (int) objeto);
-                    rs = ps.executeQuery();
-                    break;
-                default:
-                    ps = con.prepareStatement("SELECT * FROM `pasajero`");
-                    rs = ps.executeQuery();
-                    break;
-            }
-            if (rs.next()) {
-                return new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
-        }
-        return null;
-    }
-    
-    public List<Pasajero> buscar_Lista(String clasificacion, Object objeto) {
-        List<Pasajero> pasajeros = new ArrayList();
-        PreparedStatement ps; ResultSet rs;
-        
-        try {
-            switch (clasificacion) {
-                case "Nombre":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Nombre LIKE ?");
-                    ps.setString(1, objeto + "%");
-                    rs = ps.executeQuery();
-                    break;
-                case "Apellido":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE Apellido LIKE ?");
-                    ps.setString(1, objeto + "%");
-                    rs = ps.executeQuery();
-                    break;
-                case "DNI":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE DNI LIKE \""+(String)objeto+"%\"");
-                    rs = ps.executeQuery();
-                    break;
-                case "ID":
-                    ps = con.prepareStatement("SELECT * FROM `pasajero` WHERE ID_Pasajero = ?");
-                    ps.setInt(1, (int) objeto);
-                    rs = ps.executeQuery();
-                    break;
-                default:
-                    ps = con.prepareStatement("SELECT * FROM `pasajero`");
-                    rs = ps.executeQuery();
-                    break;
-            }
-            while (rs.next()) {
-                Pasajero pasajero = new Pasajero(rs.getInt("ID_Pasajero"), rs.getString("Nombre"), rs.getString("Apellido"), rs.getInt("DNI"), rs.getString("Correo"), rs.getString("Teléfono"), rs.getBoolean("estado"));
-                pasajeros.add(pasajero);
-            }
-            return pasajeros;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasajero. " + ex);
-        }
-        return null;
     }
 }
