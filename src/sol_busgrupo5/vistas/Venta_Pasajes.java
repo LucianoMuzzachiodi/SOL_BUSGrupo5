@@ -329,7 +329,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Capacidad del trasporte");
+        jLabel15.setText("Capacidad del transporte");
 
         JTextCapacidad.setForeground(new java.awt.Color(153, 153, 153));
         JTextCapacidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
