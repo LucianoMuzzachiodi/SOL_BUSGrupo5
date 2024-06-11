@@ -149,7 +149,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
             try {
                 int contador = 0; String activo;
                 if (jComboBox.getSelectedItem().equals("Nombre") && !jTexto.getText().isEmpty() && PD.buscarNombre(jTexto.getText()) != null) {
-                    Pasajero pasajero = PD.buscarNombre(jTexto.getText());
+                    Pasajero pasajero = null;
                     contador++;
                     if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
                     modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});

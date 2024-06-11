@@ -233,7 +233,7 @@ public class GestionPasajeros_Añadir extends javax.swing.JInternalFrame {
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
         try {
             if (PD.buscarNombre(jTextoNombre.getText()) != null && !jTextoNombre.getText().equals("") && jTextoApellido.getText().equals("") && jTextoDNI.getText().equals("")) {
-                Pasajero pasajero = PD.buscarNombre(jTextoNombre.getText());
+                Pasajero pasajero = null;
                 jTextoID.setText("" + pasajero.getIdPasajero());
                 jTextoNombre.setText("" + pasajero.getNombre());
                 jTextoApellido.setText("" + pasajero.getApellido());
