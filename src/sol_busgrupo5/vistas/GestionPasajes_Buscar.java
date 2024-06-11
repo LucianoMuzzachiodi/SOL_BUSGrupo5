@@ -2,6 +2,7 @@ package sol_busgrupo5.vistas;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import javax.swing.JOptionPane;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
@@ -35,16 +36,28 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
 
         JTabla_Pasajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTabla_Pasajes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(JTabla_Pasajes);
+        if (JTabla_Pasajes.getColumnModel().getColumnCount() > 0) {
+            JTabla_Pasajes.getColumnModel().getColumn(0).setResizable(false);
+            JTabla_Pasajes.getColumnModel().getColumn(1).setResizable(false);
+            JTabla_Pasajes.getColumnModel().getColumn(2).setResizable(false);
+            JTabla_Pasajes.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jLabel1.setFont(new java.awt.Font("DialogInput", 0, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -95,6 +108,11 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
 
         jButton1.setFont(new java.awt.Font("DialogInput", 0, 16)); // NOI18N
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,7 +127,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -125,27 +143,38 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
 
     private void JComboBOX_Ruta_Horario_PasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Ruta_Horario_PasajeroActionPerformed
         
-        vaciarTabla();
+        
         if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Rutas")){
-            JComboBOX_Rutas.removeAllItems();
-            JComboBOX_Rutas.setVisible(true);
-            JComboBOX_Horarios.setVisible(false);
-            JComboBOX_Pasajeros.setVisible(false);
+            if(!JComboBOX_Rutas.isVisible()){
+                vaciarTabla();
+                JComboBOX_Rutas.removeAllItems();
             for(Ruta rutas:rutaData.listarRutas()){
                 JComboBOX_Rutas.addItem(rutas);
             }
+            JComboBOX_Rutas.setVisible(true);
+            JComboBOX_Horarios.setVisible(false);
+            JComboBOX_Pasajeros.setVisible(false);
+            }
+            
         } else if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Horarios")){
+            if(!JComboBOX_Horarios.isVisible()){
+                vaciarTabla();
             JComboBOX_Horarios.setVisible(true);
             JComboBOX_Pasajeros.setVisible(false);
             JComboBOX_Rutas.setVisible(false);
+            }
         } else if(JComboBOX_Ruta_Horario_Pasajero.getSelectedIndex()!=-1 && JComboBOX_Ruta_Horario_Pasajero.getSelectedItem().equals("Pasajeros")){
-            JComboBOX_Horarios.setVisible(false);
+            if(!JComboBOX_Pasajeros.isVisible()){
+                vaciarTabla();
+                JComboBOX_Horarios.setVisible(false);
             JComboBOX_Rutas.setVisible(false);
             JComboBOX_Pasajeros.removeAllItems();
-            JComboBOX_Pasajeros.setVisible(true);
             for(Pasajero pasajero:pasajeroData.listarPasajeros()){
                 JComboBOX_Pasajeros.addItem(pasajero);
             }
+            JComboBOX_Pasajeros.setVisible(true);
+            }
+            
         }
     }//GEN-LAST:event_JComboBOX_Ruta_Horario_PasajeroActionPerformed
 
@@ -154,8 +183,12 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         if(JComboBOX_Rutas.isVisible()){
             vaciarTabla();
             Ruta ruta = (Ruta)JComboBOX_Rutas.getSelectedItem();
-            for(Pasaje pasaje:pasajeData.visualizarPorRuta(ruta.getIdRuta())){
+            if(pasajeData.visualizarPorRuta(ruta.getIdRuta())!=null){
+                for(Pasaje pasaje:pasajeData.visualizarPorRuta(ruta.getIdRuta())){
                 modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
+            }
+            } else if(pasajeData.visualizarPorRuta(ruta.getIdRuta()).isEmpty()){
+                JOptionPane.showMessageDialog(this, "No hay ventas para mostrar.");
             }
         }
     }//GEN-LAST:event_JComboBOX_RutasActionPerformed
@@ -171,9 +204,20 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
 
     private void JComboBOX_PasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_PasajerosActionPerformed
         if(JComboBOX_Pasajeros.isVisible() && JComboBOX_Pasajeros.getSelectedIndex()!=-1){
-            
+            vaciarTabla();
+            if(pasajeData.visualizarPorPasajero(((Pasajero)JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())!=null){
+                for(Pasaje pasaje:pasajeData.visualizarPorPasajero(((Pasajero)JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())){
+                modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
+            }
+            } else{
+                JOptionPane.showMessageDialog(this, "no se encontraron pasajes con este id de pasjaero.");
+            }
         }
     }//GEN-LAST:event_JComboBOX_PasajerosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void llenarTabla(){
         modelo.setColumnIdentifiers(new Object[]{"ID","Pasajero","Colectivo","Ruta","Fecha","Hora de Salida","Asiento","Precio ($)","Estado"});
