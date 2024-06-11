@@ -13,7 +13,6 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     public GestionRutas_Añadir() {
         initComponents();
         vaciarFormulario();
-        jEliminar.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -191,7 +190,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
 
     private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
         RD.eliminarRuta(Integer.parseInt(jTextoID.getText()));
-        jNuevoActionPerformed(evt);
+        vaciarFormulario();
     }//GEN-LAST:event_jEliminarActionPerformed
 
     private void jBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscarActionPerformed
@@ -204,7 +203,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
                 llenarFormulario(RD.buscarRuta("Origen", jTextoOrigen.getText()));
             } else if(RD.buscarRuta("Destino", jTextoDestino.getText()) != null && jTextoID.getText().isEmpty() && jTextoOrigen.getText().isEmpty() && !jTextoDestino.getText().isEmpty()){
                 jTextoDestino.requestFocus();
-                llenarFormulario(RD.buscarRuta("Origen", jTextoOrigen.getText()));
+                llenarFormulario(RD.buscarRuta("Destino", jTextoDestino.getText()));
             } else if(RD.listarRutas().isEmpty()){
                 JOptionPane.showMessageDialog(this, "No hay rutas");
             } else if(jTextoID.getText().isEmpty() && jTextoOrigen.getText().isEmpty() && jTextoDestino.getText().isEmpty()){
@@ -213,17 +212,16 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
-            jTextoID.requestFocus();
             vaciarFormulario();
         }
     }//GEN-LAST:event_jBuscarActionPerformed
         
     private boolean validar() {
-        if (jTextoOrigen.getText().isEmpty() || !jTextoOrigen.getText().matches("[a-zA-Z ]+")) {
+        if (jTextoOrigen.getText().isEmpty() || !jTextoOrigen.getText().matches("[\\p{L}\\s]+")) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoOrigen.requestFocus();
             return false;
-        } else if (jTextoDestino.getText().isEmpty() || !jTextoDestino.getText().matches("[a-zA-Z ]+")) {
+        } else if (jTextoDestino.getText().isEmpty() || !jTextoDestino.getText().matches("[\\p{L}\\s]+")) {
             JOptionPane.showMessageDialog(this, "Valor inválido");
             jTextoDestino.requestFocus();
             return false;
@@ -252,6 +250,7 @@ public class GestionRutas_Añadir extends javax.swing.JInternalFrame {
     private void llenarFormulario(Ruta ruta) {
         vaciarFormulario();
         jEliminar.setVisible(true);
+        jTextoID.setEditable(false);
         jGuardar.setText("Modificar");
         jLabelTitulo.setText("Buscar una ruta");
         jTextoID.setText("" + ruta.getIdRuta());

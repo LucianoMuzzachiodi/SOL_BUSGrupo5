@@ -96,11 +96,7 @@ public class GestionPasajeros_Listar extends javax.swing.JInternalFrame {
             for (Pasajero pasajero : PD.listarPasajeros()) {
                 contador++;
                 String activo;
-                if (pasajero.isEstado()) {
-                    activo = "Activo";
-                } else {
-                    activo = "Inactivo";
-                }
+                if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
                 modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
             }
         }
