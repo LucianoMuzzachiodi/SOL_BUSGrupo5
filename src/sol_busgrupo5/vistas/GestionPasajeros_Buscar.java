@@ -9,7 +9,6 @@ import sol_busgrupo5.entidades.*;
 public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     PasajeroData PD = new PasajeroData();
-    RutaData RD = new RutaData();
     
     public GestionPasajeros_Buscar() {
         initComponents();
@@ -31,7 +30,7 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         jTabla = new javax.swing.JTable();
         jTexto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jSalir = new javax.swing.JButton();
 
         jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -63,10 +62,10 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Ingresá:");
 
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jSalir.setText("Salir");
+        jSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jSalirActionPerformed(evt);
             }
         });
 
@@ -74,10 +73,6 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(jLabel1)
@@ -88,8 +83,9 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,29 +96,30 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton1))
+                    .addComponent(jSalir))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
-        jTexto.requestFocus();
         jTexto.setText("");
+        jTexto.requestFocus();
+        configurarTabla();
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void jTextoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextoKeyReleased
         llenarTabla();
     }//GEN-LAST:event_jTextoKeyReleased
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jSalirActionPerformed
     
     private void llenarTabla() {
+        configurarTabla();
         if (!PD.listarPasajeros().isEmpty()) {
             try {
                 int contador = 0; String activo;
@@ -136,46 +133,51 @@ public class GestionPasajeros_Buscar extends javax.swing.JInternalFrame {
                 }
             } catch (HeadlessException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "No se permiten letras. " + ex.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado. " + ex.getMessage());
             }
         }
     }
 
     private void configurarTabla(){
-        modelo.setColumnIdentifiers(new Object[]{"ID", "Nombre", "Apellido", "DNI", "Correo", "Teléfono", "Estado"});
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        modelo.setColumnIdentifiers(new Object[]{"", "ID", "Nombre", "Apellido", "DNI", "Correo", "Teléfono", "Estado"});
         jTabla.setModel(modelo);
-        if (!PD.listarPasajeros().isEmpty() && !RD.listarRutas().isEmpty()) {
-            
-            try {
-                if (jComboBox.getSelectedItem().equals("Nombre") && !jTexto.getText().isEmpty() && PD.buscarNombre(jTexto.getText()) != null) {
-                    for(Pasajero pasajero:PD.buscarNombre(jTexto.getText())){
-                        modelo.addRow(new Object[]{pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(), pasajero.getTelefono(), pasajero.isEstado()});
-                    }
-                } else if (jComboBox.getSelectedItem().equals("Apellido") && !jTexto.getText().isEmpty() && PD.buscarApellido(jTexto.getText()) != null) {
-                    for(Pasajero pasajero:PD.buscarApellido(jTexto.getText())){
-                        modelo.addRow(new Object[]{pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(), pasajero.getTelefono(), pasajero.isEstado()});
-                    }
-                } else if (jComboBox.getSelectedItem().equals("DNI") && !jTexto.getText().isEmpty() && PD.buscarDNI(Integer.parseInt(jTexto.getText())) != null) {
-                    for(Pasajero pasajero:PD.buscarDNI(Integer.parseInt(jTexto.getText()))){
-                        modelo.addRow(new Object[]{pasajero.getIdPasajero(),pasajero.getNombre(),pasajero.getApellido(),pasajero.getDni(),pasajero.getCorreo(), pasajero.getTelefono(), pasajero.isEstado()});
-                    }
-                }
-            } catch (NumberFormatException ex) {
-                System.out.println(ex.fillInStackTrace());
-                System.out.println(ex.fillInStackTrace());
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(100);
+        columna4.setPreferredWidth(100);
+        columna5.setPreferredWidth(50);
+        columna6.setPreferredWidth(150);
+        columna7.setPreferredWidth(70);
+        columna8.setPreferredWidth(40);
+        int contador = 0;
+        if (!PD.listarPasajeros().isEmpty()) {
+            for (Pasajero pasajero : PD.listarPasajeros()) {
+                contador++;
+                String activo;
+                if (pasajero.isEstado()) {activo = "Activo";} else {activo = "Inactivo";}
+                modelo.addRow(new Object[]{contador, pasajero.getIdPasajero(), pasajero.getNombre(), pasajero.getApellido(), pasajero.getDni(), pasajero.getCorreo(), pasajero.getTelefono(), activo});
             }
         }
         jTabla.setModel(modelo);
     }
 
-    private void vaciarTabla() {
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {modelo.removeRow(i);}
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabla;
     private javax.swing.JTextField jTexto;
