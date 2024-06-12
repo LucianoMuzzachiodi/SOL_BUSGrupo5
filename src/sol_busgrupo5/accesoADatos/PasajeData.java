@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.*;
 
 public class PasajeData {
-
     private Connection con;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -54,6 +53,7 @@ public class PasajeData {
         List<Pasaje> pasajes = new ArrayList<>();
         String sql = "SELECT * FROM pasaje WHERE Estado = 1";
         PasajeroData pasajeroData = new PasajeroData();
+        
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -66,13 +66,15 @@ public class PasajeData {
                         colectivos = colectivo;
                     }
                 }
-                for (Pasajero pasajeroos : pasajeroData.listarPasajeros()) {
-                    if (rs.getInt("ID_Pasajero") == pasajeroos.getIdPasajero()) {
-                        AUX_Pasajero = pasajeroos;
+                for (Pasajero pasajeros : pasajeroData.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeros.getIdPasajero()) {
+                        AUX_Pasajero = pasajeros;
                     }
                 }
-                for(Ruta ruta:rutaData.listarRutas()){
-                    if(ruta.getIdRuta()==rs.getInt("ID_Ruta")) AUX_Ruta = ruta;
+                for (Ruta ruta : rutaData.listarRutas()) {
+                    if (ruta.getIdRuta() == rs.getInt("ID_Ruta")) {
+                        AUX_Ruta = ruta;
+                    }
                 }
                 Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
@@ -148,23 +150,23 @@ public class PasajeData {
             while (rs.next()) {
                 Pasajero AUX_Pasajero = new Pasajero();
                 Colectivo colectivos = new Colectivo();
-                Ruta rutas = new Ruta();
+                Ruta ruta = new Ruta();
                 for (Colectivo colectivo : colectivoData.listarColectivos()) {
                     if (rs.getInt("ID_Colectivo") == colectivo.getIdColectivo()) {
                         colectivos = colectivo;
                     }
                 }
-                for (Pasajero pasajeroos : pasaj.listarPasajeros()) {
-                    if (rs.getInt("ID_Pasajero") == pasajeroos.getIdPasajero()) {
-                        AUX_Pasajero = pasajeroos;
+                for (Pasajero pasajeros : pasaj.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeros.getIdPasajero()) {
+                        AUX_Pasajero = pasajeros;
                     }
                 }
-                for (Ruta rutta : rutaData.listarRutas()) {
-                    if (rs.getInt("ID_Ruta") == rutta.getIdRuta()) {
-                        rutas = rutta;
+                for (Ruta rutas : rutaData.listarRutas()) {
+                    if (rs.getInt("ID_Ruta") == rutas.getIdRuta()) {
+                        ruta = rutas;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, rutas, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
             return pasajes;

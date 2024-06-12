@@ -5,10 +5,10 @@ import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Ruta;
 
-public class H_L extends javax.swing.JFrame {
+public class GestionHorarios_Listar extends javax.swing.JFrame {
     DefaultTableModel DTMT = new DefaultTableModel();
 
-    public H_L() {
+    public GestionHorarios_Listar() {
         initComponents();
         Config();
         setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
@@ -81,20 +81,21 @@ public class H_L extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(H_L.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Listar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(H_L.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Listar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(H_L.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Listar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(H_L.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Listar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new H_L().setVisible(true);
+                new GestionHorarios_Listar().setVisible(true);
             }
         });
     }

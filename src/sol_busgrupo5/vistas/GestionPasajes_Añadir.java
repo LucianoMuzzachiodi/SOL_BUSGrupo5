@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
-public class Venta_Pasajes extends javax.swing.JInternalFrame {
+public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     DefaultTableModel DTMT = new DefaultTableModel();
     ColectivoData CD = new ColectivoData();
     PasajeData PasajeD = new PasajeData();
@@ -15,7 +15,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
     HorarioData HD = new HorarioData();
     RutaData RD = new RutaData();
 
-    public Venta_Pasajes() {
+    public GestionPasajes_Añadir() {
         initComponents();
         JComboS();
         EstoEsCine();
