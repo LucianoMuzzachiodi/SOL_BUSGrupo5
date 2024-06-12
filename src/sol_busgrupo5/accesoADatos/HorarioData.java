@@ -21,7 +21,6 @@ public class HorarioData {
             PS.setTime(2, Time.valueOf((String.valueOf(horario.getHoraSalida()))));
             PS.setTime(3, Time.valueOf((String.valueOf(horario.getHoraLlegada()))));
             PS.setBoolean(4,true);
-//            PS.close();
             return PS.executeUpdate();
         }catch(SQLException SQLE){
             System.err.println(SQLE);

@@ -207,8 +207,8 @@ public class PasajeData {
     }
 
     //MODIFICAR UN PASAJE
-    public void modificar(Pasaje pasaje) {
-        String sql = "UPDATE pasaje SET ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasajero = ?";
+    public int modificar(Pasaje pasaje) {
+        String sql = "UPDATE pasaje SET ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasaje = ?";
 
         try {
             ps = con.prepareStatement(sql);
@@ -219,18 +219,16 @@ public class PasajeData {
             ps.setInt(5, pasaje.getAsiento());
             ps.setDouble(6, pasaje.getPrecio());
             ps.setInt(7, pasaje.getIdPasaje());
-            int exito = ps.executeUpdate();
-            if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Pasaje modificado");
-            }
-            ps.close();
+            ps.executeQuery();
+            return ps.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje. " + ex.getMessage());
         }
+        return 0;
     }
 
     //ELIMINAR UN PASAJE
-    public void eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta) {
+    public int eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta) {
         String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
 
         try {
@@ -239,10 +237,11 @@ public class PasajeData {
             ps.setInt(2, ID_Colectivo);
             ps.setInt(3, ID_Ruta);
             rs = ps.executeQuery();
-            ps.close();
+            return ps.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         }
+        return 0;
     }
 
     //BUSCAR UN ASIENTO DISPONIBLE
