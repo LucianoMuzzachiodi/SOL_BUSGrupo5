@@ -687,6 +687,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
             }
         }
         if(JTextAsiento.getText().equals("null")){
+            JOptionPane.showMessageDialog(this, "No hay mas lugar en el transporte seleccionado.");
             JComboBox_Transportes.removeItemAt(JComboBox_Transportes.getSelectedIndex());
         }
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
