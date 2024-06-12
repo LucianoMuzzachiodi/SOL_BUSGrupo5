@@ -10,6 +10,7 @@ public class Principal extends javax.swing.JFrame {
    
     public Principal() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -50,11 +51,11 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.setLayout(JDesktopLayout);
         JDesktopLayout.setHorizontalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1336, Short.MAX_VALUE)
+            .addGap(0, 1240, Short.MAX_VALUE)
         );
         JDesktopLayout.setVerticalGroup(
             JDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 733, Short.MAX_VALUE)
+            .addGap(0, 646, Short.MAX_VALUE)
         );
 
         jMenuGestionRutas.setText("Rutas");
