@@ -686,6 +686,9 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                 if(JCombo_Asientos_Disponibles.getItemAt(i)==AUX_Int.get(j)) JCombo_Asientos_Disponibles.removeItemAt(i);
             }
         }
+        if(JTextAsiento.getText().equals("null")){
+            JComboBox_Transportes.removeItemAt(JComboBox_Transportes.getSelectedIndex());
+        }
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
 
     private void JTable_DestinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTable_DestinosMouseClicked
