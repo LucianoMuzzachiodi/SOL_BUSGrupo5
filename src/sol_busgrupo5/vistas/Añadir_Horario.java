@@ -44,7 +44,7 @@ public class Añadir_Horario extends javax.swing.JFrame {
         jLabel2.setText("Elegir Ruta");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        JButton_Añadir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        JButton_Añadir.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         JButton_Añadir.setText("AGREGAR");
         JButton_Añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

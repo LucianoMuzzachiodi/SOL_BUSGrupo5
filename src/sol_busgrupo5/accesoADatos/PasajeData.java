@@ -53,22 +53,31 @@ public class PasajeData {
     public List<Pasaje> visualizarPasajes() {
         List<Pasaje> pasajes = new ArrayList<>();
         String sql = "SELECT * FROM pasaje WHERE Estado = 1";
-
+        PasajeroData pasajeroData = new PasajeroData();
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pasaje pasaje = new Pasaje();
-                pasaje.getPasajero().setIdPasajero(rs.getInt("ID_Pasajero"));
-                pasaje.getColectivo().setIdColectivo(rs.getInt("ID_Colectivo"));
-                pasaje.getRuta().setIdRuta(rs.getInt("ID_Ruta"));
-                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                pasaje.setHoraViaje(rs.getTime("Hora_Viaje"));
-                pasaje.setAsiento(rs.getInt("Asiento"));
-                pasaje.setPrecio(rs.getDouble("Precio"));
+                Ruta AUX_Ruta = new Ruta();
+                Pasajero AUX_Pasajero = new Pasajero();
+                Colectivo colectivos = new Colectivo();
+                for (Colectivo colectivo : colectivoData.listarColectivos()) {
+                    if (rs.getInt("ID_Colectivo") == colectivo.getIdColectivo()) {
+                        colectivos = colectivo;
+                    }
+                }
+                for (Pasajero pasajeroos : pasajeroData.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeroos.getIdPasajero()) {
+                        AUX_Pasajero = pasajeroos;
+                    }
+                }
+                for(Ruta ruta:rutaData.listarRutas()){
+                    if(ruta.getIdRuta()==rs.getInt("ID_Ruta")) AUX_Ruta = ruta;
+                }
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
                 pasajes.add(pasaje);
             }
-            ps.close();
+            return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         } finally {
@@ -79,7 +88,7 @@ public class PasajeData {
                 JOptionPane.showMessageDialog(null, "Error al cerrar. " + ex.getMessage());
             }
         }
-        return pasajes;
+        return null;
     }
 
     //VER PASAJES POR RUTA
