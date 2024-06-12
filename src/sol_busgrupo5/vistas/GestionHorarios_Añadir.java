@@ -3,6 +3,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.HorarioData;
 import sol_busgrupo5.accesoADatos.RutaData;
@@ -13,6 +14,7 @@ public class GestionHorarios_Añadir extends javax.swing.JFrame {
     HorarioData HD = new HorarioData();
     public GestionHorarios_Añadir() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
         
         Configuracion();
     }
@@ -33,11 +35,12 @@ public class GestionHorarios_Añadir extends javax.swing.JFrame {
         jButton_Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agregar horario");
         setResizable(false);
 
         jLabel7.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("AGREGAR Horarios");
+        jLabel7.setText("Horarios");
 
         jLabel2.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
