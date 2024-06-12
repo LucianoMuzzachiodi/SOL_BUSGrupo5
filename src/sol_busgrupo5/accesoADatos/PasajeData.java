@@ -34,7 +34,7 @@ public class PasajeData {
         } catch (SQLException ex) {
             System.out.println(ex);
             System.out.println(ex.fillInStackTrace());
-            JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje. " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "El asiento no está disponible.");
         } catch (NullPointerException NPE) {
             System.err.println(NPE);
         } finally {
