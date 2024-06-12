@@ -86,9 +86,9 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirActionPerformed
     
     private void llenarTabla(){
-        vaciarTabla();
+        modelo.setRowCount(0);
         modelo.setColumnCount(0);
-        modelo.setColumnIdentifiers(new Object[]{"","ID","Origen","Destino","Duración","Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"", "ID", "Origen", "Destino", "Duración", "Estado"});
         jTabla.setModel(modelo);
         TableColumnModel modeloColumna = jTabla.getColumnModel();
         TableColumn columna1 = modeloColumna.getColumn(0);
@@ -103,18 +103,13 @@ public class GestionRutas_Listar extends javax.swing.JInternalFrame {
         columna4.setPreferredWidth(120);
         columna5.setPreferredWidth(40);
         columna6.setPreferredWidth(40);
-        int contador = 0;
+        int contador = 0; String activo;
         for (Ruta rutas : RD.listarRutas()) {
-            contador++; String activo;
+            contador++;
             if(rutas.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
             modelo.addRow(new Object[]{contador,rutas.getIdRuta(),rutas.getOrigen(),rutas.getDestino(),rutas.getDuracionEstimada(),activo});
         }
         jTabla.setModel(modelo);
-    }
-    private void vaciarTabla(){
-        for (int i = modelo.getRowCount() - 1; i >= 0; i--) {
-            modelo.removeRow(i);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

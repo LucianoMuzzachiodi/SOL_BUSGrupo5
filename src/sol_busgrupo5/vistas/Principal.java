@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
-    Añadir_Horario AH = new Añadir_Horario();
+    GestionHorarios_Añadir AH = new GestionHorarios_Añadir();
    
     public Principal() {
         initComponents();
@@ -75,7 +75,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionRutas.add(jBuscarRuta_);
 
-        jListarRuta_.setText("Lista Rutas");
+        jListarRuta_.setText("Listar Rutas");
         jListarRuta_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarRuta_ActionPerformed(evt);
@@ -95,7 +95,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionHorarios.add(jAñadirHorario);
 
-        jAñadirHorario1.setText("Lista Horarios");
+        jAñadirHorario1.setText("Listar Horarios");
         jAñadirHorario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jAñadirHorario1ActionPerformed(evt);
@@ -123,7 +123,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionPasajeros.add(jBuscarPasajero_);
 
-        jListarPasajero_.setText("Lista Pasajeros");
+        jListarPasajero_.setText("Listar Pasajeros");
         jListarPasajero_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarPasajero_ActionPerformed(evt);
@@ -151,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionPasajes.add(jBuscarPasaje_);
 
-        jListarPasaje_.setText("Lista Pasajes");
+        jListarPasaje_.setText("Listar Pasajes");
         jListarPasaje_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jListarPasaje_ActionPerformed(evt);
@@ -231,7 +231,7 @@ public class Principal extends javax.swing.JFrame {
     private void jAñadirHorario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirHorario1ActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
-        Buscar_Horarios BH = new Buscar_Horarios();
+        GestionHorarios_Buscar BH = new GestionHorarios_Buscar();
         BH.setVisible(true);
         JDesktop.add(BH);
     }//GEN-LAST:event_jAñadirHorario1ActionPerformed
@@ -255,7 +255,7 @@ public class Principal extends javax.swing.JFrame {
     private void jAñadirPasaje_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirPasaje_ActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
-        Venta_Pasajes VP = new Venta_Pasajes();
+        GestionPasajes_Añadir VP = new GestionPasajes_Añadir();
         VP.setVisible(true);
         JDesktop.add(VP);
     }//GEN-LAST:event_jAñadirPasaje_ActionPerformed

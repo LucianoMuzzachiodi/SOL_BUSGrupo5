@@ -9,9 +9,9 @@ import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Horario;
 import sol_busgrupo5.entidades.Ruta;
 
-public class Añadir_Horario extends javax.swing.JFrame {
+public class GestionHorarios_Añadir extends javax.swing.JFrame {
     HorarioData HD = new HorarioData();
-    public Añadir_Horario() {
+    public GestionHorarios_Añadir() {
         initComponents();
         
         Configuracion();
@@ -206,21 +206,23 @@ public class Añadir_Horario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Añadir_Horario().setVisible(true);
+                new GestionHorarios_Añadir().setVisible(true);
             }
         });
     }

@@ -16,15 +16,15 @@ import sol_busgrupo5.entidades.Ruta;
  *
  * @author DANIELALEJANDROMIRAN
  */
-public class Buscar_Horarios extends javax.swing.JInternalFrame {
+public class GestionHorarios_Buscar extends javax.swing.JInternalFrame {
     DefaultTableModel DTMT = new DefaultTableModel();
-    H_L hl = new H_L();
+    GestionHorarios_Listar hl = new GestionHorarios_Listar();
     RutaData RD = new RutaData();
     HorarioData HD = new HorarioData();
     /**
      * Creates new form Buscar_Horarios
      */
-    public Buscar_Horarios() {
+    public GestionHorarios_Buscar() {
         initComponents();
         
         Config("Rutas");

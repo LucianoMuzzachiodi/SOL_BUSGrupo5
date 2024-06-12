@@ -27,7 +27,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jListarRuta_">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Rutas"/>
+                <Property name="text" type="java.lang.String" value="Listar Rutas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jListarRuta_ActionPerformed"/>
@@ -50,7 +50,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jA&#xf1;adirHorario1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Horarios"/>
+                <Property name="text" type="java.lang.String" value="Listar Horarios"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jA&#xf1;adirHorario1ActionPerformed"/>
@@ -81,7 +81,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jListarPasajero_">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Pasajeros"/>
+                <Property name="text" type="java.lang.String" value="Listar Pasajeros"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jListarPasajero_ActionPerformed"/>
@@ -112,7 +112,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jListarPasaje_">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista Pasajes"/>
+                <Property name="text" type="java.lang.String" value="Listar Pasajes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jListarPasaje_ActionPerformed"/>

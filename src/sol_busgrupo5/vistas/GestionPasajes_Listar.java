@@ -1,6 +1,5 @@
 package sol_busgrupo5.vistas;
 
-import java.sql.*;
 import javax.swing.table.*;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
@@ -56,15 +55,15 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(407, 407, 407)
-                .addComponent(jButton_Salir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 985, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(437, 437, 437)
+                .addComponent(jButton_Salir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,10 +84,36 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton_SalirActionPerformed
 
     private void llenarTabla() {
-        modelo.setColumnIdentifiers(new Object[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado"});
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        modelo.setColumnIdentifiers(new Object[]{"", "ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado"});
         jTabla.setModel(modelo);
-        for(Pasaje pasaje:pasajeData.visualizarPasajes()){
-            modelo.addRow(new Object[]{pasaje.getIdPasaje(),pasaje.getPasajero().getIdPasajero(),pasaje.getColectivo().getIdColectivo(),pasaje.getRuta().getIdRuta(),pasaje.getFechaViaje(),pasaje.getHoraViaje(),pasaje.getAsiento(),pasaje.getPrecio(),pasaje.isEstado()});
+        TableColumnModel modeloColumna = jTabla.getColumnModel();
+        TableColumn columna1 = modeloColumna.getColumn(0);
+        TableColumn columna2 = modeloColumna.getColumn(1);
+        TableColumn columna3 = modeloColumna.getColumn(2);
+        TableColumn columna4 = modeloColumna.getColumn(3);
+        TableColumn columna5 = modeloColumna.getColumn(4);
+        TableColumn columna6 = modeloColumna.getColumn(5);
+        TableColumn columna7 = modeloColumna.getColumn(6);
+        TableColumn columna8 = modeloColumna.getColumn(7);
+        TableColumn columna9 = modeloColumna.getColumn(8);
+        TableColumn columna0 = modeloColumna.getColumn(9);
+        columna1.setPreferredWidth(0);
+        columna2.setPreferredWidth(0);
+        columna3.setPreferredWidth(175);
+        columna4.setPreferredWidth(90);
+        columna5.setPreferredWidth(120);
+        columna6.setPreferredWidth(90);
+        columna7.setPreferredWidth(90);
+        columna8.setPreferredWidth(40);
+        columna9.setPreferredWidth(40);
+        columna0.setPreferredWidth(40);
+        int contador = 0; String activo;
+        for (Pasaje pasajes : pasajeData.visualizarPasajes()) {
+            contador++;
+            if(pasajes.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+            modelo.addRow(new Object[]{contador, pasajes.getIdPasaje(), pasajes.getPasajero().getIdPasajero() + " - " + pasajes.getPasajero().getNombre() + " " + pasajes.getPasajero().getApellido(), pasajes.getColectivo().getIdColectivo() + " - " + pasajes.getColectivo().getMatricula(), pasajes.getRuta().getOrigen() + " - " + pasajes.getRuta().getDestino(), pasajes.getFechaViaje(), pasajes.getHoraViaje(), pasajes.getAsiento(), pasajes.getPrecio(), activo});
         }
     }
     
