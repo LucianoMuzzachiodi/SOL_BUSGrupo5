@@ -2,6 +2,7 @@ package sol_busgrupo5.vistas;
 
 import java.sql.*;
 import java.time.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.*;
@@ -69,7 +70,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         JTextCapacidad = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        JTextLD = new javax.swing.JTextField();
+        JCombo_Asientos_Disponibles = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         JButton_Nuevo = new javax.swing.JButton();
         JButton_Guardar = new javax.swing.JButton();
@@ -341,9 +342,12 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Lugares Disponibles");
 
-        JTextLD.setForeground(new java.awt.Color(153, 153, 153));
-        JTextLD.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        JTextLD.setText("LD");
+        JCombo_Asientos_Disponibles.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
+        JCombo_Asientos_Disponibles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JCombo_Asientos_DisponiblesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -374,7 +378,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JTextCapacidad, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                            .addComponent(JTextLD))))
+                            .addComponent(JCombo_Asientos_Disponibles, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -396,7 +400,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(JTextLD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JCombo_Asientos_Disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -466,6 +470,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Asiento");
 
+        JTextAsiento.setEditable(false);
         JTextAsiento.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
         JTextAsiento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         JTextAsiento.setText("Asiento");
@@ -580,7 +585,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                         .addComponent(JCombo_Año, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(JTextID_Ruta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -662,10 +667,25 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
 
     private void JComboBox_TransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBox_TransportesActionPerformed
         Colectivo colectivo = ((Colectivo) JComboBox_Transportes.getSelectedItem());
+        ArrayList<Integer> AUX_Int = new ArrayList();
         JTextMarca.setText("" + colectivo.getMarca());
         JTextCapacidad.setText("" + colectivo.getCapacidad());
         JTextMatricula.setText("" + colectivo.getMatricula());
         JTextID_Colectivo.setText("" + colectivo.getIdColectivo());
+        JCombo_Asientos_Disponibles.removeAllItems();
+        for(Pasaje pasajes:PasajeD.visualizarPasajes()){
+            if(pasajes.getColectivo().getIdColectivo()==colectivo.getIdColectivo()){
+                AUX_Int.add(pasajes.getAsiento());
+            }
+        }
+        for(int i=1;i<=colectivo.getCapacidad();i++){
+            JCombo_Asientos_Disponibles.addItem(i);
+        }
+        for(int i=0;i<=JCombo_Asientos_Disponibles.getItemCount()-1;i++){
+            for(int j=0;j<=AUX_Int.size()-1;j++){
+                if(JCombo_Asientos_Disponibles.getItemAt(i)==AUX_Int.get(j)) JCombo_Asientos_Disponibles.removeItemAt(i);
+            }
+        }
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
 
     private void JTable_DestinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTable_DestinosMouseClicked
@@ -709,6 +729,10 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void JCombo_Asientos_DisponiblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCombo_Asientos_DisponiblesActionPerformed
+        JTextAsiento.setText(""+JCombo_Asientos_Disponibles.getSelectedItem());
+    }//GEN-LAST:event_JCombo_Asientos_DisponiblesActionPerformed
 
     public void Clean() {
         limpiarTextos();
@@ -763,6 +787,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     private javax.swing.JButton JButton_Guardar;
     private javax.swing.JButton JButton_Nuevo;
     private javax.swing.JComboBox<Colectivo> JComboBox_Transportes;
+    private javax.swing.JComboBox<Integer> JCombo_Asientos_Disponibles;
     private javax.swing.JComboBox<String> JCombo_Año;
     private javax.swing.JComboBox<String> JCombo_Dia;
     private javax.swing.JComboBox<String> JCombo_Mes;
@@ -778,7 +803,6 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     private javax.swing.JTextField JTextID_Colectivo;
     private javax.swing.JTextField JTextID_Pasajero;
     private javax.swing.JTextField JTextID_Ruta;
-    private javax.swing.JTextField JTextLD;
     private javax.swing.JTextField JTextMarca;
     private javax.swing.JTextField JTextMatricula;
     private javax.swing.JTextField JTextNombre;

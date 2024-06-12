@@ -4,7 +4,6 @@ public class Colectivo {
     private int idColectivo, capacidad;
     private String matricula, marca, modelo;
     private boolean estado;
-
     public Colectivo() {}
 
     public Colectivo(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
@@ -59,8 +58,7 @@ public class Colectivo {
     }
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }   
-
+    }
     @Override
     public String toString() {
         String activo;
