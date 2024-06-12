@@ -284,7 +284,7 @@ public class Ver_Pasaje extends javax.swing.JFrame {
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         try{
             if(Eliminar.isEnabled()){
-                int aux = pasajeData.eliminarPasaje(Integer.parseInt(ID_Pasajero.getText()), Integer.parseInt(ID_Colectivo.getText()), Integer.parseInt(ID_Ruta.getText()));
+                int aux = pasajeData.eliminarPasaje(Integer.parseInt(ID_Pasaje.getText()));
                 if(aux==1){
                 JOptionPane.showMessageDialog(this, "Pasaje removido.");
                 Listar_Pasaje();
@@ -306,18 +306,16 @@ public class Ver_Pasaje extends javax.swing.JFrame {
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        if(!ID_Pasaje.getText().isEmpty() && pasajeData.BuscarPasaje(Integer.parseInt(ID_Pasaje.getText()))!=null){
+            System.out.println(pasajeData.BuscarPasaje(Integer.parseInt(ID_Pasaje.getText())));
+            Pasaje pasaje = pasajeData.BuscarPasaje(Integer.parseInt(ID_Pasaje.getText()));
+            Listar_Pasaje(pasaje);
+            Eliminar.setEnabled(true);
+            Modificar.setEnabled(true);
+        } else{
+            Listar_Pasaje();
+        }
         
-        for(Pasaje pasaje:pasajeData.visualizarPasajes()){
-                    if(pasaje.getIdPasaje()==Integer.parseInt(ID_Pasaje.getText())){
-                        Listar_Pasaje(pasaje);
-                        Eliminar.setEnabled(true);
-                        Modificar.setEnabled(true);
-                        break;
-                    } else{
-                        Listar_Pasaje();
-                        break;
-                    }
-            }
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed

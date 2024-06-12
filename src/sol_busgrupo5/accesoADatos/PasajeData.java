@@ -47,7 +47,40 @@ public class PasajeData {
         }
         return 0;
     }
-
+    public Pasaje BuscarPasaje(int ID){
+        Pasaje pasaje = new Pasaje();
+        PreparedStatement ps; ResultSet rs;
+        try{
+            ps = con.prepareStatement("SELECT * FROM `pasaje` WHERE ID_Pasaje = "+ID+" AND Estado = 1");
+            rs = ps.executeQuery();
+            if(rs.next()){
+                Ruta AUX_Ruta = new Ruta();
+                Pasajero AUX_Pasajero = new Pasajero();
+                Colectivo colectivos = new Colectivo();
+                for (Colectivo colectivo : colectivoData.listarColectivos()) {
+                    if (rs.getInt("ID_Colectivo") == colectivo.getIdColectivo()) {
+                        colectivos = colectivo;
+                    }
+                }
+                for (Pasajero pasajeros : pasajeroData.listarPasajeros()) {
+                    if (rs.getInt("ID_Pasajero") == pasajeros.getIdPasajero()) {
+                        AUX_Pasajero = pasajeros;
+                    }
+                }
+                for (Ruta ruta : rutaData.listarRutas()) {
+                    if (ruta.getIdRuta() == rs.getInt("ID_Ruta")) {
+                        AUX_Ruta = ruta;
+                    }
+                }
+                return pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+            }
+        
+        
+        } catch(SQLException SQL){
+            
+        }
+        return null;
+    }
     //VER PASAJES (ACTIVOS)
     public List<Pasaje> visualizarPasajes() {
         List<Pasaje> pasajes = new ArrayList<>();
@@ -232,14 +265,12 @@ public class PasajeData {
     }
 
     //ELIMINAR UN PASAJE
-    public int eliminarPasaje(int ID_Pasajero, int ID_Colectivo, int ID_Ruta) {
-        String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasajero = ? AND ID_Colectivo = ? AND ID_Ruta = ?";
+    public int eliminarPasaje(int ID_Pasaje) {
+        String sql = "UPDATE pasaje SET estado = 0 WHERE ID_Pasaje = ?";
 
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, ID_Pasajero);
-            ps.setInt(2, ID_Colectivo);
-            ps.setInt(3, ID_Ruta);
+            ps.setInt(1, ID_Pasaje);
             rs = ps.executeQuery();
             return ps.executeUpdate();
         } catch (SQLException ex) {
