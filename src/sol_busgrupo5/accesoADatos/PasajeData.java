@@ -71,7 +71,9 @@ public class PasajeData {
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
-        } finally {
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }finally {
             try {
                 if (ps != null) {ps.close();}
                 if (rs != null) {rs.close();}
