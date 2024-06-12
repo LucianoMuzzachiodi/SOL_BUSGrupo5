@@ -3,11 +3,10 @@ package sol_busgrupo5.vistas;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public class Principal extends javax.swing.JFrame {
     GestionHorarios_Añadir AH = new GestionHorarios_Añadir();
-   
+
     public Principal() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
@@ -32,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
         jListarRuta_ = new javax.swing.JMenuItem();
         jMenuGestionHorarios = new javax.swing.JMenu();
         jAñadirHorario = new javax.swing.JMenuItem();
-        jAñadirHorario1 = new javax.swing.JMenuItem();
+        jListarHorario = new javax.swing.JMenuItem();
         jMenuGestionPasajeros = new javax.swing.JMenu();
         jAñadirPasajero_ = new javax.swing.JMenuItem();
         jBuscarPasajero_ = new javax.swing.JMenuItem();
@@ -96,13 +95,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuGestionHorarios.add(jAñadirHorario);
 
-        jAñadirHorario1.setText("Listar Horarios");
-        jAñadirHorario1.addActionListener(new java.awt.event.ActionListener() {
+        jListarHorario.setText("Listar Horarios");
+        jListarHorario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAñadirHorario1ActionPerformed(evt);
+                jListarHorarioActionPerformed(evt);
             }
         });
-        jMenuGestionHorarios.add(jAñadirHorario1);
+        jMenuGestionHorarios.add(jListarHorario);
 
         jMenuBar1.add(jMenuGestionHorarios);
 
@@ -216,7 +215,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSalirMouseClicked
 
     private void jAñadirHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirHorarioActionPerformed
-        if(!AH.isVisible()){
+        if (!AH.isVisible()) {
             AH.setVisible(true);
         }
     }//GEN-LAST:event_jAñadirHorarioActionPerformed
@@ -229,13 +228,13 @@ public class Principal extends javax.swing.JFrame {
         JDesktop.add(gestionPasajeros_Añadir);
     }//GEN-LAST:event_jAñadirPasajero_ActionPerformed
 
-    private void jAñadirHorario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirHorario1ActionPerformed
+    private void jListarHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarHorarioActionPerformed
         JDesktop.removeAll();
         JDesktop.repaint();
         GestionHorarios_Buscar BH = new GestionHorarios_Buscar();
         BH.setVisible(true);
         JDesktop.add(BH);
-    }//GEN-LAST:event_jAñadirHorario1ActionPerformed
+    }//GEN-LAST:event_jListarHorarioActionPerformed
 
     private void jListarPasajero_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarPasajero_ActionPerformed
         JDesktop.removeAll();
@@ -316,13 +315,13 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane JDesktop;
     private javax.swing.JMenuItem jAñadirHorario;
-    private javax.swing.JMenuItem jAñadirHorario1;
     private javax.swing.JMenuItem jAñadirPasaje_;
     private javax.swing.JMenuItem jAñadirPasajero_;
     private javax.swing.JMenuItem jAñadirRuta_;
     private javax.swing.JMenuItem jBuscarPasaje_;
     private javax.swing.JMenuItem jBuscarPasajero_;
     private javax.swing.JMenuItem jBuscarRuta_;
+    private javax.swing.JMenuItem jListarHorario;
     private javax.swing.JMenuItem jListarPasaje_;
     private javax.swing.JMenuItem jListarPasajero_;
     private javax.swing.JMenuItem jListarRuta_;
