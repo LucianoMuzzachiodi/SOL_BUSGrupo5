@@ -1,5 +1,6 @@
 package sol_busgrupo5.vistas;
 
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Ruta;
@@ -10,6 +11,7 @@ public class GestionHorarios_Listar extends javax.swing.JFrame {
     public GestionHorarios_Listar() {
         initComponents();
         Config();
+        setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +48,7 @@ public class GestionHorarios_Listar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
         );
 
         pack();
