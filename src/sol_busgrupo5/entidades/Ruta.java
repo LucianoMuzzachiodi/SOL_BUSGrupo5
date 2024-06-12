@@ -61,6 +61,6 @@ public class Ruta {
     public String toString() {
         String activo;
         if(estado){activo = "Activo";}else{activo = "Inactivo";}
-        return "ID: " + idRuta + ", Origen: " + origen + ", Destino: " + destino + ", Duración: " +duracionEstimada + ", Estado: " + activo;
+        return ""+origen;
     }
 }

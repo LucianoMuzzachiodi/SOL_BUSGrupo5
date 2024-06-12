@@ -604,7 +604,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,7 +653,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
 
     private void JCombo_OrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCombo_OrigenActionPerformed
         DTMT.setRowCount(0);
-        for (Horario horario : HD.Listar_Horarios("Por ruta", RD.buscarRuta("Origen", String.valueOf(JCombo_Origen.getSelectedItem())).getIdRuta(), null)) {
+        for (Horario horario : HD.Listar_Horarios("Por ruta", ((Ruta)JCombo_Origen.getSelectedItem()).getIdRuta(), null)) {
             JTextID_Ruta.setText("" + horario.getRuta().getIdRuta());
             DTMT.addRow(new Object[]{horario.getRuta().getDestino(), horario.getHoraSalida(), horario.getHoraLlegada()});
         }
@@ -729,7 +729,9 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
 
     public void JComboS() {
         for (Ruta ruta : RD.listarRutas()) {
-            JCombo_Origen.addItem(ruta.getOrigen());
+            if(!HD.Listar_Horarios("Por ruta", ruta.getIdRuta(), null).isEmpty()){
+                JCombo_Origen.addItem(ruta);
+            }
         }
         for (Colectivo colectivo : CD.listarColectivos()) {
             JComboBox_Transportes.addItem(colectivo);
@@ -764,7 +766,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> JCombo_Año;
     private javax.swing.JComboBox<String> JCombo_Dia;
     private javax.swing.JComboBox<String> JCombo_Mes;
-    private javax.swing.JComboBox<String> JCombo_Origen;
+    private javax.swing.JComboBox<Ruta> JCombo_Origen;
     private javax.swing.JTextField JDNI;
     private javax.swing.JTable JTable_Destinos;
     private javax.swing.JTextField JTextApellido;

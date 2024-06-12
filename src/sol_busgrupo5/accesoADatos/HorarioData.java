@@ -73,6 +73,7 @@ public class HorarioData {
                 }
                 return horarios;
             }
+            return null;
         }catch(SQLException SQLE){
             System.err.println("error en el codigo: "+SQLE);
         }catch(NullPointerException N){
