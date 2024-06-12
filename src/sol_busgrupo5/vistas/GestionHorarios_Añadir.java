@@ -3,16 +3,18 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sol_busgrupo5.accesoADatos.HorarioData;
 import sol_busgrupo5.accesoADatos.RutaData;
 import sol_busgrupo5.entidades.Horario;
 import sol_busgrupo5.entidades.Ruta;
 
-public class Añadir_Horario extends javax.swing.JFrame {
+public class GestionHorarios_Añadir extends javax.swing.JFrame {
     HorarioData HD = new HorarioData();
-    public Añadir_Horario() {
+    public GestionHorarios_Añadir() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
         
         Configuracion();
     }
@@ -33,11 +35,12 @@ public class Añadir_Horario extends javax.swing.JFrame {
         jButton_Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agregar horario");
         setResizable(false);
 
         jLabel7.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("AGREGAR Horarios");
+        jLabel7.setText("Horarios");
 
         jLabel2.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -206,21 +209,23 @@ public class Añadir_Horario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Añadir_Horario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GestionHorarios_Añadir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Añadir_Horario().setVisible(true);
+                new GestionHorarios_Añadir().setVisible(true);
             }
         });
     }

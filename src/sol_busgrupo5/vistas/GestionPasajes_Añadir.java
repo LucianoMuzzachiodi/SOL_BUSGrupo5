@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import sol_busgrupo5.accesoADatos.*;
 import sol_busgrupo5.entidades.*;
 
-public class Venta_Pasajes extends javax.swing.JInternalFrame {
+public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     DefaultTableModel DTMT = new DefaultTableModel();
     ColectivoData CD = new ColectivoData();
     PasajeData PasajeD = new PasajeData();
@@ -15,7 +15,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
     HorarioData HD = new HorarioData();
     RutaData RD = new RutaData();
 
-    public Venta_Pasajes() {
+    public GestionPasajes_Añadir() {
         initComponents();
         JComboS();
         EstoEsCine();
@@ -280,7 +280,7 @@ public class Venta_Pasajes extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
             .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
