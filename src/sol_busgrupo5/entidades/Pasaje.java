@@ -12,10 +12,10 @@ public class Pasaje {
     private Time horaViaje;
     private double precio;
     private boolean estado;
-
+    private Date Fecha_Venta;
     public Pasaje() {}
 
-    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(int idPasaje, Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado, Date Fecha_Venta) {
         this.idPasaje = idPasaje;
         this.pasajero = pasajero;
         this.colectivo = colectivo;
@@ -25,9 +25,10 @@ public class Pasaje {
         this.asiento = asiento;
         this.precio = precio;
         this.estado = estado;
+        this.Fecha_Venta=Fecha_Venta;
     }
 
-    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(Pasajero pasajero, Colectivo colectivo, Ruta ruta, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado, Date Fecha_Venta) {
         this.pasajero = pasajero;
         this.colectivo = colectivo;
         this.ruta = ruta;
@@ -35,6 +36,7 @@ public class Pasaje {
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
+        this.Fecha_Venta=Fecha_Venta;
     }
 
     public int getIdPasaje() {
@@ -90,6 +92,10 @@ public class Pasaje {
     }
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public Date getFecha_Venta() {
+        return Fecha_Venta;
     }
 
     @Override

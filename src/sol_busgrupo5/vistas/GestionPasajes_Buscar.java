@@ -121,7 +121,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1105, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +191,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
         if (JComboBOX_Horarios.isVisible() && JComboBOX_Horarios.getSelectedIndex() != -1) {
             modelo.setRowCount(0);
             for (Pasaje pasaje : pasajeData.visualizarPorHorario(((Time) JComboBOX_Horarios.getSelectedItem()))) {
-                modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+                modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado(),pasaje.getFecha_Venta()});
             }
         }
     }//GEN-LAST:event_JComboBOX_HorariosActionPerformed
@@ -201,7 +201,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
             modelo.setRowCount(0);
             if (pasajeData.visualizarPorPasajero(((Pasajero) JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero()) != null) {
                 for (Pasaje pasaje : pasajeData.visualizarPorPasajero(((Pasajero) JComboBOX_Pasajeros.getSelectedItem()).getIdPasajero())) {
-                    modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+                    modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado(),pasaje.getFecha_Venta()});
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "no se encontraron pasajes con este id de pasjaero.");
@@ -214,7 +214,7 @@ public class GestionPasajes_Buscar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void llenarTabla() {
-        modelo.setColumnIdentifiers(new Object[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado"});
+        modelo.setColumnIdentifiers(new Object[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado","Fecha de Venta"});
         JTabla_Pasajes.setModel(modelo);
         modelo.setRowCount(0);
 

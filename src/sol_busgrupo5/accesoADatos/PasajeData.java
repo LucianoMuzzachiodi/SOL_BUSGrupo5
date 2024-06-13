@@ -21,7 +21,7 @@ public class PasajeData {
     //GUARDAR UN PASAJE
     public int registrarVenta(Pasaje pasaje) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `pasaje`(`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `pasaje`(`ID_Pasaje`, `ID_Pasajero`, `ID_Colectivo`, `ID_Ruta`, `Fecha_Viaje`, `Hora_Viaje`, `Asiento`, `Precio`, `Estado`, `Fecha_Venta`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?,?)");
             ps.setInt(1, pasaje.getPasajero().getIdPasajero());
             ps.setInt(2, pasaje.getColectivo().getIdColectivo());
             ps.setInt(3, pasaje.getRuta().getIdRuta());
@@ -30,13 +30,11 @@ public class PasajeData {
             ps.setInt(6, pasaje.getAsiento());
             ps.setDouble(7, pasaje.getPrecio());
             ps.setBoolean(8, true);
+            ps.setDate(9, (Date)pasaje.getFecha_Venta());
             return ps.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println(ex);
-            System.out.println(ex.fillInStackTrace());
             JOptionPane.showMessageDialog(null, "El asiento no está disponible.");
         } catch (NullPointerException NPE) {
-            System.err.println(NPE);
         } finally {
             try {
                 if (ps != null) {ps.close();}
@@ -72,7 +70,7 @@ public class PasajeData {
                         AUX_Ruta = ruta;
                     }
                 }
-                return pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                return pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
             }
         
         
@@ -109,7 +107,7 @@ public class PasajeData {
                         AUX_Ruta = ruta;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
                 pasajes.add(pasaje);
             }
             return pasajes;
@@ -152,7 +150,7 @@ public class PasajeData {
                         AUX_Pasajero = pasajeroos;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, rutaData.buscarPorID(ID_Ruta), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, rutaData.buscarPorID(ID_Ruta), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
                 pasajes.add(pasaje);
             }
             return pasajes;
@@ -199,7 +197,7 @@ public class PasajeData {
                         ruta = rutas;
                     }
                 }
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos, ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
                 pasajes.add(pasaje);
             }
             return pasajes;
@@ -226,7 +224,7 @@ public class PasajeData {
             ps.setInt(1, ID_Pasajero);
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), pasajeroData.buscar("ID", (Object) rs.getInt("ID_Pasajero")), colectivoData.buscar(rs.getInt("ID_Colectivo")), rutaData.buscarPorID(rs.getInt("ID_Ruta")), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"));
+                Pasaje pasaje = new Pasaje(rs.getInt("ID_Pasaje"), pasajeroData.buscar("ID", (Object) rs.getInt("ID_Pasajero")), colectivoData.buscar(rs.getInt("ID_Colectivo")), rutaData.buscarPorID(rs.getInt("ID_Ruta")), rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
                 pasajes.add(pasaje);
             }
             return pasajes;
