@@ -1,21 +1,17 @@
 package sol_busgrupo5.vistas;
+
 import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.*;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import sol_busgrupo5.accesoADatos.HorarioData;
-import sol_busgrupo5.accesoADatos.RutaData;
-import sol_busgrupo5.entidades.Horario;
-import sol_busgrupo5.entidades.Ruta;
+import sol_busgrupo5.accesoADatos.*;
+import sol_busgrupo5.entidades.*;
 
 public class GestionHorarios_Añadir extends javax.swing.JFrame {
     HorarioData HD = new HorarioData();
     public GestionHorarios_Añadir() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("SolBusIcon.png")).getImage());
-        
         Configuracion();
     }
     @SuppressWarnings("unchecked")
@@ -165,27 +161,24 @@ public class GestionHorarios_Añadir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JButton_AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_AñadirActionPerformed
-        try{
-            
+        try {
             Time D1 = (Time) JComboBOX_Hora_Salida.getSelectedItem();
             Time D2 = (Time) JComboBOX_Hora_Llegada.getSelectedItem();
-            Horario horario = new Horario((Ruta)JComboBOX_Rutas.getSelectedItem(),D1,D2,true);
-            if(HD.Añadir_Horario(horario)==1){
+            Horario horario = new Horario((Ruta) JComboBOX_Rutas.getSelectedItem(), D1, D2, true);
+            if (HD.Añadir_Horario(horario) == 1) {
                 JOptionPane.showMessageDialog(this, "Horario agregado.");
-            } else if (HD.Añadir_Horario(horario)==0){
+            } else if (HD.Añadir_Horario(horario) == 0) {
                 JOptionPane.showMessageDialog(this, "No se pudo Agregar.");
             }
-        }catch(NumberFormatException NFE){
-            
-        }
+        } catch (NumberFormatException NFE) {}
     }//GEN-LAST:event_JButton_AñadirActionPerformed
 
     private void JComboBOX_Hora_SalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Hora_SalidaActionPerformed
-        JText_Hora_Salida.setText(""+JComboBOX_Hora_Salida.getSelectedItem());
+        JText_Hora_Salida.setText("" + JComboBOX_Hora_Salida.getSelectedItem());
     }//GEN-LAST:event_JComboBOX_Hora_SalidaActionPerformed
 
     private void JComboBOX_Hora_LlegadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBOX_Hora_LlegadaActionPerformed
-        JText_Hora_Llegada.setText(""+JComboBOX_Hora_Llegada.getSelectedItem());
+        JText_Hora_Llegada.setText("" + JComboBOX_Hora_Llegada.getSelectedItem());
     }//GEN-LAST:event_JComboBOX_Hora_LlegadaActionPerformed
 
     private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SalirActionPerformed
@@ -229,25 +222,26 @@ public class GestionHorarios_Añadir extends javax.swing.JFrame {
             }
         });
     }
-    public void Configuracion(){
-        int aux=0;
+    public void Configuracion() {
+        int aux = 0;
         JComboBOX_Rutas.removeAllItems();
         RutaData RD = new RutaData();
-        for(Ruta ruta:RD.listarRutas()){
+        for (Ruta ruta : RD.listarRutas()) {
             JComboBOX_Rutas.addItem(ruta);
         }
-        for(int i=0;i<=138;i++){
-            aux=aux+10;
+        for (int i = 0; i <= 138; i++) {
+            aux = aux + 10;
             LocalTime LT = LocalTime.of(23, 50, 00);
             JComboBOX_Hora_Salida.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
-        aux=0;
-        for(int i=0;i<=138;i++){
-            aux=aux+10;
+        aux = 0;
+        for (int i = 0; i <= 138; i++) {
+            aux = aux + 10;
             LocalTime LT = LocalTime.of(23, 50, 00);
             JComboBOX_Hora_Llegada.addItem(Time.valueOf(LT.plusMinutes(aux)));
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton_Añadir;
     private javax.swing.JComboBox<Time> JComboBOX_Hora_Llegada;

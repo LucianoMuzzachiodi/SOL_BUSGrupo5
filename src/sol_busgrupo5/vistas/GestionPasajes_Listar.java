@@ -114,7 +114,6 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton_SalirActionPerformed
 
     private void jComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComprobanteActionPerformed
-
         if (jTabla.getSelectedRow() == -1) {
             if (!VP.isVisible()) {
                 VP.Listar_Pasaje();
@@ -130,7 +129,6 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
                     }
                 }
                 VP.setVisible(true);
-
             } else {
                 VP.Listar_Pasaje();
             }
@@ -141,16 +139,20 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         for (int i = modelo.getRowCount() - 1; i >= 0; i--) {
             modelo.removeRow(i);
         }
+        String activo;
         for (Pasaje pasaje : pasajeData.visualizarPasajes()) {
-            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+            if(pasaje.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), activo});
         }
     }//GEN-LAST:event_jActualizarActionPerformed
 
     private void llenarTabla() {
         modelo.setColumnIdentifiers(new Object[]{"ID", "Pasajero", "Colectivo", "Ruta", "Fecha", "Hora de Salida", "Asiento", "Precio ($)", "Estado", "Fecha de Venta"});
         jTabla.setModel(modelo);
+        String activo;
         for (Pasaje pasaje : pasajeData.visualizarPasajes()) {
-            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado(), pasaje.getFecha_Venta()});
+            if(pasaje.isEstado()){activo = "Activo";}else{activo = "Inactivo";}
+            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), activo, pasaje.getFecha_Venta()});
         }
     }
 
