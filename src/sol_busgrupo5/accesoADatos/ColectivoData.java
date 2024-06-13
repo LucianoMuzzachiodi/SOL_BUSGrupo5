@@ -29,6 +29,8 @@ public class ColectivoData {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla colectivo" + ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return null;
     }
@@ -46,6 +48,8 @@ public class ColectivoData {
             ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla colectivo");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return colectivos;
     }

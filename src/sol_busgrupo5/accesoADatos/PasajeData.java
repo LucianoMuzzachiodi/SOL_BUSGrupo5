@@ -35,6 +35,8 @@ public class PasajeData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "El asiento no está disponible.");
         } catch (NullPointerException NPE) {
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
             try {
                 if (ps != null) {ps.close();}
@@ -46,7 +48,6 @@ public class PasajeData {
         return 0;
     }
     public Pasaje BuscarPasaje(int ID){
-        Pasaje pasaje = new Pasaje();
         PreparedStatement ps; ResultSet rs;
         try{
             ps = con.prepareStatement("SELECT * FROM `pasaje` WHERE ID_Pasaje = "+ID+" AND Estado = 1");
@@ -70,12 +71,11 @@ public class PasajeData {
                         AUX_Ruta = ruta;
                     }
                 }
-                return pasaje = new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
+                return new Pasaje(rs.getInt("ID_Pasaje"), AUX_Pasajero, colectivos,AUX_Ruta, rs.getDate("Fecha_Viaje"), rs.getTime("Hora_Viaje"), rs.getInt("Asiento"), rs.getDouble("Precio"), rs.getBoolean("Estado"), rs.getDate("Fecha_Venta"));
             }
-        
-        
         } catch(SQLException SQL){
-            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return null;
     }
@@ -115,7 +115,9 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        }finally {
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        } finally {
             try {
                 if (ps != null) {ps.close();}
                 if (rs != null) {rs.close();}
@@ -156,6 +158,8 @@ public class PasajeData {
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
             try {
                 if (ps != null) {ps.close();}
@@ -203,6 +207,8 @@ public class PasajeData {
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
             try {
                 if (ps != null) {ps.close();}
@@ -230,6 +236,8 @@ public class PasajeData {
             return pasajes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error en el acceso a la tabla pasaje." + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
             try {
                 if (ps != null) {ps.close();}
@@ -258,6 +266,8 @@ public class PasajeData {
             return ps.executeUpdate();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje. " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return 0;
     }

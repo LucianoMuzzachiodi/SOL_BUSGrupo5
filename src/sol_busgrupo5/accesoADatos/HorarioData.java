@@ -2,6 +2,7 @@ package sol_busgrupo5.accesoADatos;
 
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import sol_busgrupo5.entidades.Horario;
 import sol_busgrupo5.entidades.Ruta;
 
@@ -24,6 +25,8 @@ public class HorarioData {
             return PS.executeUpdate();
         }catch(SQLException SQLE){
             System.err.println(SQLE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return 0;
     }
@@ -78,6 +81,8 @@ public class HorarioData {
             System.err.println("error en el codigo: "+SQLE);
         }catch(NullPointerException N){
             System.out.println(N);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return null;
     }
