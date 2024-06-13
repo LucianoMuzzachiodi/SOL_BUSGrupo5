@@ -142,7 +142,7 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
             modelo.removeRow(i);
         }
         for (Pasaje pasaje : pasajeData.visualizarPasajes()) {
-            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado()});
+            modelo.addRow(new Object[]{pasaje.getIdPasaje(), pasaje.getPasajero().getIdPasajero(), pasaje.getColectivo().getIdColectivo(), pasaje.getRuta().getIdRuta(), pasaje.getFechaViaje(), pasaje.getHoraViaje(), pasaje.getAsiento(), pasaje.getPrecio(), pasaje.isEstado(), pasaje.getFecha_Venta()});
         }
     }//GEN-LAST:event_jActualizarActionPerformed
 
