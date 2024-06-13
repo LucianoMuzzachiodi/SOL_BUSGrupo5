@@ -475,11 +475,17 @@
                       <Component id="JTextCapacidad" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="JCombo_Asientos_Disponibles" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="JCombo_Asientos_Disponibles" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jLabel16" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -672,12 +678,12 @@
                       <Component id="jLabel18" alignment="1" pref="142" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="JTextID_Pasajero" min="-2" pref="125" max="-2" attributes="0"/>
-                      <Component id="JTextID_Colectivo" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="JTextID_Pasajero" pref="125" max="32767" attributes="0"/>
+                      <Component id="JTextID_Colectivo" alignment="0" pref="125" max="32767" attributes="0"/>
                       <Component id="JTextID_Ruta" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="FF" max="32767" attributes="0"/>
                       <Component id="jLabel21" pref="175" max="32767" attributes="0"/>
@@ -696,7 +702,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="JButton_Aplicar" max="32767" attributes="0"/>
+                                  <Component id="JButton_Aplicar" pref="90" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="JTextFecha" min="-2" pref="234" max="-2" attributes="0"/>
                               </Group>

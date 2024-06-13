@@ -398,10 +398,14 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                     .addComponent(jLabel15)
                     .addComponent(JTextCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(JCombo_Asientos_Disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(JCombo_Asientos_Disponibles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -525,11 +529,11 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                     .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JTextID_Pasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTextID_Colectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(JTextID_Pasajero, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(JTextID_Colectivo, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(JTextID_Ruta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(FF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
@@ -546,7 +550,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel9Layout.createSequentialGroup()
-                                .addComponent(JButton_Aplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JButton_Aplicar, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(JTextFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel9Layout.createSequentialGroup()
@@ -681,14 +685,10 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
         for(int i=1;i<=colectivo.getCapacidad();i++){
             JCombo_Asientos_Disponibles.addItem(i);
         }
-        for(int i=0;i<=JCombo_Asientos_Disponibles.getItemCount()-1;i++){
-            for(int j=0;j<=AUX_Int.size()-1;j++){
-                if(JCombo_Asientos_Disponibles.getItemAt(i)==AUX_Int.get(j)) JCombo_Asientos_Disponibles.removeItemAt(i);
-            }
-        }
         if(JTextAsiento.getText().equals("null")){
             JOptionPane.showMessageDialog(this, "No hay mas lugar en el transporte seleccionado.");
             JComboBox_Transportes.removeItemAt(JComboBox_Transportes.getSelectedIndex());
+            
         }
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
 
@@ -710,6 +710,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
             int aux = PasajeD.registrarVenta(pasaje);
             if (aux == 1) {
                 JOptionPane.showMessageDialog(this, "Venta agregada.");
+                
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo agregar la venta.");
             }
