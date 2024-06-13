@@ -15,6 +15,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     PasajeroData PD = new PasajeroData();
     HorarioData HD = new HorarioData();
     RutaData RD = new RutaData();
+    private boolean ventanaInicializada = false;
 
     public GestionPasajes_Añadir() {
         initComponents();
@@ -27,6 +28,7 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
             DTMT.addRow(new Object[]{horario.getRuta().getDestino(), horario.getHoraSalida(), horario.getHoraLlegada()});
         }
         JTable_Destinos.setModel(DTMT);
+        ventanaInicializada = true;
     }
 
     @SuppressWarnings("unchecked")
@@ -688,25 +690,37 @@ public class GestionPasajes_Añadir extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JCombo_OrigenActionPerformed
 
     private void JComboBox_TransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JComboBox_TransportesActionPerformed
+        if (!ventanaInicializada) {
+        return;
+        }
+        
         Colectivo colectivo = ((Colectivo) JComboBox_Transportes.getSelectedItem());
-        ArrayList<Integer> AUX_Int = new ArrayList();
-        JTextMarca.setText("" + colectivo.getMarca());
-        JTextCapacidad.setText("" + colectivo.getCapacidad());
-        JTextMatricula.setText("" + colectivo.getMatricula());
-        JTextID_Colectivo.setText("" + colectivo.getIdColectivo());
+        ArrayList<Integer> asientosOcupados = new ArrayList<>();
+    
+        JTextMarca.setText(colectivo.getMarca());
+        JTextCapacidad.setText(String.valueOf(colectivo.getCapacidad()));
+        JTextMatricula.setText(colectivo.getMatricula());
+        JTextID_Colectivo.setText(String.valueOf(colectivo.getIdColectivo()));
+    
         JCombo_Asientos_Disponibles.removeAllItems();
-        for(Pasaje pasajes:PasajeD.visualizarPasajes()){
-            if(pasajes.getColectivo().getIdColectivo()==colectivo.getIdColectivo()){
-                AUX_Int.add(pasajes.getAsiento());
+    
+        for (Pasaje pasaje : PasajeD.visualizarPasajes()) {
+            if (pasaje.getColectivo().getIdColectivo() == colectivo.getIdColectivo()) {
+                asientosOcupados.add(pasaje.getAsiento());
             }
         }
-        for(int i=1;i<=colectivo.getCapacidad();i++){
-            JCombo_Asientos_Disponibles.addItem(i);
+    
+        boolean hayAsientosDisponibles = false;
+        for (int i = 1; i <= colectivo.getCapacidad(); i++) {
+            if (!asientosOcupados.contains(i)) {
+                JCombo_Asientos_Disponibles.addItem(i);
+                hayAsientosDisponibles = true;
+            }
         }
-        if(JTextAsiento.getText().equals("null")){
-            JOptionPane.showMessageDialog(this, "No hay mas lugar en el transporte seleccionado.");
+    
+        if (!hayAsientosDisponibles) {
+            JOptionPane.showMessageDialog(this, "No hay más lugares en el transporte seleccionado.");
             JComboBox_Transportes.removeItemAt(JComboBox_Transportes.getSelectedIndex());
-            
         }
     }//GEN-LAST:event_JComboBox_TransportesActionPerformed
 
