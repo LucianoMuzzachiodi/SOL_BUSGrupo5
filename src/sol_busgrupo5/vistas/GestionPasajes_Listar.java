@@ -59,7 +59,7 @@ public class GestionPasajes_Listar extends javax.swing.JInternalFrame {
         }
 
         jButton1.setFont(new java.awt.Font("DialogInput", 0, 14)); // NOI18N
-        jButton1.setText("Administrar Pasaje");
+        jButton1.setText("Comprobante");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
